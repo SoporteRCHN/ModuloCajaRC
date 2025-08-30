@@ -137,5 +137,17 @@ namespace Logica
             tabla = enviar.SP_FacturasENAC(a);
             return tabla;
         }
+        public DataTable SP_FacturasProceso(FacturaProcesoDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_FacturasProceso(a);
+            return tabla;
+        }
+        public DataTable SP_MetodoPagos(MetodoPagoDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_MetodoPagos(a);
+            return tabla;
+        }
     }
 }

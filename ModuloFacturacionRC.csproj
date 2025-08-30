@@ -133,5 +133,26 @@
   <ItemGroup>
     <None Include="Resources\logocirculo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_Checkmark_22px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkout_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money_17244127.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\credit-card_13114177.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MoneyTransfer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Credito.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\synchronize_32px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

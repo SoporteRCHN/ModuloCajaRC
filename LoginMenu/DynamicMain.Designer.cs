@@ -404,6 +404,7 @@
             this.Controls.Add(this.pHeaderMain);
             this.Name = "DynamicMain";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DynamicMain_FormClosing);
             this.Load += new System.EventHandler(this.DynamicMain_Load);
             this.pWorkspace.ResumeLayout(false);
             this.pWorkspace.PerformLayout();

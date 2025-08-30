@@ -330,6 +330,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@FPosteo", permiso.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", permiso.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", permiso.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ModuloID", permiso.ModuloID ?? (object)DBNull.Value);
 
             // Configurar comando
             comando.CommandText = "RCCONFIG.Empresa.SP_PermisosEspecificos";
@@ -877,5 +878,70 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_FacturasProceso(dynamic proceso)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(4); // Ajusta el índice según tu lógica de conexión
+
+            comando.Parameters.AddWithValue("@Opcion", proceso.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ProcesoID", proceso.ProcesoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FacturaID", proceso.FacturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Proceso", proceso.Proceso ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", proceso.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", proceso.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", proceso.PC ?? (object)DBNull.Value);
+
+            comando.CommandText = "ENAC.dbo.SP_FacturasProceso";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_MetodoPagos(dynamic metodo)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3); 
+
+            comando.Parameters.AddWithValue("@Opcion", metodo.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MetodoID", metodo.MetodoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Descripcion", metodo.Descripcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", metodo.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", metodo.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", metodo.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", metodo.PC ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_MetodoPagos";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+
     }
 }

@@ -35,6 +35,7 @@ namespace ModuloFacturacionRC
         public static string usuarionEmpresaNombre;
         public static int usuarioIDNumber;
         public static int usuarioEmpleadoID;
+        public static int ModuloID;
         public static int usuarioDepartamentoID;
         public static int usuarioSucursalID;
         public static int usuarioEmpresaID;
@@ -54,6 +55,7 @@ namespace ModuloFacturacionRC
             CargarEncabezado(usuario);
             usuarionombre = usuario;
             usuarionlogin = usuario;
+            ModuloID = 17;
             //VERSION
 
             FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
@@ -502,6 +504,23 @@ namespace ModuloFacturacionRC
                 this.Hide(); // Ocultar el formulario actual
                 var loginForm = new Login();
                 loginForm.Show();
+            }
+        }
+
+        private void DynamicMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing) // Si el usuario cierra con la "X"
+            {
+                DialogResult result = MessageBox.Show("¿Está seguro de que desea salir del sistema?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true; // Cancela el cierre si el usuario elige "No"
+                }
+                else
+                {
+                    Application.Exit(); // Cierra toda la aplicación
+                }
             }
         }
     }

@@ -137,6 +137,7 @@ namespace Logica
         public int? TipoCosto { get; set; }
         public decimal? Descuento { get; set; }
         public DateTime? FechaNacimiento { get; set; }
+        
     }
 
     public class TBLPermisosEspecificos
@@ -154,6 +155,7 @@ namespace Logica
         public DateTime? FPosteo { get; set; }           // Fecha de registro
         public string PC { get; set; }                   // Nombre del equipo
         public bool? Estado { get; set; }                // Estado activo/inactivo
+        public int? ModuloID { get; set; }
     }
     public class EstadoENAC
     {
@@ -325,6 +327,26 @@ namespace Logica
         public string Empresa { get; set; }
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
+    }
+    public class FacturaProcesoDTO
+    {
+        public string Opcion { get; set; }             // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
+        public long? ProcesoID { get; set; }           // Clave primaria del proceso
+        public int? FacturaID { get; set; }            // ID de la factura asociada
+        public int? Proceso { get; set; }              // Estado o tipo de proceso
+        public string UPosteo { get; set; }            // Usuario que registra el proceso
+        public DateTime? FPosteo { get; set; }         // Fecha del registro
+        public string PC { get; set; }                 // Nombre del equipo desde donde se registró
+    }
+    public class MetodoPagoDTO
+    {
+        public string Opcion { get; set; }           // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
+        public int? MetodoID { get; set; }           // Clave primaria del método de pago
+        public string Descripcion { get; set; }      // Nombre o descripción del método
+        public bool? Estado { get; set; }            // Estado activo/inactivo
+        public string UPosteo { get; set; }          // Usuario que registra el método
+        public DateTime? FPosteo { get; set; }       // Fecha de registro
+        public string PC { get; set; }               // Nombre del equipo desde donde se registró
     }
 
 }
