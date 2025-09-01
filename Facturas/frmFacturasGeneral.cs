@@ -20,6 +20,8 @@ namespace ModuloFacturacionRC.Facturas
         DataTable dtMetodoPago = new DataTable();
         clsLogica logica = new clsLogica();
 
+        public int _FacturaID;
+        public string _GuiaID;
         private bool usuarioInteractuando = false;
 
         public frmFacturasGeneral()
@@ -88,7 +90,7 @@ namespace ModuloFacturacionRC.Facturas
             {
                 foreach (DataRow row in dtMetodoPago.Rows)
                 {
-                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"],"");
+                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"], "");
                 }
                 AjustarAlturaFilas();
             }
@@ -178,7 +180,9 @@ namespace ModuloFacturacionRC.Facturas
                             {
                                 case "Procesar":
                                     //DynamicMain.Instance.LanzarForm(new frmEditarClientes(UbicacionActual), "HOME / REGISTRO DE CLIENTES");
-                                    MessageBox.Show("Registro procesado correctamente","Notificacion",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    ActualizarEstadoFactura();
+                                    dgvFacturas.DataSource = null;
+                                    CargarFacturas();
                                     break;
                                 default:
                                     MessageBox.Show($"Acción no reconocida: {accionElemento}");
@@ -192,7 +196,29 @@ namespace ModuloFacturacionRC.Facturas
                 }
             }
         }
+        private void ActualizarEstadoFactura()
+        {
+            FacturaProcesoDTO sendFacturas = new FacturaProcesoDTO
+            {
+                Opcion = "AGREGAR",
+                FacturaID = _FacturaID,
+                Proceso = 2,
+                UPosteo = DynamicMain.usuarionlogin,
+                FPosteo = DateTime.Now,
+                PC = System.Environment.MachineName,
+                Guia = _GuiaID
+            };
+            dtFacturas = logica.SP_FacturasProceso(sendFacturas);
+            if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+            {
+                MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar enviar a bodega", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
+        }
         private void tmrBuscarFacturas_Tick(object sender, EventArgs e)
         {
             if (!usuarioInteractuando)
@@ -209,34 +235,16 @@ namespace ModuloFacturacionRC.Facturas
                 lblTotal.Text = dgvFacturas.CurrentRow.Cells["Total"].Value.ToString();
             }
         }
-        private void Limpiar() 
+        private void Limpiar()
         {
             foreach (DataGridViewRow row in dgvMetodosPago.Rows)
             {
-                if (row.Cells["mValor"].Value != null) 
-                {
-                    row.Cells["mValor"].Value = "";
-                }
+                row.Cells["mValor"].Value = "";
             }
 
             lblTotal.Text = "0.00";
             lblRecibido.Text = "0.00";
             lblCambio.Text = "0.00";
-        }
-
-        private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            usuarioInteractuando = true;
-
-            if (e.RowIndex >= 0 && dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value != null)
-            {
-                lblTotal.Text = dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value.ToString();
-            }
-
-            Task.Delay(1000).ContinueWith(_ =>
-            {
-                usuarioInteractuando = false;
-            });
         }
 
         private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -266,10 +274,29 @@ namespace ModuloFacturacionRC.Facturas
                     total += valor;
                 }
             }
-            lblCambio.Text =  (total > Convert.ToDecimal(lblTotal.Text)) ? (total - Convert.ToDecimal(lblTotal.Text)).ToString() : "0.00";
+            lblCambio.Text = (total > Convert.ToDecimal(lblTotal.Text)) ? (total - Convert.ToDecimal(lblTotal.Text)).ToString() : "0.00";
             lblRecibido.Text = $"{total:N2}";
 
         }
 
+        private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvFacturas.Rows.Count > 0)
+            {
+                usuarioInteractuando = true;
+
+                if (e.RowIndex >= 0 && dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value != null)
+                {
+                    lblTotal.Text = dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value.ToString();
+                    _FacturaID = Convert.ToInt32(dgvFacturas.Rows[e.RowIndex].Cells["FacturaID"].Value);
+                    _GuiaID = dgvFacturas.Rows[e.RowIndex].Cells["Guia"].Value.ToString();
+                }
+
+                Task.Delay(100).ContinueWith(_ =>
+                {
+                    usuarioInteractuando = false;
+                });
+            }
+        }
     }
 }

@@ -337,6 +337,7 @@ namespace Logica
         public string UPosteo { get; set; }            // Usuario que registra el proceso
         public DateTime? FPosteo { get; set; }         // Fecha del registro
         public string PC { get; set; }                 // Nombre del equipo desde donde se registró
+        public string Guia { get; set; }
     }
     public class MetodoPagoDTO
     {
