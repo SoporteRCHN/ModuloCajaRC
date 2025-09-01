@@ -899,6 +899,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@UPosteo", proceso.UPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@FPosteo", proceso.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", proceso.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Guia", proceso.Guia ?? (object)DBNull.Value);
 
             comando.CommandText = "ENAC.dbo.SP_FacturasProceso";
             comando.CommandType = CommandType.StoredProcedure;

@@ -217,7 +217,6 @@ namespace ModuloFacturacionRC.Facturas
             {
                 MessageBox.Show("Ha ocurrido un error al intentar enviar a bodega", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         private void tmrBuscarFacturas_Tick(object sender, EventArgs e)
         {
