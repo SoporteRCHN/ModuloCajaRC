@@ -38,9 +38,6 @@
             this.lblEquipo = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtTransferencia = new System.Windows.Forms.TextBox();
@@ -49,6 +46,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtTotal = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +81,7 @@
             this.txtMonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.txtMonto.Location = new System.Drawing.Point(153, 221);
             this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(166, 24);
+            this.txtMonto.Size = new System.Drawing.Size(175, 24);
             this.txtMonto.TabIndex = 5;
             this.txtMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMonto_KeyPress);
             // 
@@ -162,53 +163,13 @@
             this.label9.Text = "Mensaje Personalizado AQUI";
             this.label9.Visible = false;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.cashier_machine_3584418;
-            this.pictureBox2.Location = new System.Drawing.Point(40, 21);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(54, 45);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button2.Location = new System.Drawing.Point(350, 111);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 62);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Cancelar";
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::ModuloCajaRC.Properties.Resources.check_mark_12503665;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button1.Location = new System.Drawing.Point(350, 34);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(97, 62);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Aperturar";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // txtTarjeta
             // 
             this.txtTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.txtTarjeta.Location = new System.Drawing.Point(152, 264);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.ReadOnly = true;
-            this.txtTarjeta.Size = new System.Drawing.Size(170, 24);
+            this.txtTarjeta.Size = new System.Drawing.Size(179, 24);
             this.txtTarjeta.TabIndex = 17;
             // 
             // label4
@@ -228,7 +189,7 @@
             this.txtTransferencia.Location = new System.Drawing.Point(152, 308);
             this.txtTransferencia.Name = "txtTransferencia";
             this.txtTransferencia.ReadOnly = true;
-            this.txtTransferencia.Size = new System.Drawing.Size(170, 24);
+            this.txtTransferencia.Size = new System.Drawing.Size(179, 24);
             this.txtTransferencia.TabIndex = 19;
             // 
             // label5
@@ -248,7 +209,7 @@
             this.txtCheque.Location = new System.Drawing.Point(153, 352);
             this.txtCheque.Name = "txtCheque";
             this.txtCheque.ReadOnly = true;
-            this.txtCheque.Size = new System.Drawing.Size(170, 24);
+            this.txtCheque.Size = new System.Drawing.Size(179, 24);
             this.txtCheque.TabIndex = 21;
             // 
             // label7
@@ -268,7 +229,7 @@
             this.txtTotal.Location = new System.Drawing.Point(153, 398);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(170, 24);
+            this.txtTotal.Size = new System.Drawing.Size(179, 24);
             this.txtTotal.TabIndex = 23;
             // 
             // label10
@@ -282,12 +243,67 @@
             this.label10.TabIndex = 22;
             this.label10.Text = "Total:";
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Image = global::ModuloCajaRC.Properties.Resources.outbox_tray_28px;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button3.Location = new System.Drawing.Point(365, 106);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(97, 62);
+            this.button3.TabIndex = 24;
+            this.button3.Text = "Cerrar";
+            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.cashier_machine_3584418;
+            this.pictureBox2.Location = new System.Drawing.Point(40, 21);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(54, 45);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button2.Location = new System.Drawing.Point(365, 178);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(97, 62);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Cancelar";
+            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = global::ModuloCajaRC.Properties.Resources.inbox_tray_28px;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button1.Location = new System.Drawing.Point(365, 34);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(97, 62);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Aperturar";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmApertura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(474, 493);
+            this.ClientSize = new System.Drawing.Size(490, 493);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.txtTotal);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtCheque);
@@ -339,5 +355,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button3;
     }
 }

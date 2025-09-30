@@ -153,6 +153,26 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap inbox_tray_24px {
+            get {
+                object obj = ResourceManager.GetObject("inbox_tray_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap inbox_tray_28px {
+            get {
+                object obj = ResourceManager.GetObject("inbox_tray_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap info_22px {
             get {
                 object obj = ResourceManager.GetObject("info_22px", resourceCulture);
@@ -183,9 +203,29 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap money_bag_28px {
+            get {
+                object obj = ResourceManager.GetObject("money_bag_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap MoneyTransfer {
             get {
                 object obj = ResourceManager.GetObject("MoneyTransfer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap outbox_tray_28px {
+            get {
+                object obj = ResourceManager.GetObject("outbox_tray_28px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

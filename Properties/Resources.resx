@@ -121,14 +121,17 @@
   <data name="logocirculo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logocirculo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Password_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Password_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="check-mark_12510937" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\check-mark_12510937.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="white_sort_down_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white_sort_down_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Credito" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Credito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_bag_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money_bag_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bill_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bill_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,8 +142,17 @@
   <data name="white_menu_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white_menu_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="check-mark_12510937" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\check-mark_12510937.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Password_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Password_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inbox_tray_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inbox_tray_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="white_sort_right_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\white_sort_right_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="inbox_tray_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inbox_tray_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="synchronize_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\synchronize_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,14 +163,14 @@
   <data name="user_shield_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user_shield_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="white_sort_right_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\white_sort_right_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="blue_Checkmark_22px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue_Checkmark_22px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MoneyTransfer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoneyTransfer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="check-mark_12503665" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\check-mark_12503665.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="money_17244127" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\money_17244127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -172,7 +184,7 @@
   <data name="close_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="check-mark_12503665" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\check-mark_12503665.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="outbox_tray_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\outbox_tray_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

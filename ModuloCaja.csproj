@@ -175,5 +175,17 @@
   <ItemGroup>
     <None Include="Resources\check-mark_12503665.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inbox_tray_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inbox_tray_28px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money_bag_28px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\outbox_tray_28px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
