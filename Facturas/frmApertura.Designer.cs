@@ -207,6 +207,7 @@
             this.txtTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.txtTarjeta.Location = new System.Drawing.Point(152, 264);
             this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.ReadOnly = true;
             this.txtTarjeta.Size = new System.Drawing.Size(170, 24);
             this.txtTarjeta.TabIndex = 17;
             // 
@@ -226,6 +227,7 @@
             this.txtTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.txtTransferencia.Location = new System.Drawing.Point(152, 308);
             this.txtTransferencia.Name = "txtTransferencia";
+            this.txtTransferencia.ReadOnly = true;
             this.txtTransferencia.Size = new System.Drawing.Size(170, 24);
             this.txtTransferencia.TabIndex = 19;
             // 
@@ -245,6 +247,7 @@
             this.txtCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.txtCheque.Location = new System.Drawing.Point(153, 352);
             this.txtCheque.Name = "txtCheque";
+            this.txtCheque.ReadOnly = true;
             this.txtCheque.Size = new System.Drawing.Size(170, 24);
             this.txtCheque.TabIndex = 21;
             // 
