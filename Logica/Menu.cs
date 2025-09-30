@@ -375,29 +375,20 @@ namespace Logica
         public string PC { get; set; }                   // Equipo desde donde se registró
         public bool? Estado { get; set; }                // Estado activo/inactivo
     }
-    public class CajaAperturaDTO
-    {
-        public string Opcion { get; set; }              // Acción a ejecutar en el SP
-        public long? AperturaID { get; set; }           // Clave primaria de apertura
-        public decimal? Monto { get; set; }             // Monto inicial de apertura
-        public string UPosteo { get; set; }             // Usuario que registra
-        public DateTime? FPosteo { get; set; }          // Fecha de registro
-        public string PC { get; set; }                  // Equipo desde donde se registró
-        public bool? Estado { get; set; }               // Estado activo/inactivo
-    }
-    public class CajaCierreDTO
+    public class ControlCajaDTO
     {
         public string Opcion { get; set; }                  // Acción a ejecutar en el SP
-        public long? CierreID { get; set; }                 // Clave primaria de cierre
-        public int? AperturaID { get; set; }                // ID de la apertura relacionada
+        public long? ControlID { get; set; }                // Clave primaria del control
+        public int? TipoID { get; set; }                    // Tipo de operación (apertura, cierre, etc.)
         public decimal? MontoCheque { get; set; }           // Monto en cheque
         public decimal? MontoEfectivo { get; set; }         // Monto en efectivo
         public decimal? MontoTarjeta { get; set; }          // Monto con tarjeta
         public decimal? MontoTransferencia { get; set; }    // Monto por transferencia
-        public decimal? MontoTotalCierre { get; set; }      // Monto total del cierre
+        public decimal? MontoTotal { get; set; }            // Monto total
         public string UPosteo { get; set; }                 // Usuario que registra
         public DateTime? FPosteo { get; set; }              // Fecha de registro
         public string PC { get; set; }                      // Equipo desde donde se registró
         public bool? Estado { get; set; }                   // Estado activo/inactivo
     }
+
 }

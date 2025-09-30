@@ -27,13 +27,13 @@ namespace ModuloFacturacionRC.Facturas
         }
         private void AperturarCaja() 
         {
-            CajaAperturaDTO sendApertura = new CajaAperturaDTO 
+            ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "Listado",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName
             };
-            dtAperturaCaja = logica.SP_CajaApertura(sendApertura);
+            dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0) 
             {
                 txtMonto.ReadOnly = true;
@@ -50,16 +50,21 @@ namespace ModuloFacturacionRC.Facturas
         }
         private void EnviarAperturaCaja()
         {
-            CajaAperturaDTO sendApertura = new CajaAperturaDTO
+            ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "Agregar",
-                Monto = Convert.ToDecimal(txtMonto.Text),
+                TipoID = 1, //ID para Apertura
+                MontoCheque = (!String.IsNullOrWhiteSpace(txtCheque.Text)) ? Convert.ToDecimal(txtCheque.Text) : 0,
+                MontoEfectivo = Convert.ToDecimal(txtMonto.Text),
+                MontoTarjeta = (!String.IsNullOrWhiteSpace(txtTarjeta.Text)) ? Convert.ToDecimal(txtTarjeta.Text) : 0,
+                MontoTransferencia = (!String.IsNullOrWhiteSpace(txtTransferencia.Text)) ? Convert.ToDecimal(txtTransferencia.Text) : 0,
+                MontoTotal = (!String.IsNullOrWhiteSpace(txt.Text)) ? Convert.ToDecimal(txtTransferencia.Text) : 0,
                 UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = System.Environment.MachineName,
                 Estado = true
             };
-            dtAperturaCaja = logica.SP_CajaApertura(sendApertura);
+            dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0 && dtAperturaCaja.Rows[0]["Estado"].ToString() == "1")
             {
                 MessageBox.Show("Apertura de caja realizada exitosamente!","Notificacion",MessageBoxButtons.OK,MessageBoxIcon.Information);

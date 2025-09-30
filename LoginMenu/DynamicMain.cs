@@ -338,13 +338,13 @@ namespace ModuloFacturacionRC
         }
         private void AperturarCaja()
         {
-            CajaAperturaDTO sendApertura = new CajaAperturaDTO
+            ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "Listado",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName
             };
-            dtAperturaCaja = logica.SP_CajaApertura(sendApertura);
+            dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0)
             {
                 LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS");

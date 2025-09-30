@@ -1013,7 +1013,7 @@ namespace Datos
 
             return tabla;
         }
-        public DataTable SP_CajaApertura(dynamic aperturaCaja)
+        public DataTable SP_ControlCaja(dynamic controlCaja)
         {
             SqlDataReader leer = null;
             SqlCommand comando = new SqlCommand();
@@ -1027,15 +1027,20 @@ namespace Datos
 
             comando.Connection = Conexion.AbrirConexion(3);
 
-            comando.Parameters.AddWithValue("@Opcion", aperturaCaja.Opcion ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@AperturaID", aperturaCaja.AperturaID ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@Monto", aperturaCaja.Monto ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@UPosteo", aperturaCaja.UPosteo ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@FPosteo", aperturaCaja.FPosteo ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@PC", aperturaCaja.PC ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@Estado", aperturaCaja.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Opcion", controlCaja.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ControlID", controlCaja.ControlID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@TipoID", controlCaja.TipoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoCheque", controlCaja.MontoCheque ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoEfectivo", controlCaja.MontoEfectivo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTarjeta", controlCaja.MontoTarjeta ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTransferencia", controlCaja.MontoTransferencia ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTotal", controlCaja.MontoTotal ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", controlCaja.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", controlCaja.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", controlCaja.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", controlCaja.Estado ?? (object)DBNull.Value);
 
-            comando.CommandText = "RCCONFIG.Facturacion.SP_CajaApertura";
+            comando.CommandText = "RCCONFIG.Facturacion.SP_ControlCaja";
             comando.CommandType = CommandType.StoredProcedure;
 
             leer = comando.ExecuteReader();
@@ -1045,44 +1050,6 @@ namespace Datos
 
             return tabla;
         }
-        public DataTable SP_CajaCierre(dynamic cierreCaja)
-        {
-            SqlDataReader leer = null;
-            SqlCommand comando = new SqlCommand();
-            DataTable tabla = new DataTable();
-
-            if (tabla.Rows.Count > 0)
-            {
-                tabla.Rows.Clear();
-                tabla.Clear();
-            }
-
-            comando.Connection = Conexion.AbrirConexion(3);
-
-            comando.Parameters.AddWithValue("@Opcion", cierreCaja.Opcion ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@CierreID", cierreCaja.CierreID ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@AperturaID", cierreCaja.AperturaID ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@MontoCheque", cierreCaja.MontoCheque ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@MontoEfectivo", cierreCaja.MontoEfectivo ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@MontoTarjeta", cierreCaja.MontoTarjeta ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@MontoTransferencia", cierreCaja.MontoTransferencia ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@MontoTotalCierre", cierreCaja.MontoTotalCierre ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@UPosteo", cierreCaja.UPosteo ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@FPosteo", cierreCaja.FPosteo ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@PC", cierreCaja.PC ?? (object)DBNull.Value);
-            comando.Parameters.AddWithValue("@Estado", cierreCaja.Estado ?? (object)DBNull.Value);
-
-            comando.CommandText = "RCCONFIG.Facturacion.SP_CajaCierre";
-            comando.CommandType = CommandType.StoredProcedure;
-
-            leer = comando.ExecuteReader();
-            tabla.Load(leer);
-
-            Conexion.CerrarConexion();
-
-            return tabla;
-        }
-
 
     }
 }

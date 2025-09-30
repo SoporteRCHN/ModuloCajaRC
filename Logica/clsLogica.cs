@@ -161,16 +161,10 @@ namespace Logica
             tabla = enviar.SP_CobroCajaMetodos(a);
             return tabla;
         }
-        public DataTable SP_CajaApertura(CajaAperturaDTO a)
+        public DataTable SP_ControlCaja(ControlCajaDTO a)
         {
             DataTable tabla = new DataTable();
-            tabla = enviar.SP_CajaApertura(a);
-            return tabla;
-        }
-        public DataTable SP_CajaCierre(CajaCierreDTO a)
-        {
-            DataTable tabla = new DataTable();
-            tabla = enviar.SP_CajaCierre(a);
+            tabla = enviar.SP_ControlCaja(a);
             return tabla;
         }
     }

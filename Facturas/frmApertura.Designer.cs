@@ -41,12 +41,14 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtTarjeta = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtTransferencia = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtCheque = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtTotal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +100,7 @@
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.BackColor = System.Drawing.Color.Transparent;
             this.lblUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsuario.Location = new System.Drawing.Point(110, 139);
+            this.lblUsuario.Location = new System.Drawing.Point(150, 139);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(13, 18);
             this.lblUsuario.TabIndex = 7;
@@ -109,7 +111,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.BackColor = System.Drawing.Color.Transparent;
             this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(110, 98);
+            this.lblFecha.Location = new System.Drawing.Point(150, 98);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(13, 18);
             this.lblFecha.TabIndex = 9;
@@ -131,7 +133,7 @@
             this.lblEquipo.AutoSize = true;
             this.lblEquipo.BackColor = System.Drawing.Color.Transparent;
             this.lblEquipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEquipo.Location = new System.Drawing.Point(110, 180);
+            this.lblEquipo.Location = new System.Drawing.Point(150, 180);
             this.lblEquipo.Name = "lblEquipo";
             this.lblEquipo.Size = new System.Drawing.Size(13, 18);
             this.lblEquipo.TabIndex = 11;
@@ -153,7 +155,7 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(91)))), ((int)(((byte)(166)))));
-            this.label9.Location = new System.Drawing.Point(45, 392);
+            this.label9.Location = new System.Drawing.Point(45, 439);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(228, 18);
             this.label9.TabIndex = 14;
@@ -200,13 +202,13 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // txtTarjeta
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.textBox1.Location = new System.Drawing.Point(152, 264);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(170, 24);
-            this.textBox1.TabIndex = 17;
+            this.txtTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.txtTarjeta.Location = new System.Drawing.Point(152, 264);
+            this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.Size = new System.Drawing.Size(170, 24);
+            this.txtTarjeta.TabIndex = 17;
             // 
             // label4
             // 
@@ -219,13 +221,13 @@
             this.label4.TabIndex = 16;
             this.label4.Text = "Cheque:";
             // 
-            // textBox2
+            // txtTransferencia
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.textBox2.Location = new System.Drawing.Point(152, 308);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(170, 24);
-            this.textBox2.TabIndex = 19;
+            this.txtTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.txtTransferencia.Location = new System.Drawing.Point(152, 308);
+            this.txtTransferencia.Name = "txtTransferencia";
+            this.txtTransferencia.Size = new System.Drawing.Size(170, 24);
+            this.txtTransferencia.TabIndex = 19;
             // 
             // label5
             // 
@@ -238,13 +240,13 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Tarjeta:";
             // 
-            // textBox3
+            // txtCheque
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.textBox3.Location = new System.Drawing.Point(153, 352);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(170, 24);
-            this.textBox3.TabIndex = 21;
+            this.txtCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.txtCheque.Location = new System.Drawing.Point(153, 352);
+            this.txtCheque.Name = "txtCheque";
+            this.txtCheque.Size = new System.Drawing.Size(170, 24);
+            this.txtCheque.TabIndex = 21;
             // 
             // label7
             // 
@@ -257,17 +259,39 @@
             this.label7.TabIndex = 20;
             this.label7.Text = "Transferencia:";
             // 
+            // txtTotal
+            // 
+            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.txtTotal.Location = new System.Drawing.Point(153, 398);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.ReadOnly = true;
+            this.txtTotal.Size = new System.Drawing.Size(170, 24);
+            this.txtTotal.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(45, 401);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 18);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Total:";
+            // 
             // frmApertura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(474, 420);
-            this.Controls.Add(this.textBox3);
+            this.ClientSize = new System.Drawing.Size(474, 493);
+            this.Controls.Add(this.txtTotal);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.txtCheque);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtTransferencia);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtTarjeta);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label1);
@@ -304,11 +328,13 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtTarjeta;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTransferencia;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtCheque;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtTotal;
+        private System.Windows.Forms.Label label10;
     }
 }
