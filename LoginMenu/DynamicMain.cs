@@ -1,6 +1,6 @@
 ﻿using Logica;
-using ModuloFacturacionRC.Facturas;
-using ModuloFacturacionRC.LoginMenu;
+using ModuloCajaRC.Facturas;
+using ModuloCajaRC.LoginMenu;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ModuloFacturacionRC
+namespace ModuloCajaRC
 {
     public partial class DynamicMain : Form
     {
@@ -132,7 +132,7 @@ namespace ModuloFacturacionRC
 
         private Dictionary<string, Image> iconDictionary = new Dictionary<string, Image>
         {
-             { "frmCaja", global::ModuloFacturacionRC.Properties.Resources.bill_26px },
+             { "frmCaja", global::ModuloCajaRC.Properties.Resources.bill_26px },
         };
 
         private void CargarMenuDinamico()
@@ -180,12 +180,12 @@ namespace ModuloFacturacionRC
                                 if (subMenus.Length > 0)
                                 {
                                     // Icono para los submenús con hijos
-                                    btnMenu.Image = global::ModuloFacturacionRC.Properties.Resources.white_sort_down_16px;
+                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_down_16px;
                                 }
                                 else
                                 {
                                     // Icono para los submenús sin hijos
-                                    btnMenu.Image = global::ModuloFacturacionRC.Properties.Resources.white_sort_right_16px;
+                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_right_16px;
                                 }
 
                                 btnMenu.Margin = new Padding(2, 0, 0, 0); // Márgenes para el segundo nivel

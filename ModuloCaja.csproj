@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F93D648C-0456-4888-AC3E-29669FE45E14}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ModuloFacturacionRC</RootNamespace>
-    <AssemblyName>ModuloFacturacionRC</AssemblyName>
+    <RootNamespace>ModuloCajaRC</RootNamespace>
+    <AssemblyName>ModuloCajaRC</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

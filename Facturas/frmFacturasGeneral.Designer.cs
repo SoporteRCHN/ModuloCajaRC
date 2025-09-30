@@ -1,4 +1,4 @@
-﻿namespace ModuloFacturacionRC.Facturas
+﻿namespace ModuloCajaRC.Facturas
 {
     partial class frmFacturasGeneral
     {
@@ -504,20 +504,20 @@
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.HeaderText = "Ayuda";
-            this.dataGridViewImageColumn1.Image = global::ModuloFacturacionRC.Properties.Resources.info_22px;
+            this.dataGridViewImageColumn1.Image = global::ModuloCajaRC.Properties.Resources.info_22px;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 76;
             // 
             // Ayuda
             // 
             this.Ayuda.HeaderText = "?";
-            this.Ayuda.Image = global::ModuloFacturacionRC.Properties.Resources.info_22px;
+            this.Ayuda.Image = global::ModuloCajaRC.Properties.Resources.info_22px;
             this.Ayuda.Name = "Ayuda";
             this.Ayuda.Width = 99;
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::ModuloFacturacionRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
             this.pictureBox2.Location = new System.Drawing.Point(32, 269);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(23, 23);
@@ -526,7 +526,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::ModuloFacturacionRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox1.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
             this.pictureBox1.Location = new System.Drawing.Point(32, 20);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(23, 23);

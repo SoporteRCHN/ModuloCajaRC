@@ -1,11 +1,11 @@
-﻿using ModuloFacturacionRC.LoginMenu;
+﻿using ModuloCajaRC.LoginMenu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ModuloFacturacionRC
+namespace ModuloCajaRC
 {
     internal static class Program
     {

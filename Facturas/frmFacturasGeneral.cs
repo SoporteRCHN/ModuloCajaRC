@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.WebRequestMethods;
 
-namespace ModuloFacturacionRC.Facturas
+namespace ModuloCajaRC.Facturas
 {
     public partial class frmFacturasGeneral : Form
     {
@@ -167,7 +167,7 @@ namespace ModuloFacturacionRC.Facturas
                         {
                             try
                             {
-                                var resourceManager = ModuloFacturacionRC.Properties.Resources.ResourceManager;
+                                var resourceManager = ModuloCajaRC.Properties.Resources.ResourceManager;
                                 object icono = resourceManager.GetObject(Path.GetFileNameWithoutExtension(iconoElemento));
 
                                 if (icono != null && icono is Image)

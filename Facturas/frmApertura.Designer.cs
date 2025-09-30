@@ -1,4 +1,4 @@
-﻿namespace ModuloFacturacionRC.Facturas
+﻿namespace ModuloCajaRC.Facturas
 {
     partial class frmApertura
     {
@@ -164,7 +164,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::ModuloFacturacionRC.Properties.Resources.cashier_machine_3584418;
+            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.cashier_machine_3584418;
             this.pictureBox2.Location = new System.Drawing.Point(40, 21);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(54, 45);
@@ -176,7 +176,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = global::ModuloFacturacionRC.Properties.Resources.close_24px;
+            this.button2.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button2.Location = new System.Drawing.Point(350, 111);
             this.button2.Name = "button2";
@@ -191,7 +191,7 @@
             // 
             this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::ModuloFacturacionRC.Properties.Resources.check_mark_12503665;
+            this.button1.Image = global::ModuloCajaRC.Properties.Resources.check_mark_12503665;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button1.Location = new System.Drawing.Point(350, 34);
             this.button1.Name = "button1";

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModuloFacturacionRC.LoginMenu
+namespace ModuloCajaRC.LoginMenu
 {
     public class RegistroAcciones
     {
