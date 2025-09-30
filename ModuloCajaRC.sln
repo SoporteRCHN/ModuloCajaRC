@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloFacturacionRC", "ModuloFacturacionRC.csproj", "{F93D648C-0456-4888-AC3E-29669FE45E14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuloCaja", "ModuloCaja.csproj", "{F93D648C-0456-4888-AC3E-29669FE45E14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{FD185CEB-75B1-4307-8332-5640881E65CB}"
 EndProject

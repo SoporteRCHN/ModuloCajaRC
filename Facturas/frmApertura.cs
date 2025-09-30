@@ -58,7 +58,7 @@ namespace ModuloFacturacionRC.Facturas
                 MontoEfectivo = Convert.ToDecimal(txtMonto.Text),
                 MontoTarjeta = (!String.IsNullOrWhiteSpace(txtTarjeta.Text)) ? Convert.ToDecimal(txtTarjeta.Text) : 0,
                 MontoTransferencia = (!String.IsNullOrWhiteSpace(txtTransferencia.Text)) ? Convert.ToDecimal(txtTransferencia.Text) : 0,
-                MontoTotal = (!String.IsNullOrWhiteSpace(txt.Text)) ? Convert.ToDecimal(txtTransferencia.Text) : 0,
+                MontoTotal = (!String.IsNullOrWhiteSpace(txtTotal.Text)) ? Convert.ToDecimal(txtTransferencia.Text) : 0,
                 UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = System.Environment.MachineName,
