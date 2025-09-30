@@ -149,5 +149,29 @@ namespace Logica
             tabla = enviar.SP_MetodoPagos(a);
             return tabla;
         }
+        public DataTable SP_CobroCajaEncabezado(CobroCajaEncabezadoDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_CobroCajaEncabezado(a);
+            return tabla;
+        }
+        public DataTable SP_CobroCajaMetodos(CobroCajaMetodosDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_CobroCajaMetodos(a);
+            return tabla;
+        }
+        public DataTable SP_CajaApertura(CajaAperturaDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_CajaApertura(a);
+            return tabla;
+        }
+        public DataTable SP_CajaCierre(CajaCierreDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_CajaCierre(a);
+            return tabla;
+        }
     }
 }

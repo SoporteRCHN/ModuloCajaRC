@@ -83,6 +83,36 @@ namespace ModuloFacturacionRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cashier_machine_3584418 {
+            get {
+                object obj = ResourceManager.GetObject("cashier-machine_3584418", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check_mark_12503665 {
+            get {
+                object obj = ResourceManager.GetObject("check-mark_12503665", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap check_mark_12510937 {
+            get {
+                object obj = ResourceManager.GetObject("check-mark_12510937", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap checkout_32px {
             get {
                 object obj = ResourceManager.GetObject("checkout_32px", resourceCulture);
@@ -116,6 +146,16 @@ namespace ModuloFacturacionRC.Properties {
         internal static System.Drawing.Bitmap Credito {
             get {
                 object obj = ResourceManager.GetObject("Credito", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info_22px {
+            get {
+                object obj = ResourceManager.GetObject("info_22px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

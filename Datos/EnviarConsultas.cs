@@ -943,6 +943,146 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_CobroCajaEncabezado(dynamic cobroEnc)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", cobroEnc.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ID", cobroEnc.ID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FacturaID", cobroEnc.FacturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@TotalAPagar", cobroEnc.TotalAPagar ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@TotalRecibido", cobroEnc.TotalRecibido ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@TotalCambio", cobroEnc.TotalCambio ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", cobroEnc.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", cobroEnc.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", cobroEnc.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", cobroEnc.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Facturacion.SP_CobroCajaEncabezado";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_CobroCajaMetodos(dynamic cobroMetodo)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", cobroMetodo.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ID", cobroMetodo.ID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@EncabezadoID", cobroMetodo.EncabezadoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MetodoPagoID", cobroMetodo.MetodoPagoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoIngresado", cobroMetodo.MontoIngresado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Referencia", cobroMetodo.Referencia ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", cobroMetodo.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", cobroMetodo.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", cobroMetodo.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", cobroMetodo.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Facturacion.SP_CobroCajaMetodos";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_CajaApertura(dynamic aperturaCaja)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", aperturaCaja.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@AperturaID", aperturaCaja.AperturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Monto", aperturaCaja.Monto ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", aperturaCaja.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", aperturaCaja.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", aperturaCaja.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", aperturaCaja.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Facturacion.SP_CajaApertura";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_CajaCierre(dynamic cierreCaja)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", cierreCaja.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@CierreID", cierreCaja.CierreID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@AperturaID", cierreCaja.AperturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoCheque", cierreCaja.MontoCheque ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoEfectivo", cierreCaja.MontoEfectivo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTarjeta", cierreCaja.MontoTarjeta ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTransferencia", cierreCaja.MontoTransferencia ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MontoTotalCierre", cierreCaja.MontoTotalCierre ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", cierreCaja.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", cierreCaja.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", cierreCaja.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", cierreCaja.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Facturacion.SP_CajaCierre";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+
 
     }
 }

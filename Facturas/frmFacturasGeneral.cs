@@ -17,13 +17,25 @@ namespace ModuloFacturacionRC.Facturas
     {
         DataTable dtPermisos = new DataTable();
         DataTable dtFacturas = new DataTable();
+        DataTable dtFacturasEncabezado = new DataTable();
+        DataTable dtFacturasMetodos = new DataTable();
         DataTable dtMetodoPago = new DataTable();
         clsLogica logica = new clsLogica();
 
         public int _FacturaID;
         public string _GuiaID;
         private bool usuarioInteractuando = false;
+        private bool _GeneraError = true;
 
+        Label lblTooltipFlotante = new Label
+        {
+            AutoSize = true,
+            BackColor = Color.LightYellow,
+            ForeColor = Color.Black,
+            BorderStyle = BorderStyle.FixedSingle,
+            Font = new Font("Segoe UI", 9, FontStyle.Bold),
+            Visible = false
+        };
         public frmFacturasGeneral()
         {
             InitializeComponent();
@@ -35,6 +47,8 @@ namespace ModuloFacturacionRC.Facturas
         private void frmFacturasGeneral_Load(object sender, EventArgs e)
         {
             tmrBuscarFacturas.Start();
+           
+            this.Controls.Add(lblTooltipFlotante);
         }
         private void CargarFacturas()
         {
@@ -69,14 +83,28 @@ namespace ModuloFacturacionRC.Facturas
                 if (filaActual >= 0 && filaActual < dgvFacturas.Rows.Count)
                 {
                     dgvFacturas.CurrentCell = dgvFacturas.Rows[filaActual].Cells["Total"];
-                    lblTotal.Text = dgvFacturas.Rows[filaActual].Cells["Total"].Value?.ToString() ?? "L. 0.00";
+                    lblGranTotal.Text = dgvFacturas.Rows[filaActual].Cells["Total"].Value?.ToString() ?? "L. 0.00";
                 }
                 else
                 {
                     dgvFacturas.CurrentCell = dgvFacturas.Rows[0].Cells["Total"];
-                    lblTotal.Text = dgvFacturas.Rows[0].Cells["Total"].Value?.ToString() ?? "L. 0.00";
+                    lblGranTotal.Text = dgvFacturas.Rows[0].Cells["Total"].Value?.ToString() ?? "L. 0.00";
                 }
             }
+
+            dgvFacturas.Columns["ProcesoID"].Visible = false;
+            dgvFacturas.Columns["Fecha"].Visible = false;
+            dgvFacturas.Columns["Fila"].Visible = false;
+            dgvFacturas.Columns["Proceso"].Visible = false;
+            dgvFacturas.Columns["Destinatario"].Visible = false;
+            dgvFacturas.Columns["FacturaDei"].Visible = false;
+
+            dgvFacturas.Columns["Remitente"].Width = 150;
+            dgvFacturas.Columns["FacturaID"].Width = 100;
+            dgvFacturas.Columns["Guia"].Width = 100;
+            dgvFacturas.Columns["Total"].Width = 100;
+
+            CargarResumen();
         }
 
         private void CargarMetodoPago()
@@ -90,28 +118,18 @@ namespace ModuloFacturacionRC.Facturas
             {
                 foreach (DataRow row in dtMetodoPago.Rows)
                 {
-                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"], "");
+                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"], "","");
+
+                    dgvMetodosPago.Columns["Id"].Visible = false;
+                    dgvMetodosPago.Columns["Metodo"].Width = 150;
+                    dgvMetodosPago.Columns["Valor"].Width = 100;
+                    dgvMetodosPago.Columns["Referencia"].Width = 150;
+                    dgvMetodosPago.Columns["Ayuda"].Width = 35;
+
+                    dgvMetodosPago.Columns["Ayuda"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgvMetodosPago.Columns["Ayuda"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
-                AjustarAlturaFilas();
-            }
-        }
-        private void AjustarAlturaFilas()
-        {
-            int totalFilas = dgvMetodosPago.Rows.Count;
-
-            if (totalFilas > 0)
-            {
-                // Restamos el alto del encabezado para calcular solo el área de filas
-                int alturaDisponible = dgvMetodosPago.ClientSize.Height - dgvMetodosPago.ColumnHeadersHeight;
-
-                // Calculamos la altura ideal por fila
-                int alturaPorFila = alturaDisponible / totalFilas;
-
-                // Asignamos la altura a cada fila
-                foreach (DataGridViewRow fila in dgvMetodosPago.Rows)
-                {
-                    fila.Height = alturaPorFila;
-                }
+               // AjustarAlturaFilas();
             }
         }
 
@@ -179,10 +197,15 @@ namespace ModuloFacturacionRC.Facturas
                             switch (accionElemento)
                             {
                                 case "Procesar":
-                                    //DynamicMain.Instance.LanzarForm(new frmEditarClientes(UbicacionActual), "HOME / REGISTRO DE CLIENTES");
-                                    ActualizarEstadoFactura();
+                                    InsertarCobro();
+                                    
                                     dgvFacturas.DataSource = null;
                                     CargarFacturas();
+                                    break;
+
+                                case "Limpiar":
+                                    Limpiar();
+                                    dgvFacturas.DataSource = null;
                                     break;
                                 default:
                                     MessageBox.Show($"Acción no reconocida: {accionElemento}");
@@ -194,6 +217,87 @@ namespace ModuloFacturacionRC.Facturas
                         _Panel.WrapContents = true;
                     }
                 }
+            }
+        }
+        private void Validaciones()
+        {
+            decimal totalValor = 0;
+
+            foreach (DataGridViewRow row in dgvMetodosPago.Rows)
+            {
+                if (row.Cells["Valor"]?.Value != null && decimal.TryParse(row.Cells["Valor"].Value.ToString(), out decimal valor))
+                {
+                    totalValor += valor;
+                }
+            }
+
+            _GeneraError = (totalValor > 0) ? true : false;
+        }
+
+        private void InsertarCobro() 
+        {
+            Validaciones();
+            if(_GeneraError == false) { return; }
+
+            CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
+            {
+                Opcion = "Agregar",
+                FacturaID = _FacturaID,
+                TotalAPagar = Convert.ToDecimal(lblGranTotal.Text),
+                TotalRecibido = Convert.ToDecimal(lblRecibido.Text),
+                TotalCambio = Convert.ToDecimal(lblCambio.Text),
+                UPosteo = DynamicMain.usuarionlogin,
+                FPosteo = DateTime.Now, 
+                PC  = System.Environment.MachineName,
+                Estado = true
+            };
+            dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(sendEncabezado);
+            if( dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1") 
+            {
+                int _EncabezadoID = Convert.ToInt32(dtFacturasEncabezado.Rows[0]["UltimoID"]);
+
+                foreach (DataGridViewRow row in dgvMetodosPago.Rows)
+                {
+                    var valorCell = row.Cells["Valor"]?.Value;
+
+                    // Validar si la celda está vacía, nula o no convertible
+                    if (valorCell == null || string.IsNullOrWhiteSpace(valorCell.ToString()))
+                        continue;
+
+                    //Validar que la celda tenga un valor valido y no otras cosas
+                    if (!decimal.TryParse(valorCell.ToString(), out decimal monto))
+                        continue;
+
+                    CobroCajaMetodosDTO sendMetodos = new CobroCajaMetodosDTO
+                    {
+                        Opcion = "Agregar",
+                        EncabezadoID = _EncabezadoID,
+                        MetodoPagoID = Convert.ToInt32(row.Cells["Id"].Value),
+                        MontoIngresado = monto,
+                        Referencia = row.Cells["Referencia"]?.Value?.ToString() ?? "",
+                        UPosteo = DynamicMain.usuarionlogin,
+                        FPosteo = DateTime.Now,
+                        PC = System.Environment.MachineName,
+                        Estado = true
+                    };
+
+                    dtFacturasMetodos = logica.SP_CobroCajaMetodos(sendMetodos);
+
+                    if ((dtFacturasMetodos.Rows.Count > 0 && dtFacturasMetodos.Rows[0]["Estado"].ToString() == "0") || dtFacturasMetodos.Rows.Count <= 0)
+                    {
+                        MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                ActualizarEstadoFactura();
+                Limpiar();
+
+            }
+            else // Hubo clavo desde el encabezado
+            {
+                MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
         private void ActualizarEstadoFactura()
@@ -211,7 +315,7 @@ namespace ModuloFacturacionRC.Facturas
             dtFacturas = logica.SP_FacturasProceso(sendFacturas);
             if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
             {
-                MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Registro Ingresado correctamente, Solicitud de busqueda de carga enviada a bodega.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -231,24 +335,33 @@ namespace ModuloFacturacionRC.Facturas
             if (dgvFacturas.Rows.Count > 0)
             {
                 Limpiar();
-                lblTotal.Text = dgvFacturas.CurrentRow.Cells["Total"].Value.ToString();
+                lblGranTotal.Text = dgvFacturas.CurrentRow.Cells["Total"].Value.ToString();
             }
         }
         private void Limpiar()
         {
             foreach (DataGridViewRow row in dgvMetodosPago.Rows)
             {
-                row.Cells["mValor"].Value = "";
+                row.Cells["Valor"].Value = "";
             }
 
-            lblTotal.Text = "0.00";
+            lblGranTotal.Text = "0.00";
             lblRecibido.Text = "0.00";
             lblCambio.Text = "0.00";
+            lblGranTotal.Text = "0.00";
+            lblGuia.Text = "-";
+            lblFactura.Text = "-";
+            lblFecha.Text = "-";
+            lblRemitente.Text = "-";
+            lblDestinatario.Text = "-";
+            lblRecibido.Text = "0.00";
+            _FacturaID = 0;
+            _GuiaID = String.Empty;
         }
 
         private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvMetodosPago.Columns[e.ColumnIndex].Name == "mValor")
+            if (dgvMetodosPago.Columns[e.ColumnIndex].Name == "Valor")
             {
                 var celda = dgvMetodosPago.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 string texto = celda.Value?.ToString() ?? "";
@@ -267,15 +380,15 @@ namespace ModuloFacturacionRC.Facturas
 
             foreach (DataGridViewRow fila in dgvMetodosPago.Rows)
             {
-                if (fila.Cells["mValor"].Value != null &&
-                    decimal.TryParse(fila.Cells["mValor"].Value.ToString(), out decimal valor))
+                if (fila.Cells["Valor"].Value != null &&
+                    decimal.TryParse(fila.Cells["Valor"].Value.ToString(), out decimal valor))
                 {
                     total += valor;
                 }
             }
-            lblCambio.Text = (total > Convert.ToDecimal(lblTotal.Text)) ? (total - Convert.ToDecimal(lblTotal.Text)).ToString() : "0.00";
+            lblCambio.Text = (total > Convert.ToDecimal(lblGranTotal.Text)) ? (total - Convert.ToDecimal(lblGranTotal.Text)).ToString() : "0.00";
+            lblRestante.Text = (total < Convert.ToDecimal(lblGranTotal.Text)? (total - Convert.ToDecimal(lblGranTotal.Text)).ToString() : "0.00" );
             lblRecibido.Text = $"{total:N2}";
-
         }
 
         private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -284,11 +397,9 @@ namespace ModuloFacturacionRC.Facturas
             {
                 usuarioInteractuando = true;
 
-                if (e.RowIndex >= 0 && dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value != null)
+                if (dgvFacturas.CurrentRow.Cells["Total"].Value != null)
                 {
-                    lblTotal.Text = dgvFacturas.Rows[e.RowIndex].Cells["Total"].Value.ToString();
-                    _FacturaID = Convert.ToInt32(dgvFacturas.Rows[e.RowIndex].Cells["FacturaID"].Value);
-                    _GuiaID = dgvFacturas.Rows[e.RowIndex].Cells["Guia"].Value.ToString();
+                    CargarResumen();
                 }
 
                 Task.Delay(100).ContinueWith(_ =>
@@ -297,5 +408,57 @@ namespace ModuloFacturacionRC.Facturas
                 });
             }
         }
+        private void CargarResumen() 
+        {
+            if (dgvFacturas.CurrentRow.Cells["Total"].Value != null)
+            {
+                lblFecha.Text = Convert.ToDateTime(dgvFacturas.CurrentRow.Cells["Fecha"].Value).ToString("dd/MM/yyyy");
+                lblRemitente.Text = dgvFacturas.CurrentRow.Cells["Remitente"].Value.ToString();
+                lblDestinatario.Text = dgvFacturas.CurrentRow.Cells["Destinatario"].Value.ToString();
+                lblGuia.Text = dgvFacturas.CurrentRow.Cells["Guia"].Value.ToString();
+                lblFactura.Text = dgvFacturas.CurrentRow.Cells["FacturaDei"].Value.ToString();
+                lblTotal.Text = dgvFacturas.CurrentRow.Cells["Total"].Value.ToString();
+                lblGranTotal.Text = dgvFacturas.CurrentRow.Cells["Total"].Value.ToString();
+                _FacturaID = Convert.ToInt32(dgvFacturas.CurrentRow.Cells["FacturaID"].Value);
+                _GuiaID = dgvFacturas.CurrentRow.Cells["Guia"].Value.ToString();
+            }
+        }
+        private async void dgvMetodosPago_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvMetodosPago.Columns[e.ColumnIndex].Name == "Ayuda")
+            {
+                var idValue = dgvMetodosPago.Rows[e.RowIndex].Cells["Id"].Value?.ToString();
+                string mensaje = null;
+
+                switch (idValue)
+                {
+                    case "3":
+                        mensaje = "Número de referencia";
+                        break;
+                    case "4":
+                        mensaje = "No Referencia";
+                        break;
+                    case "5":
+                    case "6":
+                        mensaje = "No. Transacción";
+                        break;
+                }
+
+                if (!string.IsNullOrEmpty(mensaje))
+                {
+                    Rectangle celda = dgvMetodosPago.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+                    Point posicion = dgvMetodosPago.PointToScreen(new Point(440, celda.Top));
+
+                    lblTooltipFlotante.Text = mensaje;
+                    lblTooltipFlotante.Location = this.PointToClient(posicion);
+                    lblTooltipFlotante.BringToFront();
+                    lblTooltipFlotante.Visible = true;
+
+                    await Task.Delay(10000);
+                    lblTooltipFlotante.Visible = false;
+                }
+            }
+        }
+
     }
 }

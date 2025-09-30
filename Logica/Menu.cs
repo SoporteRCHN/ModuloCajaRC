@@ -349,5 +349,55 @@ namespace Logica
         public DateTime? FPosteo { get; set; }       // Fecha de registro
         public string PC { get; set; }               // Nombre del equipo desde donde se registró
     }
-
+    public class CobroCajaEncabezadoDTO
+    {
+        public string Opcion { get; set; }               // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
+        public long? ID { get; set; }                    // Clave primaria del cobro
+        public int? FacturaID { get; set; }              // ID de la factura asociada
+        public decimal? TotalAPagar { get; set; }        // Monto total a pagar
+        public decimal? TotalRecibido { get; set; }      // Monto recibido por el cliente
+        public decimal? TotalCambio { get; set; }        // Monto de cambio entregado
+        public string UPosteo { get; set; }              // Usuario que registra el cobro
+        public DateTime? FPosteo { get; set; }           // Fecha de registro
+        public string PC { get; set; }                   // Nombre del equipo desde donde se registró
+        public bool? Estado { get; set; }                // Estado activo/inactivo
+    }
+    public class CobroCajaMetodosDTO
+    {
+        public string Opcion { get; set; }               // Acción a ejecutar en el SP
+        public long? ID { get; set; }                    // Clave primaria
+        public long? EncabezadoID { get; set; }          // ID del encabezado de cobro
+        public int? MetodoPagoID { get; set; }           // ID del método de pago
+        public decimal? MontoIngresado { get; set; }     // Monto ingresado
+        public string Referencia { get; set; }           // Referencia del pago
+        public string UPosteo { get; set; }              // Usuario que registra
+        public DateTime? FPosteo { get; set; }           // Fecha de registro
+        public string PC { get; set; }                   // Equipo desde donde se registró
+        public bool? Estado { get; set; }                // Estado activo/inactivo
+    }
+    public class CajaAperturaDTO
+    {
+        public string Opcion { get; set; }              // Acción a ejecutar en el SP
+        public long? AperturaID { get; set; }           // Clave primaria de apertura
+        public decimal? Monto { get; set; }             // Monto inicial de apertura
+        public string UPosteo { get; set; }             // Usuario que registra
+        public DateTime? FPosteo { get; set; }          // Fecha de registro
+        public string PC { get; set; }                  // Equipo desde donde se registró
+        public bool? Estado { get; set; }               // Estado activo/inactivo
+    }
+    public class CajaCierreDTO
+    {
+        public string Opcion { get; set; }                  // Acción a ejecutar en el SP
+        public long? CierreID { get; set; }                 // Clave primaria de cierre
+        public int? AperturaID { get; set; }                // ID de la apertura relacionada
+        public decimal? MontoCheque { get; set; }           // Monto en cheque
+        public decimal? MontoEfectivo { get; set; }         // Monto en efectivo
+        public decimal? MontoTarjeta { get; set; }          // Monto con tarjeta
+        public decimal? MontoTransferencia { get; set; }    // Monto por transferencia
+        public decimal? MontoTotalCierre { get; set; }      // Monto total del cierre
+        public string UPosteo { get; set; }                 // Usuario que registra
+        public DateTime? FPosteo { get; set; }              // Fecha de registro
+        public string PC { get; set; }                      // Equipo desde donde se registró
+        public bool? Estado { get; set; }                   // Estado activo/inactivo
+    }
 }

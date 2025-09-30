@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +21,7 @@ namespace ModuloFacturacionRC
         DataTable tablaEncabezado = new DataTable();
         DataTable dtMenuOpciones = new DataTable();
         DataTable dtSeguimientoUsuario = new DataTable();
+        DataTable dtAperturaCaja = new DataTable();
         private static Form activeForm;
         public static RegistroAcciones registro = new RegistroAcciones(); //REGISTRO DE ACCIONES DE USUARIO
         login loginn = new login();
@@ -130,7 +132,7 @@ namespace ModuloFacturacionRC
 
         private Dictionary<string, Image> iconDictionary = new Dictionary<string, Image>
         {
-             { "frmFacturasGeneral", global::ModuloFacturacionRC.Properties.Resources.bill_26px },
+             { "frmCaja", global::ModuloFacturacionRC.Properties.Resources.bill_26px },
         };
 
         private void CargarMenuDinamico()
@@ -264,10 +266,7 @@ namespace ModuloFacturacionRC
                 {
                     switch (clickedButton.Text.Trim())
                     {
-                        case "FACTURAS":
-                            SeguimientoUsuario(49); //49 ESTA DEFINIDO COMO - INGRESA A frmFacturasGeneral ModuloFacturacionRC
-                            LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS GENERAL");
-                            break;
+                        
                         default:
                             break;
                     }
@@ -321,15 +320,40 @@ namespace ModuloFacturacionRC
                         // Si no tiene hijos, abrir el formulario correspondiente
                         switch (clickedButton.Text.Trim())
                         {
-                            //case "ARCHIVO BANCARIO":
-                            //    LanzarForm(new frmArchivoBancario(), "HOME / ARCHIVO BANCARIO");
-                            //    break;
-
+                            case "FACTURAS":
+                                SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
+                                AperturarCaja();
+                                
+                                break;
+                            case "CAJA - APERTURA":
+                                SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
+                                LanzarForm(new frmApertura(), "HOME / APERTURA");
+                                break;
                             default:
                                 break;
                         }
                     }
                 }
+            }
+        }
+        private void AperturarCaja()
+        {
+            CajaAperturaDTO sendApertura = new CajaAperturaDTO
+            {
+                Opcion = "Listado",
+                UPosteo = DynamicMain.usuarionlogin,
+                PC = System.Environment.MachineName
+            };
+            dtAperturaCaja = logica.SP_CajaApertura(sendApertura);
+            if (dtAperturaCaja.Rows.Count > 0)
+            {
+                LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS");
+                
+            }
+            else
+            {
+                MessageBox.Show("Aun no ha aperturado la caja.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
         private void ActiveForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facturas\frmApertura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturas\frmApertura.Designer.cs">
+      <DependentUpon>frmApertura.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginMenu\DynamicMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="LoginMenu\RegistroAcciones.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Facturas\frmApertura.resx">
+      <DependentUpon>frmApertura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginMenu\DynamicMain.resx">
       <DependentUpon>DynamicMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,6 +162,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\synchronize_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info_22px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cashier-machine_3584418.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check-mark_12510937.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check-mark_12503665.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
