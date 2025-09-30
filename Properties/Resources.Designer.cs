@@ -253,6 +253,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TikTok_Verified_Account_28px {
+            get {
+                object obj = ResourceManager.GetObject("TikTok Verified Account_28px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap user_shield_32px {
             get {
                 object obj = ResourceManager.GetObject("user_shield_32px", resourceCulture);

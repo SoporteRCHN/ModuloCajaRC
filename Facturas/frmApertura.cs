@@ -15,6 +15,8 @@ namespace ModuloCajaRC.Facturas
     {
         DataTable dtAperturaCaja = new DataTable();
         clsLogica logica = new clsLogica();
+
+        decimal _Efectivo, _Cheque, _Transferencia, _Tarjeta, _Total = 0;
         public frmApertura()
         {
             InitializeComponent();
@@ -36,7 +38,21 @@ namespace ModuloCajaRC.Facturas
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0) 
             {
+                lblFecha.Text = dtAperturaCaja.Rows[0]["FPosteo"].ToString();
+                lblEquipo.Text = dtAperturaCaja.Rows[0]["PC"].ToString();
+                lblUsuario.Text = dtAperturaCaja.Rows[0]["NombreCompleto"].ToString();
+                txtMonto.Text = Convert.ToDecimal(dtAperturaCaja.Rows[0]["MontoEfectivo"]).ToString("N2");
+                txtCheque.Text = "0.00";
+                txtTarjeta.Text = "0.00";
+                txtTransferencia.Text = "0.00";
+                txtTotal.Text = Convert.ToDecimal(dtAperturaCaja.Rows[0]["MontoEfectivo"]).ToString("N2");
+
                 txtMonto.ReadOnly = true;
+                txtCheque.ReadOnly = true;
+                txtTarjeta.ReadOnly = true;
+                txtTotal.ReadOnly = true;
+                txtTransferencia.ReadOnly = true;
+
                 button1.Enabled = false;
                 label9.Text = "Ya existe una apertura de caja realizada.";
                 label9.Visible = true;
@@ -71,6 +87,28 @@ namespace ModuloCajaRC.Facturas
                 Limpiar();
             }
         }
+        private void txtMonto_KeyUp(object sender, KeyEventArgs e)
+        {
+            _Total = (!String.IsNullOrWhiteSpace(txtMonto.Text)) ? Convert.ToDecimal(txtMonto.Text) : 0;
+            txtTotal.Text = _Total.ToString("N2");
+        }
+
+        private void frmApertura_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProceso_Click(object sender, EventArgs e)
+        {
+            EnviarAperturaCaja();
+        }
+
+        private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
+        {
+            _Tarjeta = (!String.IsNullOrWhiteSpace(txtMonto.Text)) ? Convert.ToDecimal(txtMonto.Text) : 0;
+            txtTotal.Text = (_Total+ _Tarjeta).ToString("N2");
+        }
+
         private void Limpiar() 
         {
             lblFecha.Text = "-";
@@ -82,10 +120,6 @@ namespace ModuloCajaRC.Facturas
             label9.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            EnviarAperturaCaja();
-        }
         private void txtMonto_KeyPress(object sender, KeyPressEventArgs e)
         {
             TextBox txt = sender as TextBox;

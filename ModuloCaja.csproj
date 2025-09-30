@@ -187,5 +187,8 @@
   <ItemGroup>
     <None Include="Resources\outbox_tray_28px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TikTok Verified Account_28px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
