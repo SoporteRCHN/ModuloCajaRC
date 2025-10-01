@@ -47,7 +47,6 @@ namespace ModuloCajaRC.Facturas
         private void frmFacturasGeneral_Load(object sender, EventArgs e)
         {
             tmrBuscarFacturas.Start();
-           
             this.Controls.Add(lblTooltipFlotante);
         }
         private void CargarFacturas()
@@ -129,7 +128,6 @@ namespace ModuloCajaRC.Facturas
                     dgvMetodosPago.Columns["Ayuda"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     dgvMetodosPago.Columns["Ayuda"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
-               // AjustarAlturaFilas();
             }
         }
 
@@ -230,7 +228,6 @@ namespace ModuloCajaRC.Facturas
                     totalValor += valor;
                 }
             }
-
             _GeneraError = (totalValor > 0) ? true : false;
         }
 
@@ -242,6 +239,7 @@ namespace ModuloCajaRC.Facturas
             CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
             {
                 Opcion = "Agregar",
+                ControlCajaID = DynamicMain.cajaID,
                 FacturaID = _FacturaID,
                 TotalAPagar = Convert.ToDecimal(lblGranTotal.Text),
                 TotalRecibido = Convert.ToDecimal(lblRecibido.Text),

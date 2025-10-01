@@ -43,6 +43,7 @@ namespace ModuloCajaRC
         public static int usuarioEmpresaID;
         public static int usuarioNivelAccesoSolicitud;
         public static int Confidencial;
+        public static int cajaID;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
         public static bool existeAvisos = false; //Variable para controlar el mostrar o no los avisos.
 
@@ -347,8 +348,8 @@ namespace ModuloCajaRC
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0)
             {
+                cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["ControlID"].ToString());
                 LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS");
-                
             }
             else
             {

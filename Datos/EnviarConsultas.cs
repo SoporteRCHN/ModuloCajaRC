@@ -959,6 +959,7 @@ namespace Datos
 
             comando.Parameters.AddWithValue("@Opcion", cobroEnc.Opcion ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@ID", cobroEnc.ID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ControlCajaID", cobroEnc.ControlCajaID ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@FacturaID", cobroEnc.FacturaID ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@TotalAPagar", cobroEnc.TotalAPagar ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@TotalRecibido", cobroEnc.TotalRecibido ?? (object)DBNull.Value);

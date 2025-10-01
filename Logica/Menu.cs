@@ -353,6 +353,7 @@ namespace Logica
     {
         public string Opcion { get; set; }               // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
         public long? ID { get; set; }                    // Clave primaria del cobro
+        public int? ControlCajaID { get; set; }              // ID del lote en uso en la caja
         public int? FacturaID { get; set; }              // ID de la factura asociada
         public decimal? TotalAPagar { get; set; }        // Monto total a pagar
         public decimal? TotalRecibido { get; set; }      // Monto recibido por el cliente
