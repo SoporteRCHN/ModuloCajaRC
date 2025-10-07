@@ -328,7 +328,6 @@ namespace ModuloCajaRC
                                 break;
                             case "CAJA - APERTURA":
                                 SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
-                                AperturarCaja();
                                 LanzarForm(new frmApertura(), "HOME / APERTURA");
                                 break;
                             default:

@@ -57,7 +57,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "ResumenValoresEsperados",
                 UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName,
+                PC = Environment.MachineName,
                 Estado = true
             };
 
@@ -65,14 +65,37 @@ namespace ModuloCajaRC.Facturas
             dtResumenValoresEsperados.Rows.Clear();
 
             dtResumenValoresEsperados = logica.SP_ControlCaja(sendApertura);
-            if (dtResumenAperturaCaja.Rows.Count > 0)
+            if (dtResumenValoresEsperados.Rows.Count > 0)
             {
+                dgvValoresEsperados.Rows.Clear();
+
                 foreach (DataRow row in dtResumenValoresEsperados.Rows)
                 {
-                    dgvValoresEsperados.Rows.Add(row["Metodo"], row["Valor"]);
+                    dgvValoresEsperados.Rows.Add(row["MetodoPagoID"], row["Metodo"], row["Valor"]);
                 }
+
+                foreach (DataGridViewRow fila in dgvRegistroValores.Rows)
+                {
+                    if (fila.Cells["EdicionRegistro"].Value?.ToString().ToLower() == "false")
+                    {
+                        string metodoID = fila.Cells["MetodoID"].Value?.ToString();
+
+                        foreach (DataGridViewRow esperado in dgvValoresEsperados.Rows)
+                        {
+                            if (esperado.Cells["PagoID"].Value?.ToString() == metodoID)
+                            {
+                                fila.Cells["ValorRegistro"].Value = esperado.Cells["ValorEsperado"].Value;
+                                break;
+                            }
+                        }
+                    }
+                }
+                dgvValoresEsperados.Columns["MetodoEsperado"].Width = 150;
+                dgvValoresEsperados.Columns["ValorEsperado"].Width = 120;
+                dgvValoresEsperados.Columns["Varianza"].Width = 100;
             }
         }
+
         private void verResumenApertura()
         {
             ControlCajaDTO sendApertura = new ControlCajaDTO
@@ -98,7 +121,7 @@ namespace ModuloCajaRC.Facturas
                     if (fila.Cells["EdicionRegistro"].Value?.ToString().ToLower() == "false")
                     {
                         fila.DefaultCellStyle.BackColor = Color.FromArgb(198, 204, 209);
-                        fila.Cells["ValorRegistro"].Style.ForeColor = Color.FromArgb(198, 204, 209);
+                        fila.Cells["ValorRegistro"].Style.ForeColor = Color.Black;
                     }
                 }
             }
@@ -125,6 +148,7 @@ namespace ModuloCajaRC.Facturas
                 }
             }
         }
+
         private void AperturarCaja() 
         {
             ControlCajaDTO sendApertura = new ControlCajaDTO
@@ -138,6 +162,8 @@ namespace ModuloCajaRC.Facturas
 
             if (dtAperturaCaja.Rows.Count > 0) 
             {
+                DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["ControlID"].ToString());
+
                 lblFecha.Text = dtAperturaCaja.Rows[0]["FPosteo"].ToString();
                 lblEquipo.Text = dtAperturaCaja.Rows[0]["PC"].ToString();
                 lblUsuario.Text = dtAperturaCaja.Rows[0]["NombreCompleto"].ToString();
@@ -174,7 +200,7 @@ namespace ModuloCajaRC.Facturas
                 _EstaAperturando = true;
             }
         }
-      
+
         private void EnviarControlCaja(int _TipoID)
         {
             Dictionary<int, decimal> montosPorMetodo = new Dictionary<int, decimal>();
@@ -233,13 +259,17 @@ namespace ModuloCajaRC.Facturas
             }
         }
 
-
         private void frmApertura_Load(object sender, EventArgs e)
         {
             dgvRegistroValores.Columns["MetodoRegistro"].ReadOnly = true;
             dgvRegistroValores.Columns["ValorRegistro"].ReadOnly = false;
             dgvRegistroValores.EditMode = DataGridViewEditMode.EditOnEnter;
             dgvRegistroValores.CellBeginEdit += dgvRegistroValores_CellBeginEdit;
+
+            for (int i = 0; i < dgvRegistroValores.Rows.Count; i++)
+            {
+                ActualizarVarianza(i);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -328,10 +358,61 @@ namespace ModuloCajaRC.Facturas
 
                 //Cargar Resumen Movimientos
                 CargarResumenMovimientos();
-
-               // lblSaldoCaja.Text = (Convert.ToDecimal(lblEfectivoInicial.Text) + movimientoEfectivo).ToString("N2");
             }
         }
+
+        private void dgvRegistroValores_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvRegistroValores.Columns[e.ColumnIndex].Name == "ValorRegistro")
+            {
+                var celda = dgvRegistroValores.Rows[e.RowIndex].Cells["ValorRegistro"];
+                var valor = celda.Value?.ToString();
+
+                if (string.IsNullOrWhiteSpace(valor))
+                {
+                    celda.Value = "0.00";
+                }
+            }
+        }
+        private void dgvRegistroValores_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvRegistroValores.Columns[e.ColumnIndex].Name == "ValorRegistro")
+            {
+                ActualizarVarianza(e.RowIndex);
+            }
+        }
+        private void ActualizarVarianza(int filaIndex)
+        {
+            if (_EstaAperturando) return;
+
+            var filaRegistro = dgvRegistroValores.Rows[filaIndex];
+            string metodoID = filaRegistro.Cells["MetodoID"].Value?.ToString();
+            string valorTexto = filaRegistro.Cells["ValorRegistro"].Value?.ToString();
+
+            if (!decimal.TryParse(valorTexto, out decimal valorRegistro))
+            {
+                valorRegistro = 0;
+            }
+
+            foreach (DataGridViewRow filaEsperado in dgvValoresEsperados.Rows)
+            {
+                string pagoID = filaEsperado.Cells["PagoID"].Value?.ToString();
+                if (pagoID == metodoID)
+                {
+                    string esperadoTexto = filaEsperado.Cells["ValorEsperado"].Value?.ToString();
+                    if (!decimal.TryParse(esperadoTexto, out decimal valorEsperado))
+                    {
+                        valorEsperado = 0;
+                    }
+
+                    decimal varianza = valorRegistro - valorEsperado;
+                    filaEsperado.Cells["Varianza"].Value = varianza.ToString("N2");
+                    break;
+                }
+            }
+        }
+
+
         private void CargarResumenMovimientos() 
         {
             //Cargar Resumen
@@ -352,7 +433,6 @@ namespace ModuloCajaRC.Facturas
             lblTotalIngresos.Text = (movimientoCheques + movimientoTransferencias + movimientoEfectivo + movimientoTarjetas).ToString("N2");
         }
        
-
         private void dtpFinal_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFinal.Value < dtpInicio.Value)
@@ -407,96 +487,6 @@ namespace ModuloCajaRC.Facturas
                 lblTotalIngresos.Text = "0.00";
             }
         }
-
-        private void txtTransferencia_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || e.KeyChar == '.' && !txt.Text.Contains("."))
-            {
-                return;
-            }
-
-            e.Handled = true;
-        }
-
-        private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || e.KeyChar == '.' && !txt.Text.Contains("."))
-            {
-                return;
-            }
-
-            e.Handled = true;
-        }
-
-        private void txtCheque_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || e.KeyChar == '.' && !txt.Text.Contains("."))
-            {
-                return;
-            }
-
-            e.Handled = true;
-        }
-
-        private void btnUltimoCierre_Click(object sender, EventArgs e)
-        {
-            verMovimientosUltimoCierre();
-        }
-        private void verMovimientosUltimoCierre()
-        {
-            movimientoCheques = 0;
-            movimientoEfectivo = 0;
-            movimientoTarjetas = 0;
-            movimientoTransferencias = 0;
-            movimientoTotal = 0;
-
-            ControlCajaDTO sendApertura = new ControlCajaDTO
-            {
-                Opcion = "ListadoUltimoCierre",
-                ControlID = DynamicMain.cajaID
-            };
-
-            dtMovimientosUltimoCierreCaja.Clear();
-            dtMovimientosUltimoCierreCaja.Rows.Clear();
-
-            dtMovimientosUltimoCierreCaja = logica.SP_ControlCaja(sendApertura);
-            if (dtMovimientosUltimoCierreCaja.Rows.Count > 0)
-            {
-                //Cargar Resumen
-                foreach (DataRow row in dtMovimientosUltimoCierreCaja.Rows)
-                {
-                    if (!String.IsNullOrEmpty(row["MontoCheque"].ToString()))
-                    {
-                        movimientoCheques += Convert.ToDecimal(row["MontoCheque"]);
-                    }
-
-                    if (!String.IsNullOrEmpty(row["MontoTransferencia"].ToString()))
-                    {
-                        movimientoTransferencias += Convert.ToDecimal(row["MontoTransferencia"]);
-                    }
-
-                    if (!String.IsNullOrEmpty(row["MontoEfectivo"].ToString()))
-                    {
-                        movimientoEfectivo += Convert.ToDecimal(row["MontoEfectivo"]);
-                    }
-
-                    if (!String.IsNullOrEmpty(row["MontoTarjeta"].ToString()))
-                    {
-                        movimientoTarjetas += Convert.ToDecimal(row["MontoTarjeta"]);
-                    }
-                }
-
-                movimientoTotal = (movimientoCheques + movimientoTransferencias + movimientoTarjetas + movimientoEfectivo);
-                btnProceso.Enabled = false;
-            }
-        }
-
         private void dgvRegistroValores_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dgvRegistroValores.CurrentCell.ColumnIndex == dgvRegistroValores.Columns["ValorRegistro"].Index)
@@ -504,11 +494,24 @@ namespace ModuloCajaRC.Facturas
                 TextBox txt = e.Control as TextBox;
                 if (txt != null)
                 {
-                    txt.KeyPress -= SoloNumeros; // Evitar duplicados
-                    txt.KeyPress += SoloNumeros; // Activar validación si querés
+                    txt.KeyPress -= SoloNumeros;
+                    txt.KeyPress += SoloNumeros;
+
+                    // 🔥 Limpieza si el valor es 0.00
+                    string valorActual = dgvRegistroValores.CurrentCell.Value?.ToString();
+                    if (valorActual == "0.00" || string.IsNullOrWhiteSpace(valorActual))
+                    {
+                        txt.Text = "";
+                        txt.Select(); // activa el cursor
+                    }
+                    else
+                    {
+                        txt.SelectAll(); // selecciona todo para editar fácilmente
+                    }
                 }
             }
         }
+
         private void SoloNumeros(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -516,7 +519,6 @@ namespace ModuloCajaRC.Facturas
                 e.Handled = true;
             }
 
-            // Solo un punto decimal permitido
             TextBox txt = sender as TextBox;
             if (e.KeyChar == '.' && txt.Text.Contains("."))
             {
@@ -525,24 +527,15 @@ namespace ModuloCajaRC.Facturas
         }
         private void dgvRegistroValores_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            // Solo aplicar lógica a la columna ValorRegistro
             if (dgvRegistroValores.Columns[e.ColumnIndex].Name == "ValorRegistro")
             {
-                // Obtener el valor de la columna EdicionRegistro en la misma fila
                 var edicion = dgvRegistroValores.Rows[e.RowIndex].Cells["EdicionRegistro"].Value?.ToString();
 
-                // Si es "false", cancelar edición
                 if (edicion != null && edicion.ToLower() == "false")
                 {
                     e.Cancel = true;
                 }
             }
-        }
-
-
-        private void btnArqueo_Click(object sender, EventArgs e)
-        {
-            verMovimientosPreCierre();
         }
 
         private void btnProceso_Click(object sender, EventArgs e)
@@ -551,24 +544,6 @@ namespace ModuloCajaRC.Facturas
             { EnviarControlCaja(1); } 
             else 
             {
-                //verMovimientosPreCierre();
-
-                //pbxEfectivo.Visible = (movimientoEfectivo != Convert.ToDecimal(txtMonto.Text)) ? true : false;
-                //pbxCheque.Visible = (movimientoCheques != Convert.ToDecimal(txtCheque.Text)) ? true : false;
-                //pbxTransferencia.Visible = (movimientoTransferencias != Convert.ToDecimal(txtTransferencia.Text)) ? true : false;
-                //pbxTarjeta.Visible = (movimientoTarjetas != Convert.ToDecimal(txtTarjeta.Text)) ? true : false;
-
-                //if (Convert.ToDecimal(txtMonto.Text) >= movimientoEfectivo) { preCierreEfectivo.Visible = false; } else{ preCierreEfectivo.Visible = true; }
-                //if (Convert.ToDecimal(txtCheque.Text) >= movimientoCheques) { preCierreCheque.Visible = false; }else { preCierreCheque.Visible = true; }
-                //if (Convert.ToDecimal(txtTransferencia.Text) >= movimientoTransferencias) { preCierreTransferencia.Visible = false; }else { preCierreTransferencia.Visible = true; }
-                //if (Convert.ToDecimal(txtTarjeta.Text) >= movimientoTarjetas) { preCierreTarjeta.Visible = false; } else { preCierreTarjeta.Visible = true; }
-
-                //if (Convert.ToDecimal(txtMonto.Text) < movimientoEfectivo || Convert.ToDecimal(txtCheque.Text) < movimientoCheques || Convert.ToDecimal(txtTransferencia.Text) < movimientoTransferencias || Convert.ToDecimal(txtTarjeta.Text) < movimientoTarjetas) 
-                //{
-                //    MessageBox.Show("Hay valores que no cuadran con lo registrado en sistema, Favor verifique","Aviso",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-
                 EnviarControlCaja(2); 
             }
         }
@@ -582,26 +557,11 @@ namespace ModuloCajaRC.Facturas
             button1.Enabled = false;
             label9.Visible = false;
 
-            //Limpiar Valores Iniciales:
-             lblSaldoCaja.Text = "0.00";
-
             btnProceso.BackColor = Color.FromArgb(97, 172, 112);
             btnProceso.Text = "APERTURAR";
 
             //Regreso la variable para apertura
             _EstaAperturando = true;
-        }
-
-        private void txtMonto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = sender as TextBox;
-
-            if (char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || e.KeyChar == '.' && !txt.Text.Contains("."))
-            {
-                return;
-            }
-
-            e.Handled = true;
         }
     }
 }
