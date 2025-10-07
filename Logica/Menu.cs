@@ -390,6 +390,8 @@ namespace Logica
         public DateTime? FPosteo { get; set; }              // Fecha de registro
         public string PC { get; set; }                      // Equipo desde donde se registró
         public bool? Estado { get; set; }                   // Estado activo/inactivo
+        public DateTime? FechaInicio { get; set; }          // FechaInicio
+        public DateTime? FechaFinal { get; set; }           // FechaFinal
     }
 
 }

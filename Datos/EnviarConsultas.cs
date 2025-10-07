@@ -1040,6 +1040,8 @@ namespace Datos
             comando.Parameters.AddWithValue("@FPosteo", controlCaja.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", controlCaja.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", controlCaja.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FechaInicio", controlCaja.FechaInicio ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FechaFinal", controlCaja.FechaFinal ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_ControlCaja";
             comando.CommandType = CommandType.StoredProcedure;

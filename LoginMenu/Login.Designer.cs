@@ -30,36 +30,36 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pbxSalir = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.RememberMeCheckbox = new System.Windows.Forms.CheckBox();
             this.lblVersion = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.pbxMostrar = new System.Windows.Forms.PictureBox();
+            this.pbxOcultar = new System.Windows.Forms.PictureBox();
             this.txtContra = new System.Windows.Forms.TextBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtUser = new System.Windows.Forms.TextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pbxSalir = new System.Windows.Forms.PictureBox();
-            this.pbxMostrar = new System.Windows.Forms.PictureBox();
-            this.pbxOcultar = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxSalir)).BeginInit();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMostrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOcultar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,6 +79,18 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(383, 318);
             this.panel2.TabIndex = 7;
+            // 
+            // pbxSalir
+            // 
+            this.pbxSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbxSalir.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
+            this.pbxSalir.Location = new System.Drawing.Point(335, 11);
+            this.pbxSalir.Name = "pbxSalir";
+            this.pbxSalir.Size = new System.Drawing.Size(27, 24);
+            this.pbxSalir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxSalir.TabIndex = 5;
+            this.pbxSalir.TabStop = false;
+            this.pbxSalir.Click += new System.EventHandler(this.pbxSalir_Click);
             // 
             // label8
             // 
@@ -128,6 +140,7 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "CANCELAR";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnIngresar
             // 
@@ -159,6 +172,28 @@
             this.panel4.Size = new System.Drawing.Size(347, 40);
             this.panel4.TabIndex = 3;
             // 
+            // pbxMostrar
+            // 
+            this.pbxMostrar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxMostrar.BackgroundImage")));
+            this.pbxMostrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbxMostrar.Location = new System.Drawing.Point(303, 3);
+            this.pbxMostrar.Name = "pbxMostrar";
+            this.pbxMostrar.Size = new System.Drawing.Size(38, 34);
+            this.pbxMostrar.TabIndex = 4;
+            this.pbxMostrar.TabStop = false;
+            this.pbxMostrar.Click += new System.EventHandler(this.pbxMostrar_Click);
+            // 
+            // pbxOcultar
+            // 
+            this.pbxOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxOcultar.BackgroundImage")));
+            this.pbxOcultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbxOcultar.Location = new System.Drawing.Point(303, 3);
+            this.pbxOcultar.Name = "pbxOcultar";
+            this.pbxOcultar.Size = new System.Drawing.Size(38, 34);
+            this.pbxOcultar.TabIndex = 3;
+            this.pbxOcultar.TabStop = false;
+            this.pbxOcultar.Click += new System.EventHandler(this.pbxOcultar_Click);
+            // 
             // txtContra
             // 
             this.txtContra.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -168,6 +203,16 @@
             this.txtContra.PasswordChar = '*';
             this.txtContra.Size = new System.Drawing.Size(237, 20);
             this.txtContra.TabIndex = 2;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.Image = global::ModuloCajaRC.Properties.Resources.Password_32px;
+            this.pictureBox3.Location = new System.Drawing.Point(7, 3);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
             // 
             // panel3
             // 
@@ -187,6 +232,16 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(237, 20);
             this.txtUser.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.user_shield_32px;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // panel1
             // 
@@ -263,59 +318,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "SGRC";
             // 
-            // pbxSalir
-            // 
-            this.pbxSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxSalir.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
-            this.pbxSalir.Location = new System.Drawing.Point(335, 11);
-            this.pbxSalir.Name = "pbxSalir";
-            this.pbxSalir.Size = new System.Drawing.Size(27, 24);
-            this.pbxSalir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxSalir.TabIndex = 5;
-            this.pbxSalir.TabStop = false;
-            // 
-            // pbxMostrar
-            // 
-            this.pbxMostrar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxMostrar.BackgroundImage")));
-            this.pbxMostrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxMostrar.Location = new System.Drawing.Point(303, 3);
-            this.pbxMostrar.Name = "pbxMostrar";
-            this.pbxMostrar.Size = new System.Drawing.Size(38, 34);
-            this.pbxMostrar.TabIndex = 4;
-            this.pbxMostrar.TabStop = false;
-            this.pbxMostrar.Click += new System.EventHandler(this.pbxMostrar_Click);
-            // 
-            // pbxOcultar
-            // 
-            this.pbxOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxOcultar.BackgroundImage")));
-            this.pbxOcultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxOcultar.Location = new System.Drawing.Point(303, 3);
-            this.pbxOcultar.Name = "pbxOcultar";
-            this.pbxOcultar.Size = new System.Drawing.Size(38, 34);
-            this.pbxOcultar.TabIndex = 3;
-            this.pbxOcultar.TabStop = false;
-            this.pbxOcultar.Click += new System.EventHandler(this.pbxOcultar_Click);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox3.Image = global::ModuloCajaRC.Properties.Resources.Password_32px;
-            this.pictureBox3.Location = new System.Drawing.Point(7, 3);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(38, 34);
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.user_shield_32px;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(38, 34);
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -341,17 +343,17 @@
             this.Text = "Login";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxSalir)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxSalir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMostrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOcultar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 

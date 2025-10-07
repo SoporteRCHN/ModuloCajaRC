@@ -313,7 +313,7 @@ namespace ModuloCajaRC.Facturas
             dtFacturas = logica.SP_FacturasProceso(sendFacturas);
             if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
             {
-                MessageBox.Show("Registro Ingresado correctamente, Solicitud de busqueda de carga enviada a bodega.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Registro Ingresado correctamente, Solicitud de busqueda de carga enviada a bodega.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {

@@ -63,6 +63,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap alert_20px {
+            get {
+                object obj = ResourceManager.GetObject("alert_20px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap bill_26px {
             get {
                 object obj = ResourceManager.GetObject("bill_26px", resourceCulture);
