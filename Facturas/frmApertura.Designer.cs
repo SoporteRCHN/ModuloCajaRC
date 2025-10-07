@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtMonto = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
@@ -37,34 +35,13 @@
             this.lblEquipo = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtTarjeta = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtTransferencia = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtCheque = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtTotal = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.lblTotalInicial = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lblChequeInicial = new System.Windows.Forms.Label();
-            this.lblTransferenciaInicial = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.lblEfectivoInicial = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.lblTarjetaInicial = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
             this.lblValoresIniciales = new System.Windows.Forms.Label();
             this.lblValoresCierre = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panelPrimero = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.lblSaldoCaja = new System.Windows.Forms.Label();
-            this.btnUltimoCierre = new System.Windows.Forms.Button();
-            this.btnArqueo = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -87,77 +64,78 @@
             this.dtpFinal = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
-            this.preCierreEfectivo = new System.Windows.Forms.Label();
-            this.preCierreTransferencia = new System.Windows.Forms.Label();
-            this.preCierreCheque = new System.Windows.Forms.Label();
-            this.preCierreTarjeta = new System.Windows.Forms.Label();
-            this.preCierreTotal = new System.Windows.Forms.Label();
-            this.pbxEfectivo = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnProceso = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnMovimientosActuales = new System.Windows.Forms.Button();
-            this.pbxTransferencia = new System.Windows.Forms.PictureBox();
-            this.pbxTarjeta = new System.Windows.Forms.PictureBox();
-            this.pbxCheque = new System.Windows.Forms.PictureBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.MainPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dgvResumenApertura = new System.Windows.Forms.DataGridView();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.dgvResumenMovimientos = new System.Windows.Forms.DataGridView();
+            this.dgvValoresEsperados = new System.Windows.Forms.DataGridView();
+            this.MetodoInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ValorInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MetodoMovimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ValorMovimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MetodoEsperado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ValorEsperado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.dgvRegistroValores = new System.Windows.Forms.DataGridView();
+            this.MetodoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MetodoRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ValorRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EdicionRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.panelPrimero.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxEfectivo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxTransferencia)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxTarjeta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCheque)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.MainPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResumenApertura)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResumenMovimientos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvValoresEsperados)).BeginInit();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRegistroValores)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 142);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 18);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Efectivo:";
-            // 
-            // txtMonto
-            // 
-            this.txtMonto.BackColor = System.Drawing.Color.White;
-            this.txtMonto.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.txtMonto.Location = new System.Drawing.Point(91, 139);
-            this.txtMonto.Name = "txtMonto";
-            this.txtMonto.Size = new System.Drawing.Size(175, 24);
-            this.txtMonto.TabIndex = 5;
-            this.txtMonto.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtMonto.Enter += new System.EventHandler(this.txtMonto_Enter);
-            this.txtMonto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMonto_KeyPress);
-            this.txtMonto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMonto_KeyUp);
-            this.txtMonto.Leave += new System.EventHandler(this.txtMonto_Leave);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(282, 4);
+            this.label3.Location = new System.Drawing.Point(210, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 16);
+            this.label3.Size = new System.Drawing.Size(34, 16);
             this.label3.TabIndex = 6;
-            this.label3.Text = "USUARIO:";
+            this.label3.Text = "POR:";
             // 
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.BackColor = System.Drawing.Color.Transparent;
             this.lblUsuario.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsuario.Location = new System.Drawing.Point(344, 4);
+            this.lblUsuario.Location = new System.Drawing.Point(243, 6);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(12, 16);
             this.lblUsuario.TabIndex = 7;
@@ -168,7 +146,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.BackColor = System.Drawing.Color.Transparent;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(127, 4);
+            this.lblFecha.Location = new System.Drawing.Point(88, 6);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(12, 16);
             this.lblFecha.TabIndex = 9;
@@ -179,18 +157,18 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(17, 4);
+            this.label6.Location = new System.Drawing.Point(17, 6);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(110, 16);
+            this.label6.Size = new System.Drawing.Size(69, 16);
             this.label6.TabIndex = 8;
-            this.label6.Text = "FECHA APERTURA:";
+            this.label6.Text = "APERTURA:";
             // 
             // lblEquipo
             // 
             this.lblEquipo.AutoSize = true;
             this.lblEquipo.BackColor = System.Drawing.Color.Transparent;
             this.lblEquipo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEquipo.Location = new System.Drawing.Point(642, 4);
+            this.lblEquipo.Location = new System.Drawing.Point(522, 6);
             this.lblEquipo.Name = "lblEquipo";
             this.lblEquipo.Size = new System.Drawing.Size(12, 16);
             this.lblEquipo.TabIndex = 11;
@@ -201,7 +179,7 @@
             this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(586, 4);
+            this.label8.Location = new System.Drawing.Point(466, 6);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(55, 16);
             this.label8.TabIndex = 10;
@@ -212,109 +190,12 @@
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(91)))), ((int)(((byte)(0)))));
-            this.label9.Location = new System.Drawing.Point(20, 22);
+            this.label9.Location = new System.Drawing.Point(265, 12);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(228, 18);
             this.label9.TabIndex = 14;
             this.label9.Text = "Mensaje Personalizado AQUI";
             this.label9.Visible = false;
-            // 
-            // txtTarjeta
-            // 
-            this.txtTarjeta.BackColor = System.Drawing.Color.White;
-            this.txtTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.txtTarjeta.Location = new System.Drawing.Point(90, 194);
-            this.txtTarjeta.Name = "txtTarjeta";
-            this.txtTarjeta.Size = new System.Drawing.Size(176, 24);
-            this.txtTarjeta.TabIndex = 17;
-            this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtTarjeta.Enter += new System.EventHandler(this.txtTarjeta_Enter);
-            this.txtTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTarjeta_KeyPress);
-            this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
-            this.txtTarjeta.Leave += new System.EventHandler(this.txtTarjeta_Leave);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(289, 197);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 18);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Cheque:";
-            // 
-            // txtTransferencia
-            // 
-            this.txtTransferencia.BackColor = System.Drawing.Color.White;
-            this.txtTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.txtTransferencia.Location = new System.Drawing.Point(396, 139);
-            this.txtTransferencia.Name = "txtTransferencia";
-            this.txtTransferencia.Size = new System.Drawing.Size(179, 24);
-            this.txtTransferencia.TabIndex = 19;
-            this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtTransferencia.Enter += new System.EventHandler(this.txtTransferencia_Enter);
-            this.txtTransferencia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTransferencia_KeyPress);
-            this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
-            this.txtTransferencia.Leave += new System.EventHandler(this.txtTransferencia_Leave);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(20, 197);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 18);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Tarjeta:";
-            // 
-            // txtCheque
-            // 
-            this.txtCheque.BackColor = System.Drawing.Color.White;
-            this.txtCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.txtCheque.Location = new System.Drawing.Point(396, 194);
-            this.txtCheque.Name = "txtCheque";
-            this.txtCheque.Size = new System.Drawing.Size(179, 24);
-            this.txtCheque.TabIndex = 21;
-            this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtCheque.Enter += new System.EventHandler(this.txtCheque_Enter);
-            this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
-            this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
-            this.txtCheque.Leave += new System.EventHandler(this.txtCheque_Leave);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(289, 142);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 18);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Transferencia:";
-            // 
-            // txtTotal
-            // 
-            this.txtTotal.BackColor = System.Drawing.Color.White;
-            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.txtTotal.Location = new System.Drawing.Point(654, 194);
-            this.txtTotal.Name = "txtTotal";
-            this.txtTotal.ReadOnly = true;
-            this.txtTotal.Size = new System.Drawing.Size(179, 24);
-            this.txtTotal.TabIndex = 23;
-            this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(593, 197);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 18);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "Total:";
             // 
             // tabControl1
             // 
@@ -324,151 +205,29 @@
             this.tabControl1.Location = new System.Drawing.Point(29, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(863, 446);
+            this.tabControl1.Size = new System.Drawing.Size(1096, 451);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.pbxCheque);
-            this.tabPage2.Controls.Add(this.pbxTarjeta);
-            this.tabPage2.Controls.Add(this.pbxTransferencia);
-            this.tabPage2.Controls.Add(this.pbxEfectivo);
-            this.tabPage2.Controls.Add(this.preCierreTotal);
-            this.tabPage2.Controls.Add(this.preCierreCheque);
-            this.tabPage2.Controls.Add(this.preCierreTarjeta);
-            this.tabPage2.Controls.Add(this.preCierreTransferencia);
-            this.tabPage2.Controls.Add(this.preCierreEfectivo);
-            this.tabPage2.Controls.Add(this.lblTotalInicial);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.lblChequeInicial);
-            this.tabPage2.Controls.Add(this.lblTransferenciaInicial);
-            this.tabPage2.Controls.Add(this.label20);
-            this.tabPage2.Controls.Add(this.label22);
-            this.tabPage2.Controls.Add(this.lblEfectivoInicial);
-            this.tabPage2.Controls.Add(this.label26);
-            this.tabPage2.Controls.Add(this.lblTarjetaInicial);
-            this.tabPage2.Controls.Add(this.label29);
-            this.tabPage2.Controls.Add(this.lblValoresIniciales);
-            this.tabPage2.Controls.Add(this.lblValoresCierre);
-            this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.txtTotal);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.panel2);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.txtTarjeta);
-            this.tabPage2.Controls.Add(this.txtMonto);
-            this.tabPage2.Controls.Add(this.txtTransferencia);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.txtCheque);
+            this.tabPage2.Controls.Add(this.MainPanel);
+            this.tabPage2.Controls.Add(this.panel6);
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(855, 415);
+            this.tabPage2.Size = new System.Drawing.Size(1088, 420);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Apertura de caja";
-            // 
-            // lblTotalInicial
-            // 
-            this.lblTotalInicial.AutoSize = true;
-            this.lblTotalInicial.Location = new System.Drawing.Point(748, 295);
-            this.lblTotalInicial.Name = "lblTotalInicial";
-            this.lblTotalInicial.Size = new System.Drawing.Size(36, 18);
-            this.lblTotalInicial.TabIndex = 61;
-            this.lblTotalInicial.Text = "0.00";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(664, 295);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(85, 18);
-            this.label15.TabIndex = 60;
-            this.label15.Text = "Total Inicial:";
-            // 
-            // lblChequeInicial
-            // 
-            this.lblChequeInicial.AutoSize = true;
-            this.lblChequeInicial.Location = new System.Drawing.Point(83, 295);
-            this.lblChequeInicial.Name = "lblChequeInicial";
-            this.lblChequeInicial.Size = new System.Drawing.Size(36, 18);
-            this.lblChequeInicial.TabIndex = 59;
-            this.lblChequeInicial.Text = "0.00";
-            // 
-            // lblTransferenciaInicial
-            // 
-            this.lblTransferenciaInicial.AutoSize = true;
-            this.lblTransferenciaInicial.Location = new System.Drawing.Point(278, 295);
-            this.lblTransferenciaInicial.Name = "lblTransferenciaInicial";
-            this.lblTransferenciaInicial.Size = new System.Drawing.Size(36, 18);
-            this.lblTransferenciaInicial.TabIndex = 57;
-            this.lblTransferenciaInicial.Text = "0.00";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(175, 295);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(102, 18);
-            this.label20.TabIndex = 56;
-            this.label20.Text = "Transferencia:";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(21, 295);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(63, 18);
-            this.label22.TabIndex = 58;
-            this.label22.Text = "Cheque:";
-            // 
-            // lblEfectivoInicial
-            // 
-            this.lblEfectivoInicial.AutoSize = true;
-            this.lblEfectivoInicial.Location = new System.Drawing.Point(432, 295);
-            this.lblEfectivoInicial.Name = "lblEfectivoInicial";
-            this.lblEfectivoInicial.Size = new System.Drawing.Size(36, 18);
-            this.lblEfectivoInicial.TabIndex = 55;
-            this.lblEfectivoInicial.Text = "0.00";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(366, 295);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(65, 18);
-            this.label26.TabIndex = 54;
-            this.label26.Text = "Efectivo:";
-            // 
-            // lblTarjetaInicial
-            // 
-            this.lblTarjetaInicial.AutoSize = true;
-            this.lblTarjetaInicial.Location = new System.Drawing.Point(581, 295);
-            this.lblTarjetaInicial.Name = "lblTarjetaInicial";
-            this.lblTarjetaInicial.Size = new System.Drawing.Size(36, 18);
-            this.lblTarjetaInicial.TabIndex = 53;
-            this.lblTarjetaInicial.Text = "0.00";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(525, 295);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(57, 18);
-            this.label29.TabIndex = 52;
-            this.label29.Text = "Tarjeta:";
             // 
             // lblValoresIniciales
             // 
             this.lblValoresIniciales.AutoSize = true;
-            this.lblValoresIniciales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValoresIniciales.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
             this.lblValoresIniciales.ForeColor = System.Drawing.Color.Black;
-            this.lblValoresIniciales.Location = new System.Drawing.Point(20, 266);
+            this.lblValoresIniciales.Location = new System.Drawing.Point(10, 6);
             this.lblValoresIniciales.Name = "lblValoresIniciales";
-            this.lblValoresIniciales.Size = new System.Drawing.Size(264, 16);
+            this.lblValoresIniciales.Size = new System.Drawing.Size(196, 16);
             this.lblValoresIniciales.TabIndex = 40;
             this.lblValoresIniciales.Text = "VALORES INICIALES DE APERTURA";
             // 
@@ -477,51 +236,39 @@
             this.lblValoresCierre.AutoSize = true;
             this.lblValoresCierre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblValoresCierre.ForeColor = System.Drawing.Color.Black;
-            this.lblValoresCierre.Location = new System.Drawing.Point(20, 109);
+            this.lblValoresCierre.Location = new System.Drawing.Point(3, 14);
             this.lblValoresCierre.Name = "lblValoresCierre";
             this.lblValoresCierre.Size = new System.Drawing.Size(189, 16);
             this.lblValoresCierre.TabIndex = 36;
             this.lblValoresCierre.Text = "VALORES DE APERTURA";
             // 
-            // panel3
+            // panelPrimero
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(204)))), ((int)(((byte)(209)))));
-            this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.lblFecha);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.lblEquipo);
-            this.panel3.Controls.Add(this.lblUsuario);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 65);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(849, 24);
-            this.panel3.TabIndex = 39;
+            this.panelPrimero.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(204)))), ((int)(((byte)(209)))));
+            this.panelPrimero.Controls.Add(this.label6);
+            this.panelPrimero.Controls.Add(this.lblFecha);
+            this.panelPrimero.Controls.Add(this.label3);
+            this.panelPrimero.Controls.Add(this.label8);
+            this.panelPrimero.Controls.Add(this.lblEquipo);
+            this.panelPrimero.Controls.Add(this.lblUsuario);
+            this.panelPrimero.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelPrimero.Location = new System.Drawing.Point(0, 0);
+            this.panelPrimero.Name = "panelPrimero";
+            this.panelPrimero.Size = new System.Drawing.Size(709, 27);
+            this.panelPrimero.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.Controls.Add(this.lblSaldoCaja);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnProceso);
-            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label18);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 348);
+            this.panel1.Location = new System.Drawing.Point(0, 350);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(849, 64);
+            this.panel1.Size = new System.Drawing.Size(709, 64);
             this.panel1.TabIndex = 38;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel2.Controls.Add(this.lblSaldoCaja);
-            this.panel2.Controls.Add(this.btnUltimoCierre);
-            this.panel2.Controls.Add(this.btnArqueo);
-            this.panel2.Controls.Add(this.label18);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(849, 62);
-            this.panel2.TabIndex = 37;
             // 
             // lblSaldoCaja
             // 
@@ -529,48 +276,20 @@
             this.lblSaldoCaja.BackColor = System.Drawing.Color.WhiteSmoke;
             this.lblSaldoCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSaldoCaja.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(70)))), ((int)(((byte)(81)))));
-            this.lblSaldoCaja.Location = new System.Drawing.Point(745, 17);
+            this.lblSaldoCaja.Location = new System.Drawing.Point(19, 29);
             this.lblSaldoCaja.Name = "lblSaldoCaja";
             this.lblSaldoCaja.Size = new System.Drawing.Size(49, 24);
             this.lblSaldoCaja.TabIndex = 36;
             this.lblSaldoCaja.Text = "0.00";
             // 
-            // btnUltimoCierre
-            // 
-            this.btnUltimoCierre.BackColor = System.Drawing.Color.White;
-            this.btnUltimoCierre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUltimoCierre.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnUltimoCierre.Location = new System.Drawing.Point(21, 6);
-            this.btnUltimoCierre.Name = "btnUltimoCierre";
-            this.btnUltimoCierre.Size = new System.Drawing.Size(159, 49);
-            this.btnUltimoCierre.TabIndex = 36;
-            this.btnUltimoCierre.Text = "ULTIMO CIERRE";
-            this.btnUltimoCierre.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnUltimoCierre.UseVisualStyleBackColor = false;
-            this.btnUltimoCierre.Click += new System.EventHandler(this.btnUltimoCierre_Click);
-            // 
-            // btnArqueo
-            // 
-            this.btnArqueo.BackColor = System.Drawing.Color.White;
-            this.btnArqueo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArqueo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnArqueo.Location = new System.Drawing.Point(186, 6);
-            this.btnArqueo.Name = "btnArqueo";
-            this.btnArqueo.Size = new System.Drawing.Size(159, 49);
-            this.btnArqueo.TabIndex = 35;
-            this.btnArqueo.Text = "ARQUEO DE CAJA";
-            this.btnArqueo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnArqueo.UseVisualStyleBackColor = false;
-            this.btnArqueo.Click += new System.EventHandler(this.btnArqueo_Click);
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
             this.label18.BackColor = System.Drawing.Color.Transparent;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(594, 16);
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(19, 9);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(150, 24);
+            this.label18.Size = new System.Drawing.Size(119, 18);
             this.label18.TabIndex = 35;
             this.label18.Text = "Efectivo en Caja:";
             // 
@@ -583,7 +302,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(855, 415);
+            this.tabPage1.Size = new System.Drawing.Size(1118, 442);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Movimientos de caja";
             // 
@@ -606,7 +325,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 353);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(849, 59);
+            this.panel5.Size = new System.Drawing.Size(1112, 86);
             this.panel5.TabIndex = 2;
             // 
             // lblTotalIngresos
@@ -732,7 +451,7 @@
             this.dgvMovimientos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.dgvMovimientos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMovimientos.Size = new System.Drawing.Size(849, 281);
+            this.dgvMovimientos.Size = new System.Drawing.Size(1112, 281);
             this.dgvMovimientos.TabIndex = 0;
             // 
             // panel4
@@ -747,7 +466,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(849, 69);
+            this.panel4.Size = new System.Drawing.Size(1112, 69);
             this.panel4.TabIndex = 1;
             // 
             // label12
@@ -797,76 +516,6 @@
             this.dtpInicio.TabIndex = 0;
             this.dtpInicio.ValueChanged += new System.EventHandler(this.dtpInicio_ValueChanged);
             // 
-            // preCierreEfectivo
-            // 
-            this.preCierreEfectivo.AutoSize = true;
-            this.preCierreEfectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.preCierreEfectivo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.preCierreEfectivo.Location = new System.Drawing.Point(92, 166);
-            this.preCierreEfectivo.Name = "preCierreEfectivo";
-            this.preCierreEfectivo.Size = new System.Drawing.Size(35, 16);
-            this.preCierreEfectivo.TabIndex = 62;
-            this.preCierreEfectivo.Text = "0.00";
-            this.preCierreEfectivo.Visible = false;
-            // 
-            // preCierreTransferencia
-            // 
-            this.preCierreTransferencia.AutoSize = true;
-            this.preCierreTransferencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.preCierreTransferencia.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.preCierreTransferencia.Location = new System.Drawing.Point(396, 166);
-            this.preCierreTransferencia.Name = "preCierreTransferencia";
-            this.preCierreTransferencia.Size = new System.Drawing.Size(35, 16);
-            this.preCierreTransferencia.TabIndex = 63;
-            this.preCierreTransferencia.Text = "0.00";
-            this.preCierreTransferencia.Visible = false;
-            // 
-            // preCierreCheque
-            // 
-            this.preCierreCheque.AutoSize = true;
-            this.preCierreCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.preCierreCheque.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.preCierreCheque.Location = new System.Drawing.Point(396, 221);
-            this.preCierreCheque.Name = "preCierreCheque";
-            this.preCierreCheque.Size = new System.Drawing.Size(35, 16);
-            this.preCierreCheque.TabIndex = 65;
-            this.preCierreCheque.Text = "0.00";
-            this.preCierreCheque.Visible = false;
-            // 
-            // preCierreTarjeta
-            // 
-            this.preCierreTarjeta.AutoSize = true;
-            this.preCierreTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.preCierreTarjeta.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.preCierreTarjeta.Location = new System.Drawing.Point(92, 221);
-            this.preCierreTarjeta.Name = "preCierreTarjeta";
-            this.preCierreTarjeta.Size = new System.Drawing.Size(35, 16);
-            this.preCierreTarjeta.TabIndex = 64;
-            this.preCierreTarjeta.Text = "0.00";
-            this.preCierreTarjeta.Visible = false;
-            // 
-            // preCierreTotal
-            // 
-            this.preCierreTotal.AutoSize = true;
-            this.preCierreTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.preCierreTotal.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.preCierreTotal.Location = new System.Drawing.Point(653, 221);
-            this.preCierreTotal.Name = "preCierreTotal";
-            this.preCierreTotal.Size = new System.Drawing.Size(35, 16);
-            this.preCierreTotal.TabIndex = 66;
-            this.preCierreTotal.Text = "0.00";
-            this.preCierreTotal.Visible = false;
-            // 
-            // pbxEfectivo
-            // 
-            this.pbxEfectivo.Image = global::ModuloCajaRC.Properties.Resources.alert_20px;
-            this.pbxEfectivo.Location = new System.Drawing.Point(95, 141);
-            this.pbxEfectivo.Name = "pbxEfectivo";
-            this.pbxEfectivo.Size = new System.Drawing.Size(23, 21);
-            this.pbxEfectivo.TabIndex = 37;
-            this.pbxEfectivo.TabStop = false;
-            this.pbxEfectivo.Visible = false;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
@@ -874,7 +523,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::ModuloCajaRC.Properties.Resources.cancel_28px;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(504, 8);
+            this.button1.Location = new System.Drawing.Point(303, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(159, 49);
             this.button1.TabIndex = 36;
@@ -890,7 +539,7 @@
             this.btnProceso.ForeColor = System.Drawing.Color.White;
             this.btnProceso.Image = global::ModuloCajaRC.Properties.Resources.TikTok_Verified_Account_28px;
             this.btnProceso.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnProceso.Location = new System.Drawing.Point(669, 8);
+            this.btnProceso.Location = new System.Drawing.Point(468, 6);
             this.btnProceso.Name = "btnProceso";
             this.btnProceso.Size = new System.Drawing.Size(159, 49);
             this.btnProceso.TabIndex = 35;
@@ -925,73 +574,330 @@
             this.btnMovimientosActuales.UseVisualStyleBackColor = false;
             this.btnMovimientosActuales.Click += new System.EventHandler(this.btnMovimientosActuales_Click);
             // 
-            // pbxTransferencia
+            // panel6
             // 
-            this.pbxTransferencia.Image = global::ModuloCajaRC.Properties.Resources.alert_20px;
-            this.pbxTransferencia.Location = new System.Drawing.Point(399, 141);
-            this.pbxTransferencia.Name = "pbxTransferencia";
-            this.pbxTransferencia.Size = new System.Drawing.Size(23, 21);
-            this.pbxTransferencia.TabIndex = 67;
-            this.pbxTransferencia.TabStop = false;
-            this.pbxTransferencia.Visible = false;
+            this.panel6.Controls.Add(this.panel11);
+            this.panel6.Controls.Add(this.panel10);
+            this.panel6.Controls.Add(this.panel9);
+            this.panel6.Controls.Add(this.panel8);
+            this.panel6.Controls.Add(this.panel7);
+            this.panel6.Controls.Add(this.panel3);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel6.Location = new System.Drawing.Point(712, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(373, 414);
+            this.panel6.TabIndex = 0;
             // 
-            // pbxTarjeta
+            // MainPanel
             // 
-            this.pbxTarjeta.Image = global::ModuloCajaRC.Properties.Resources.alert_20px;
-            this.pbxTarjeta.Location = new System.Drawing.Point(95, 196);
-            this.pbxTarjeta.Name = "pbxTarjeta";
-            this.pbxTarjeta.Size = new System.Drawing.Size(23, 21);
-            this.pbxTarjeta.TabIndex = 68;
-            this.pbxTarjeta.TabStop = false;
-            this.pbxTarjeta.Visible = false;
+            this.MainPanel.Controls.Add(this.panel2);
+            this.MainPanel.Controls.Add(this.panelPrimero);
+            this.MainPanel.Controls.Add(this.panel1);
+            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.MainPanel.Location = new System.Drawing.Point(3, 3);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Size = new System.Drawing.Size(709, 414);
+            this.MainPanel.TabIndex = 1;
             // 
-            // pbxCheque
+            // panel2
             // 
-            this.pbxCheque.Image = global::ModuloCajaRC.Properties.Resources.alert_20px;
-            this.pbxCheque.Location = new System.Drawing.Point(399, 196);
-            this.pbxCheque.Name = "pbxCheque";
-            this.pbxCheque.Size = new System.Drawing.Size(23, 21);
-            this.pbxCheque.TabIndex = 69;
-            this.pbxCheque.TabStop = false;
-            this.pbxCheque.Visible = false;
+            this.panel2.Controls.Add(this.dgvRegistroValores);
+            this.panel2.Controls.Add(this.panel12);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 27);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(709, 323);
+            this.panel2.TabIndex = 38;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(204)))), ((int)(((byte)(209)))));
+            this.panel3.Controls.Add(this.lblValoresIniciales);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(373, 27);
+            this.panel3.TabIndex = 0;
+            // 
+            // dgvResumenApertura
+            // 
+            this.dgvResumenApertura.AllowUserToAddRows = false;
+            this.dgvResumenApertura.AllowUserToDeleteRows = false;
+            this.dgvResumenApertura.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvResumenApertura.BackgroundColor = System.Drawing.Color.White;
+            this.dgvResumenApertura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResumenApertura.ColumnHeadersVisible = false;
+            this.dgvResumenApertura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MetodoInicial,
+            this.ValorInicial});
+            this.dgvResumenApertura.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvResumenApertura.Location = new System.Drawing.Point(0, 0);
+            this.dgvResumenApertura.Name = "dgvResumenApertura";
+            this.dgvResumenApertura.ReadOnly = true;
+            this.dgvResumenApertura.RowHeadersVisible = false;
+            this.dgvResumenApertura.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvResumenApertura.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            this.dgvResumenApertura.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvResumenApertura.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvResumenApertura.Size = new System.Drawing.Size(373, 110);
+            this.dgvResumenApertura.TabIndex = 41;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.dgvResumenApertura);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 27);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(373, 110);
+            this.panel7.TabIndex = 42;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(204)))), ((int)(((byte)(209)))));
+            this.panel8.Controls.Add(this.label14);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel8.Location = new System.Drawing.Point(0, 137);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(373, 27);
+            this.panel8.TabIndex = 43;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(10, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(160, 16);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "TOTALES DE MOVIMIENTOS";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.dgvResumenMovimientos);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel9.Location = new System.Drawing.Point(0, 164);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(373, 110);
+            this.panel9.TabIndex = 44;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(204)))), ((int)(((byte)(209)))));
+            this.panel10.Controls.Add(this.label16);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(0, 274);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(373, 29);
+            this.panel10.TabIndex = 45;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(10, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(185, 16);
+            this.label16.TabIndex = 42;
+            this.label16.Text = "VALORES DE CIERRE ESPERADOS";
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.dgvValoresEsperados);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.Location = new System.Drawing.Point(0, 303);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(373, 111);
+            this.panel11.TabIndex = 46;
+            // 
+            // dgvResumenMovimientos
+            // 
+            this.dgvResumenMovimientos.AllowUserToAddRows = false;
+            this.dgvResumenMovimientos.AllowUserToDeleteRows = false;
+            this.dgvResumenMovimientos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvResumenMovimientos.BackgroundColor = System.Drawing.Color.White;
+            this.dgvResumenMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResumenMovimientos.ColumnHeadersVisible = false;
+            this.dgvResumenMovimientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MetodoMovimiento,
+            this.ValorMovimiento});
+            this.dgvResumenMovimientos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvResumenMovimientos.Location = new System.Drawing.Point(0, 0);
+            this.dgvResumenMovimientos.Name = "dgvResumenMovimientos";
+            this.dgvResumenMovimientos.ReadOnly = true;
+            this.dgvResumenMovimientos.RowHeadersVisible = false;
+            this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvResumenMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvResumenMovimientos.Size = new System.Drawing.Size(373, 110);
+            this.dgvResumenMovimientos.TabIndex = 0;
+            // 
+            // dgvValoresEsperados
+            // 
+            this.dgvValoresEsperados.AllowUserToAddRows = false;
+            this.dgvValoresEsperados.AllowUserToDeleteRows = false;
+            this.dgvValoresEsperados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvValoresEsperados.BackgroundColor = System.Drawing.Color.White;
+            this.dgvValoresEsperados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvValoresEsperados.ColumnHeadersVisible = false;
+            this.dgvValoresEsperados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MetodoEsperado,
+            this.ValorEsperado});
+            this.dgvValoresEsperados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvValoresEsperados.Location = new System.Drawing.Point(0, 0);
+            this.dgvValoresEsperados.Name = "dgvValoresEsperados";
+            this.dgvValoresEsperados.ReadOnly = true;
+            this.dgvValoresEsperados.RowHeadersVisible = false;
+            this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
+            this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvValoresEsperados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvValoresEsperados.Size = new System.Drawing.Size(373, 111);
+            this.dgvValoresEsperados.TabIndex = 1;
+            // 
+            // MetodoInicial
+            // 
+            this.MetodoInicial.HeaderText = "Metodo";
+            this.MetodoInicial.Name = "MetodoInicial";
+            this.MetodoInicial.ReadOnly = true;
+            // 
+            // ValorInicial
+            // 
+            this.ValorInicial.HeaderText = "Valor";
+            this.ValorInicial.Name = "ValorInicial";
+            this.ValorInicial.ReadOnly = true;
+            // 
+            // MetodoMovimiento
+            // 
+            this.MetodoMovimiento.HeaderText = "Metodo";
+            this.MetodoMovimiento.Name = "MetodoMovimiento";
+            this.MetodoMovimiento.ReadOnly = true;
+            // 
+            // ValorMovimiento
+            // 
+            this.ValorMovimiento.HeaderText = "Valor";
+            this.ValorMovimiento.Name = "ValorMovimiento";
+            this.ValorMovimiento.ReadOnly = true;
+            // 
+            // MetodoEsperado
+            // 
+            this.MetodoEsperado.HeaderText = "Metodo";
+            this.MetodoEsperado.Name = "MetodoEsperado";
+            this.MetodoEsperado.ReadOnly = true;
+            // 
+            // ValorEsperado
+            // 
+            this.ValorEsperado.HeaderText = "Valor";
+            this.ValorEsperado.Name = "ValorEsperado";
+            this.ValorEsperado.ReadOnly = true;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.lblValoresCierre);
+            this.panel12.Controls.Add(this.label9);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel12.Location = new System.Drawing.Point(0, 0);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(709, 37);
+            this.panel12.TabIndex = 70;
+            // 
+            // dgvRegistroValores
+            // 
+            this.dgvRegistroValores.AllowUserToAddRows = false;
+            this.dgvRegistroValores.AllowUserToDeleteRows = false;
+            this.dgvRegistroValores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRegistroValores.BackgroundColor = System.Drawing.Color.White;
+            this.dgvRegistroValores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRegistroValores.ColumnHeadersVisible = false;
+            this.dgvRegistroValores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MetodoID,
+            this.MetodoRegistro,
+            this.ValorRegistro,
+            this.EdicionRegistro});
+            this.dgvRegistroValores.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRegistroValores.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dgvRegistroValores.Location = new System.Drawing.Point(0, 37);
+            this.dgvRegistroValores.Name = "dgvRegistroValores";
+            this.dgvRegistroValores.RowHeadersVisible = false;
+            this.dgvRegistroValores.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvRegistroValores.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvRegistroValores.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dgvRegistroValores.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRegistroValores.Size = new System.Drawing.Size(709, 286);
+            this.dgvRegistroValores.TabIndex = 71;
+            this.dgvRegistroValores.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvRegistroValores_CellBeginEdit);
+            this.dgvRegistroValores.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvRegistroValores_EditingControlShowing);
+            // 
+            // MetodoID
+            // 
+            this.MetodoID.HeaderText = "MetodoID";
+            this.MetodoID.Name = "MetodoID";
+            this.MetodoID.Visible = false;
+            // 
+            // MetodoRegistro
+            // 
+            this.MetodoRegistro.HeaderText = "Metodo";
+            this.MetodoRegistro.Name = "MetodoRegistro";
+            // 
+            // ValorRegistro
+            // 
+            this.ValorRegistro.HeaderText = "Valor";
+            this.ValorRegistro.Name = "ValorRegistro";
+            // 
+            // EdicionRegistro
+            // 
+            this.EdicionRegistro.HeaderText = "Edicion";
+            this.EdicionRegistro.Name = "EdicionRegistro";
+            this.EdicionRegistro.Visible = false;
             // 
             // frmApertura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(909, 485);
+            this.ClientSize = new System.Drawing.Size(1646, 704);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmApertura";
             this.Text = "frmApertura";
             this.Load += new System.EventHandler(this.frmApertura_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.panelPrimero.ResumeLayout(false);
+            this.panelPrimero.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxEfectivo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxTransferencia)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxTarjeta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxCheque)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.MainPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResumenApertura)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResumenMovimientos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvValoresEsperados)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRegistroValores)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtMonto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblFecha;
@@ -999,24 +905,13 @@
         private System.Windows.Forms.Label lblEquipo;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtTarjeta;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtTransferencia;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtCheque;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtTotal;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnUltimoCierre;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label lblSaldoCaja;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button btnArqueo;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panelPrimero;
         private System.Windows.Forms.Button btnProceso;
         private System.Windows.Forms.Label lblValoresCierre;
         private System.Windows.Forms.Button button1;
@@ -1042,25 +937,32 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label lblEfectivo;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label lblChequeInicial;
-        private System.Windows.Forms.Label lblTransferenciaInicial;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label lblEfectivoInicial;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label lblTarjetaInicial;
-        private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label lblValoresIniciales;
-        private System.Windows.Forms.Label lblTotalInicial;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label preCierreTotal;
-        private System.Windows.Forms.Label preCierreCheque;
-        private System.Windows.Forms.Label preCierreTarjeta;
-        private System.Windows.Forms.Label preCierreTransferencia;
-        private System.Windows.Forms.Label preCierreEfectivo;
-        private System.Windows.Forms.PictureBox pbxEfectivo;
-        private System.Windows.Forms.PictureBox pbxCheque;
-        private System.Windows.Forms.PictureBox pbxTarjeta;
-        private System.Windows.Forms.PictureBox pbxTransferencia;
+        private System.Windows.Forms.Panel MainPanel;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.DataGridView dgvResumenApertura;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DataGridView dgvResumenMovimientos;
+        private System.Windows.Forms.DataGridView dgvValoresEsperados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MetodoInicial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValorInicial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MetodoEsperado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValorEsperado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MetodoMovimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValorMovimiento;
+        private System.Windows.Forms.DataGridView dgvRegistroValores;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MetodoID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MetodoRegistro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValorRegistro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EdicionRegistro;
     }
 }
