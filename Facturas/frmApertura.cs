@@ -456,6 +456,8 @@ namespace ModuloCajaRC.Facturas
                 }
 
                 txtCheque.Text = movimientoCheques.ToString("N2");
+
+                //
                 txtTransferencia.Text = movimientoTransferencias.ToString("N2");
                 txtTarjeta.Text = movimientoTarjetas.ToString("N2");
                 txtMonto.Text = movimientoEfectivo.ToString("N2");
