@@ -38,6 +38,8 @@ namespace ModuloCajaRC.Facturas
         }
         private void CargarMetodoPago()
         {
+            dtMetodoPago.Clear();
+            dtMetodoPago.Rows.Clear();
             MetodoPagoDTO getMetodo = new MetodoPagoDTO
             {
                 Opcion = "LISTADO",
@@ -45,9 +47,19 @@ namespace ModuloCajaRC.Facturas
             dtMetodoPago = logica.SP_MetodoPagos(getMetodo);
             if (dtMetodoPago.Rows.Count > 0)
             {
+                dgvRegistroValores.Rows.Clear();
                 foreach (DataRow row in dtMetodoPago.Rows)
                 {
                     dgvRegistroValores.Rows.Add(row["MetodoID"], row["Descripcion"], "0.00", row["Edicion"]);
+                }
+                foreach (DataGridViewRow row in dgvRegistroValores.Rows)
+                {
+                    bool esSoloLectura = Convert.ToBoolean(row.Cells["EdicionRegistro"].Value);
+                    row.Cells["ValorRegistro"].ReadOnly = esSoloLectura;
+                    if (!esSoloLectura) 
+                    {
+                        row.Cells["ValorRegistro"].Style.ForeColor = Color.FromArgb(162, 44, 36);
+                    }
                 }
             }
         }
@@ -95,7 +107,6 @@ namespace ModuloCajaRC.Facturas
                 dgvValoresEsperados.Columns["Varianza"].Width = 100;
             }
         }
-
         private void verResumenApertura()
         {
             ControlCajaDTO sendApertura = new ControlCajaDTO
@@ -120,8 +131,8 @@ namespace ModuloCajaRC.Facturas
                 {
                     if (fila.Cells["EdicionRegistro"].Value?.ToString().ToLower() == "false")
                     {
-                        fila.DefaultCellStyle.BackColor = Color.FromArgb(198, 204, 209);
-                        fila.Cells["ValorRegistro"].Style.ForeColor = Color.Black;
+                        fila.DefaultCellStyle.ForeColor = Color.FromArgb(162, 44, 36);
+                        //fila.Cells["ValorRegistro"].Style.ForeColor = Color.Black;
                     }
                 }
             }
@@ -204,18 +215,33 @@ namespace ModuloCajaRC.Facturas
         private void EnviarControlCaja(int _TipoID)
         {
             Dictionary<int, decimal> montosPorMetodo = new Dictionary<int, decimal>();
+            Dictionary<int, decimal> varianzaPorMetodo = new Dictionary<int, decimal>();
 
-            foreach (DataGridViewRow row in dgvRegistroValores.Rows)
+            foreach (DataGridViewRow rowMontos in dgvRegistroValores.Rows)
             {
-                if (row.IsNewRow) continue;
+                if (rowMontos.IsNewRow) continue;
 
-                if (int.TryParse(row.Cells["MetodoID"].Value?.ToString(), out int metodoID) &&
-                    decimal.TryParse(row.Cells["ValorRegistro"].Value?.ToString(), out decimal valor))
+                if (int.TryParse(rowMontos.Cells["MetodoID"].Value?.ToString(), out int metodoID) &&
+                    decimal.TryParse(rowMontos.Cells["ValorRegistro"].Value?.ToString(), out decimal valorMonto))
                 {
                     if (montosPorMetodo.ContainsKey(metodoID))
-                        montosPorMetodo[metodoID] += valor;
+                        montosPorMetodo[metodoID] += valorMonto;
                     else
-                        montosPorMetodo[metodoID] = valor;
+                        montosPorMetodo[metodoID] = valorMonto;
+                }
+            }
+
+            foreach (DataGridViewRow rowVarianza in dgvValoresEsperados.Rows)
+            {
+                if (rowVarianza.IsNewRow) continue;
+
+                if (int.TryParse(rowVarianza.Cells["PagoID"].Value?.ToString(), out int pagoID) &&
+                    decimal.TryParse(rowVarianza.Cells["Varianza"].Value?.ToString(), out decimal valorVarianza))
+                {
+                    if (varianzaPorMetodo.ContainsKey(pagoID))
+                        varianzaPorMetodo[pagoID] += valorVarianza;
+                    else
+                        varianzaPorMetodo[pagoID] = valorVarianza;
                 }
             }
 
@@ -232,6 +258,10 @@ namespace ModuloCajaRC.Facturas
                 MontoEfectivo = montosPorMetodo.ContainsKey(4) ? montosPorMetodo[4] : 0,
                 MontoTransferencia = montosPorMetodo.ContainsKey(5) ? montosPorMetodo[5] : 0,
                 MontoTarjeta = montosPorMetodo.ContainsKey(6) ? montosPorMetodo[6] : 0,
+                VarianzaCheque = varianzaPorMetodo.ContainsKey(3) ? varianzaPorMetodo[3] : 0,
+                VarianzaEfectivo = varianzaPorMetodo.ContainsKey(4) ? varianzaPorMetodo[4] : 0,
+                VarianzaTransferencia = varianzaPorMetodo.ContainsKey(5) ? varianzaPorMetodo[5] : 0,
+                VarianzaTarjeta = varianzaPorMetodo.ContainsKey(6) ? varianzaPorMetodo[6] : 0,
                 MontoTotal = montosPorMetodo.Values.Sum(),
                 UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
@@ -247,15 +277,17 @@ namespace ModuloCajaRC.Facturas
                 {
                     DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
                     MessageBox.Show("¡Apertura de caja realizada exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    AperturarCaja();
+                    verResumenApertura();
+                    verResumenMovimientos();
+                    verResumenValoresEsperados();
+                    CargarMetodoPago();
                 }
                 else if (_TipoID == 2)
                 {
+                    Limpiar();
                     MessageBox.Show("¡Cierre de caja realizado exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                AperturarCaja();
-                verMovimientos();
-                Limpiar();
             }
         }
 
@@ -270,11 +302,9 @@ namespace ModuloCajaRC.Facturas
             {
                 ActualizarVarianza(i);
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Close();
+            dgvRegistroValores.ClearSelection();
+            dgvResumenApertura.ClearSelection();
+            dgvResumenMovimientos.ClearSelection();
         }
 
         private void btnMovimientosActuales_Click(object sender, EventArgs e)
@@ -373,11 +403,13 @@ namespace ModuloCajaRC.Facturas
                     celda.Value = "0.00";
                 }
             }
+         
         }
         private void dgvRegistroValores_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvRegistroValores.Columns[e.ColumnIndex].Name == "ValorRegistro")
             {
+               // MessageBox.Show(DynamicMain.cajaID.ToString());
                 ActualizarVarianza(e.RowIndex);
             }
         }
@@ -407,10 +439,24 @@ namespace ModuloCajaRC.Facturas
 
                     decimal varianza = valorRegistro - valorEsperado;
                     filaEsperado.Cells["Varianza"].Value = varianza.ToString("N2");
+
+                    if (Convert.ToDouble(filaEsperado.Cells["Varianza"].Value) < 0)
+                    {
+                        filaEsperado.DefaultCellStyle.BackColor = Color.FromArgb(218, 192, 183);
+                    }
+                    else
+                if (Convert.ToDouble(filaEsperado.Cells["Varianza"].Value) >= 0)
+                    {
+                        filaEsperado.DefaultCellStyle.BackColor = Color.FromArgb(139, 194, 150);
+                    }
                     break;
                 }
             }
+            dgvValoresEsperados.ClearSelection();
+
+
         }
+
 
 
         private void CargarResumenMovimientos() 
@@ -554,7 +600,6 @@ namespace ModuloCajaRC.Facturas
             lblEquipo.Text = "-";
             lblUsuario.Text = "-";
 
-            button1.Enabled = false;
             label9.Visible = false;
 
             btnProceso.BackColor = Color.FromArgb(97, 172, 112);
@@ -562,6 +607,11 @@ namespace ModuloCajaRC.Facturas
 
             //Regreso la variable para apertura
             _EstaAperturando = true;
+
+            CargarMetodoPago();
+            dgvValoresEsperados.Rows.Clear();
+            dgvResumenApertura.Rows.Clear();
+            dgvResumenMovimientos.Rows.Clear();
         }
     }
 }

@@ -386,6 +386,10 @@ namespace Logica
         public decimal? MontoTarjeta { get; set; }          // Monto con tarjeta
         public decimal? MontoTransferencia { get; set; }    // Monto por transferencia
         public decimal? MontoTotal { get; set; }            // Monto total
+        public decimal? VarianzaCheque { get; set; }           // Monto en cheque
+        public decimal? VarianzaEfectivo { get; set; }         // Monto en efectivo
+        public decimal? VarianzaTarjeta { get; set; }          // Monto con tarjeta
+        public decimal? VarianzaTransferencia { get; set; }    // Monto por transferencia
         public string UPosteo { get; set; }                 // Usuario que registra
         public DateTime? FPosteo { get; set; }              // Fecha de registro
         public string PC { get; set; }                      // Equipo desde donde se registró

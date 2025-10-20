@@ -25,7 +25,9 @@ namespace ModuloCajaRC.Facturas
         public int _FacturaID;
         public string _GuiaID;
         private bool usuarioInteractuando = false;
+        public bool pasaValidacion = true;
         private bool _GeneraError = true;
+        private bool _ErrorRecibido = true;
 
         Label lblTooltipFlotante = new Label
         {
@@ -219,6 +221,10 @@ namespace ModuloCajaRC.Facturas
         }
         private void Validaciones()
         {
+            pasaValidacion = true;
+            _GeneraError = true;
+            _ErrorRecibido = true;
+
             decimal totalValor = 0;
 
             foreach (DataGridViewRow row in dgvMetodosPago.Rows)
@@ -229,11 +235,46 @@ namespace ModuloCajaRC.Facturas
                 }
             }
             _GeneraError = (totalValor > 0) ? true : false;
+            pasaValidacion = true;
+
+            foreach (DataGridViewRow row in dgvMetodosPago.Rows)
+            {
+                var valorObj = row.Cells["Valor"]?.Value;
+
+                if (valorObj != null && !string.IsNullOrWhiteSpace(valorObj.ToString()))
+                {
+                    int valor;
+                    if (int.TryParse(valorObj.ToString(), out valor))
+                    {
+                        int metodoID = Convert.ToInt32(row.Cells["ID"].Value);
+                        var referenciaObj = row.Cells["Referencia"]?.Value;
+                        string referencia = referenciaObj != null ? referenciaObj.ToString() : "";
+
+                        if ((metodoID == 3 || metodoID == 5 || metodoID == 6) && string.IsNullOrWhiteSpace(referencia))
+                        {
+                            pasaValidacion = false;
+                            break; // Opcional: salir del loop si ya no pasa
+                        }
+                    }
+                }
+            }
+          //Valido que el total recibido no sea menor al total esperado
+            _ErrorRecibido = (Convert.ToDecimal(lblRecibido.Text) < Convert.ToDecimal(lblGranTotal.Text)) ? true : false;
+
         }
 
         private void InsertarCobro() 
         {
             Validaciones();
+            if (_ErrorRecibido == true)
+            {
+                MessageBox.Show("El total recibido no puede ser menor al total esperado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (pasaValidacion == false) {
+                MessageBox.Show("Debe completar el campo de referencia cuando no sea efectivo.","Aviso",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if(_GeneraError == false) { return; }
 
             CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
@@ -245,12 +286,12 @@ namespace ModuloCajaRC.Facturas
                 TotalRecibido = Convert.ToDecimal(lblRecibido.Text),
                 TotalCambio = Convert.ToDecimal(lblCambio.Text),
                 UPosteo = DynamicMain.usuarionlogin,
-                FPosteo = DateTime.Now, 
-                PC  = System.Environment.MachineName,
+                FPosteo = DateTime.Now,
+                PC = System.Environment.MachineName,
                 Estado = true
             };
             dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(sendEncabezado);
-            if( dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1") 
+            if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1")
             {
                 int _EncabezadoID = Convert.ToInt32(dtFacturasEncabezado.Rows[0]["UltimoID"]);
 
@@ -341,6 +382,7 @@ namespace ModuloCajaRC.Facturas
             foreach (DataGridViewRow row in dgvMetodosPago.Rows)
             {
                 row.Cells["Valor"].Value = "";
+                row.Cells["Referencia"].Value = "";
             }
 
             lblGranTotal.Text = "0.00";

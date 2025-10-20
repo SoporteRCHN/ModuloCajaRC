@@ -1036,6 +1036,10 @@ namespace Datos
             comando.Parameters.AddWithValue("@MontoTarjeta", controlCaja.MontoTarjeta ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@MontoTransferencia", controlCaja.MontoTransferencia ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@MontoTotal", controlCaja.MontoTotal ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@VarianzaCheque", controlCaja.VarianzaCheque ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@VarianzaEfectivo", controlCaja.VarianzaEfectivo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@VarianzaTarjeta", controlCaja.VarianzaTarjeta ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@VarianzaTransferencia", controlCaja.VarianzaTransferencia ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@UPosteo", controlCaja.UPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@FPosteo", controlCaja.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", controlCaja.PC ?? (object)DBNull.Value);
