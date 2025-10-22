@@ -78,8 +78,12 @@
             this.panel18 = new System.Windows.Forms.Panel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.lblTotalIngresos = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel20 = new System.Windows.Forms.Panel();
             this.label27 = new System.Windows.Forms.Label();
+            this.panel19 = new System.Windows.Forms.Panel();
             this.lblCheque = new System.Windows.Forms.Label();
             this.lblTransferencia = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -92,7 +96,10 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dgvMovimientos = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.btnMovimientosActuales = new System.Windows.Forms.Button();
+            this.btnImprimir = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbLotes = new System.Windows.Forms.ComboBox();
+            this.btnMovimientos = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dtpFinal = new System.Windows.Forms.DateTimePicker();
@@ -418,7 +425,6 @@
             this.dgvValoresEsperados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvValoresEsperados.Size = new System.Drawing.Size(371, 140);
             this.dgvValoresEsperados.TabIndex = 1;
-    
             // 
             // PagoID
             // 
@@ -667,8 +673,12 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel5.Controls.Add(this.label5);
             this.panel5.Controls.Add(this.lblTotalIngresos);
+            this.panel5.Controls.Add(this.label4);
+            this.panel5.Controls.Add(this.panel20);
             this.panel5.Controls.Add(this.label27);
+            this.panel5.Controls.Add(this.panel19);
             this.panel5.Controls.Add(this.lblCheque);
             this.panel5.Controls.Add(this.lblTransferencia);
             this.panel5.Controls.Add(this.label23);
@@ -680,33 +690,71 @@
             this.panel5.Controls.Add(this.lblRegistros);
             this.panel5.Controls.Add(this.label13);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 456);
+            this.panel5.Location = new System.Drawing.Point(3, 498);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1082, 103);
+            this.panel5.Size = new System.Drawing.Size(1082, 61);
             this.panel5.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(813, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(130, 16);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "CIERRE DE CAJA";
             // 
             // lblTotalIngresos
             // 
             this.lblTotalIngresos.AutoSize = true;
-            this.lblTotalIngresos.Location = new System.Drawing.Point(281, 32);
+            this.lblTotalIngresos.Location = new System.Drawing.Point(155, 33);
             this.lblTotalIngresos.Name = "lblTotalIngresos";
             this.lblTotalIngresos.Size = new System.Drawing.Size(16, 18);
             this.lblTotalIngresos.TabIndex = 53;
             this.lblTotalIngresos.Text = "0";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(813, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(157, 16);
+            this.label4.TabIndex = 44;
+            this.label4.Text = "APERTURA DE CAJA";
+            // 
+            // panel20
+            // 
+            this.panel20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(171)))), ((int)(((byte)(190)))));
+            this.panel20.Location = new System.Drawing.Point(779, 8);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(28, 18);
+            this.panel20.TabIndex = 36;
+            // 
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(169, 32);
+            this.label27.Location = new System.Drawing.Point(43, 33);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(106, 18);
             this.label27.TabIndex = 52;
             this.label27.Text = "Total Ingresos:";
             // 
+            // panel19
+            // 
+            this.panel19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(84)))), ((int)(((byte)(134)))));
+            this.panel19.Location = new System.Drawing.Point(779, 35);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(28, 18);
+            this.panel19.TabIndex = 35;
+            // 
             // lblCheque
             // 
             this.lblCheque.AutoSize = true;
-            this.lblCheque.Location = new System.Drawing.Point(521, 7);
+            this.lblCheque.Location = new System.Drawing.Point(395, 8);
             this.lblCheque.Name = "lblCheque";
             this.lblCheque.Size = new System.Drawing.Size(16, 18);
             this.lblCheque.TabIndex = 51;
@@ -715,7 +763,7 @@
             // lblTransferencia
             // 
             this.lblTransferencia.AutoSize = true;
-            this.lblTransferencia.Location = new System.Drawing.Point(801, 7);
+            this.lblTransferencia.Location = new System.Drawing.Point(675, 8);
             this.lblTransferencia.Name = "lblTransferencia";
             this.lblTransferencia.Size = new System.Drawing.Size(16, 18);
             this.lblTransferencia.TabIndex = 49;
@@ -724,7 +772,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(663, 7);
+            this.label23.Location = new System.Drawing.Point(537, 8);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(139, 18);
             this.label23.TabIndex = 48;
@@ -733,7 +781,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(415, 7);
+            this.label25.Location = new System.Drawing.Point(289, 8);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(100, 18);
             this.label25.TabIndex = 50;
@@ -742,7 +790,7 @@
             // lblEfectivo
             // 
             this.lblEfectivo.AutoSize = true;
-            this.lblEfectivo.Location = new System.Drawing.Point(521, 32);
+            this.lblEfectivo.Location = new System.Drawing.Point(395, 33);
             this.lblEfectivo.Name = "lblEfectivo";
             this.lblEfectivo.Size = new System.Drawing.Size(16, 18);
             this.lblEfectivo.TabIndex = 47;
@@ -751,7 +799,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(415, 32);
+            this.label21.Location = new System.Drawing.Point(289, 33);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(102, 18);
             this.label21.TabIndex = 46;
@@ -760,7 +808,7 @@
             // lblTarjeta
             // 
             this.lblTarjeta.AutoSize = true;
-            this.lblTarjeta.Location = new System.Drawing.Point(801, 32);
+            this.lblTarjeta.Location = new System.Drawing.Point(675, 33);
             this.lblTarjeta.Name = "lblTarjeta";
             this.lblTarjeta.Size = new System.Drawing.Size(16, 18);
             this.lblTarjeta.TabIndex = 45;
@@ -769,7 +817,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(663, 32);
+            this.label19.Location = new System.Drawing.Point(537, 33);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(94, 18);
             this.label19.TabIndex = 44;
@@ -778,7 +826,7 @@
             // lblRegistros
             // 
             this.lblRegistros.AutoSize = true;
-            this.lblRegistros.Location = new System.Drawing.Point(281, 7);
+            this.lblRegistros.Location = new System.Drawing.Point(155, 8);
             this.lblRegistros.Name = "lblRegistros";
             this.lblRegistros.Size = new System.Drawing.Size(16, 18);
             this.lblRegistros.TabIndex = 43;
@@ -787,7 +835,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(169, 7);
+            this.label13.Location = new System.Drawing.Point(43, 8);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 18);
             this.label13.TabIndex = 42;
@@ -800,7 +848,7 @@
             this.dgvMovimientos.BackgroundColor = System.Drawing.Color.White;
             this.dgvMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMovimientos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.dgvMovimientos.Location = new System.Drawing.Point(3, 72);
+            this.dgvMovimientos.Location = new System.Drawing.Point(3, 114);
             this.dgvMovimientos.Name = "dgvMovimientos";
             this.dgvMovimientos.ReadOnly = true;
             this.dgvMovimientos.RowHeadersVisible = false;
@@ -810,11 +858,15 @@
             this.dgvMovimientos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMovimientos.Size = new System.Drawing.Size(1082, 384);
             this.dgvMovimientos.TabIndex = 0;
+            this.dgvMovimientos.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvMovimientos_DataBindingComplete);
             // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panel4.Controls.Add(this.btnMovimientosActuales);
+            this.panel4.Controls.Add(this.btnImprimir);
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.cmbLotes);
+            this.panel4.Controls.Add(this.btnMovimientos);
             this.panel4.Controls.Add(this.label12);
             this.panel4.Controls.Add(this.label11);
             this.panel4.Controls.Add(this.dtpFinal);
@@ -823,69 +875,108 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1082, 69);
+            this.panel4.Size = new System.Drawing.Size(1082, 111);
             this.panel4.TabIndex = 1;
             // 
-            // btnMovimientosActuales
+            // btnImprimir
             // 
-            this.btnMovimientosActuales.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(172)))), ((int)(((byte)(112)))));
-            this.btnMovimientosActuales.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMovimientosActuales.ForeColor = System.Drawing.Color.White;
-            this.btnMovimientosActuales.Image = global::ModuloCajaRC.Properties.Resources.bill_26px;
-            this.btnMovimientosActuales.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnMovimientosActuales.Location = new System.Drawing.Point(854, 9);
-            this.btnMovimientosActuales.Name = "btnMovimientosActuales";
-            this.btnMovimientosActuales.Size = new System.Drawing.Size(215, 49);
-            this.btnMovimientosActuales.TabIndex = 41;
-            this.btnMovimientosActuales.Text = "MOVIMIENTOS ACTUALES";
-            this.btnMovimientosActuales.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnMovimientosActuales.UseVisualStyleBackColor = false;
-            this.btnMovimientosActuales.Click += new System.EventHandler(this.btnMovimientosActuales_Click);
+            this.btnImprimir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(172)))), ((int)(((byte)(112)))));
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Image = global::ModuloCajaRC.Properties.Resources.print_26px;
+            this.btnImprimir.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnImprimir.Location = new System.Drawing.Point(679, 45);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(131, 49);
+            this.btnImprimir.TabIndex = 41;
+            this.btnImprimir.Text = "IMPRIMIR";
+            this.btnImprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnMovimientosActuales_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(456, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 15);
+            this.label2.TabIndex = 43;
+            this.label2.Text = "ELEGIR CIERRE";
+            // 
+            // cmbLotes
+            // 
+            this.cmbLotes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLotes.FormattingEnabled = true;
+            this.cmbLotes.Location = new System.Drawing.Point(459, 65);
+            this.cmbLotes.Name = "cmbLotes";
+            this.cmbLotes.Size = new System.Drawing.Size(184, 26);
+            this.cmbLotes.TabIndex = 35;
+            this.cmbLotes.SelectionChangeCommitted += new System.EventHandler(this.cmbLotes_SelectionChangeCommitted);
+            // 
+            // btnMovimientos
+            // 
+            this.btnMovimientos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(172)))), ((int)(((byte)(112)))));
+            this.btnMovimientos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMovimientos.ForeColor = System.Drawing.Color.White;
+            this.btnMovimientos.Image = global::ModuloCajaRC.Properties.Resources.bill_26px;
+            this.btnMovimientos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnMovimientos.Location = new System.Drawing.Point(816, 45);
+            this.btnMovimientos.Name = "btnMovimientos";
+            this.btnMovimientos.Size = new System.Drawing.Size(215, 49);
+            this.btnMovimientos.TabIndex = 42;
+            this.btnMovimientos.Text = "MOVIMIENTOS ACTUALES";
+            this.btnMovimientos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnMovimientos.UseVisualStyleBackColor = false;
+            this.btnMovimientos.Click += new System.EventHandler(this.btnMovimientos_Click);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(23, 10);
+            this.label12.Location = new System.Drawing.Point(23, 17);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(225, 15);
+            this.label12.Size = new System.Drawing.Size(249, 16);
             this.label12.TabIndex = 38;
             this.label12.Text = "VER MOVIMIENTOS ANTERIORES";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(279, 37);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label11.Location = new System.Drawing.Point(249, 48);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(88, 18);
+            this.label11.Size = new System.Drawing.Size(85, 15);
             this.label11.TabIndex = 3;
-            this.label11.Text = "Fecha Final:";
+            this.label11.Text = "FECHA FINAL:";
             // 
             // dtpFinal
             // 
             this.dtpFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFinal.Location = new System.Drawing.Point(376, 34);
+            this.dtpFinal.Location = new System.Drawing.Point(252, 66);
             this.dtpFinal.Name = "dtpFinal";
-            this.dtpFinal.Size = new System.Drawing.Size(121, 24);
+            this.dtpFinal.Size = new System.Drawing.Size(184, 24);
             this.dtpFinal.TabIndex = 2;
             this.dtpFinal.ValueChanged += new System.EventHandler(this.dtpFinal_ValueChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 37);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label1.Location = new System.Drawing.Point(43, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 18);
+            this.label1.Size = new System.Drawing.Size(87, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Fecha Inicio:";
+            this.label1.Text = "FECHA INICIO:";
             // 
             // dtpInicio
             // 
             this.dtpInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpInicio.Location = new System.Drawing.Point(120, 34);
+            this.dtpInicio.Location = new System.Drawing.Point(46, 66);
             this.dtpInicio.Name = "dtpInicio";
-            this.dtpInicio.Size = new System.Drawing.Size(121, 24);
+            this.dtpInicio.Size = new System.Drawing.Size(184, 24);
             this.dtpInicio.TabIndex = 0;
             this.dtpInicio.ValueChanged += new System.EventHandler(this.dtpInicio_ValueChanged);
             // 
@@ -894,7 +985,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1148, 606);
+            this.ClientSize = new System.Drawing.Size(1349, 643);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmApertura";
             this.Text = "frmApertura";
@@ -957,7 +1048,7 @@
         private System.Windows.Forms.DataGridView dgvMovimientos;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dtpFinal;
-        private System.Windows.Forms.Button btnMovimientosActuales;
+        private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label13;
@@ -1007,5 +1098,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MetodoEsperado;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValorEsperado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Varianza;
+        private System.Windows.Forms.Button btnMovimientos;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbLotes;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

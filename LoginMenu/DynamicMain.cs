@@ -42,6 +42,7 @@ namespace ModuloCajaRC
         public static int usuarioSucursalID;
         public static int usuarioEmpresaID;
         public static int usuarioNivelAccesoSolicitud;
+        public static int usuarioSucursalCaja;
         public static int Confidencial;
         public static int cajaID;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
@@ -110,6 +111,7 @@ namespace ModuloCajaRC
                 usuarioPerfilID = row["PerfilID"].ToString();
                 usuarioEmpresaID = Convert.ToInt32(row["EmpresaID"]);
                 usuarionEmpresaNombre = row["Empresa"].ToString();
+                usuarioSucursalCaja = Convert.ToInt32(row["CajaActiva"]);
             }
         }
         private void BuscarMenu()
@@ -322,13 +324,12 @@ namespace ModuloCajaRC
                         switch (clickedButton.Text.Trim())
                         {
                             case "FACTURAS":
-                                SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
-                                AperturarCaja();
-                                
+                                    SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
+                                    AperturarCaja();
                                 break;
                             case "CAJA - APERTURA":
-                                SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
-                                LanzarForm(new frmApertura(), "HOME / APERTURA");
+                                    SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
+                                    LanzarForm(new frmApertura(), "HOME / APERTURA");
                                 break;
                             default:
                                 break;

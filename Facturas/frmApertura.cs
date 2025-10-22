@@ -1,4 +1,5 @@
 ﻿using Logica;
+using ModuloCajaRC.Reportes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,20 +19,23 @@ namespace ModuloCajaRC.Facturas
         DataTable dtResumenAperturaCaja = new DataTable();
         DataTable dtResumenValoresEsperados = new DataTable();
         DataTable dtMovimientosCaja = new DataTable();
+        DataTable dtResumenMovimientos = new DataTable();
+        DataTable dtCierresEntreFechas = new DataTable();
         DataTable dtResumenMovimientosCaja = new DataTable();
         DataTable dtMovimientosPreCierreCaja = new DataTable();
         DataTable dtMovimientosUltimoCierreCaja = new DataTable();
         clsLogica logica = new clsLogica();
 
         decimal tarjetaApertura, chequeApertura, transferenciaApertura, efectivoApertura, totalApertura, movimientoCheques, movimientoTransferencias, movimientoEfectivo,movimientoTarjetas, movimientoTotal = 0;
-
+        public string textoComentario = "";
         public bool _EstaAperturando = true;
         public frmApertura()
         {
             InitializeComponent();
             CargarMetodoPago();
             AperturarCaja();
-            verMovimientos();
+            verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verResumenApertura();
             verResumenMovimientos();
             verResumenValoresEsperados();
@@ -132,7 +136,6 @@ namespace ModuloCajaRC.Facturas
                     if (fila.Cells["EdicionRegistro"].Value?.ToString().ToLower() == "false")
                     {
                         fila.DefaultCellStyle.ForeColor = Color.FromArgb(162, 44, 36);
-                        //fila.Cells["ValorRegistro"].Style.ForeColor = Color.Black;
                     }
                 }
             }
@@ -159,7 +162,6 @@ namespace ModuloCajaRC.Facturas
                 }
             }
         }
-
         private void AperturarCaja() 
         {
             ControlCajaDTO sendApertura = new ControlCajaDTO
@@ -188,7 +190,6 @@ namespace ModuloCajaRC.Facturas
                 tarjetaApertura = (!String.IsNullOrWhiteSpace(dtAperturaCaja.Rows[0]["MontoTarjeta"].ToString())) ? Convert.ToDecimal(dtAperturaCaja.Rows[0]["MontoTarjeta"]) : 0;
 
                 totalApertura = efectivoApertura + transferenciaApertura + chequeApertura + tarjetaApertura;
-
  
                 label9.Text = "Ya existe una apertura de caja realizada.";
                 label9.Visible = true;
@@ -214,6 +215,35 @@ namespace ModuloCajaRC.Facturas
 
         private void EnviarControlCaja(int _TipoID)
         {
+            if (_TipoID == 2) 
+            {
+                Form MensajeAdvertencia = new Form();
+                using (frmComentariocCierreCaja Mensaje = new frmComentariocCierreCaja())
+                {
+                    MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
+                    MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
+                    MensajeAdvertencia.Opacity = .70d;
+                    MensajeAdvertencia.BackColor = Color.Black;
+                    MensajeAdvertencia.WindowState = FormWindowState.Maximized;
+                    MensajeAdvertencia.Location = this.Location;
+                    MensajeAdvertencia.ShowInTaskbar = false;
+                    //MensajeAdvertencia.TopMost = true;
+
+                    Mensaje.Owner = MensajeAdvertencia;
+                    MensajeAdvertencia.Show();
+                    Mensaje.ShowDialog();
+                    MensajeAdvertencia.Dispose();
+                    if (Mensaje.ingresoAlgo == true) 
+                    {
+                        textoComentario = Mensaje.textoCierre;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Es obligatorio ingresar un comentario de cierre.","Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
             Dictionary<int, decimal> montosPorMetodo = new Dictionary<int, decimal>();
             Dictionary<int, decimal> varianzaPorMetodo = new Dictionary<int, decimal>();
 
@@ -266,7 +296,8 @@ namespace ModuloCajaRC.Facturas
                 UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = Environment.MachineName,
-                Estado = true
+                Estado = true,
+                Comentario = textoComentario,
             };
 
 
@@ -309,7 +340,55 @@ namespace ModuloCajaRC.Facturas
 
         private void btnMovimientosActuales_Click(object sender, EventArgs e)
         {
-            verMovimientosPreCierre();
+            bool existeApertura = false;
+            bool existeCierre = false;
+            int idBuscar = Convert.ToInt32(cmbLotes.SelectedValue);
+            int idCierre = 0;
+            foreach (DataGridViewRow item in dgvMovimientos.Rows)
+            {
+                if (Convert.ToInt32(item.Cells["ControlID"].Value) == idBuscar) 
+                {
+                    if (item.Cells["Tipo"].Value.ToString() == "Apertura")
+                    { 
+                        existeApertura = true;
+                        idCierre = idBuscar + 1; 
+                    }
+                }
+                if (idCierre != 0 && Convert.ToInt32(item.Cells["ControlID"].Value) == idCierre) 
+                {
+                    if (item.Cells["Tipo"].Value.ToString() == "Cierre")
+                    {
+                        existeCierre = true;
+                        
+                    }
+                }
+  
+            }
+            if (existeApertura == true && existeCierre == true) 
+            {
+                Form MensajeAdvertencia = new Form();
+                using (frmVerCierre Mensaje = new frmVerCierre((Convert.ToInt32(cmbLotes.SelectedValue)).ToString(), DynamicMain.usuarioSucursal, System.Environment.MachineName))
+                {
+                    MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
+                    MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
+                    MensajeAdvertencia.Opacity = .70d;
+                    MensajeAdvertencia.BackColor = Color.Black;
+                    MensajeAdvertencia.WindowState = FormWindowState.Maximized;
+                    MensajeAdvertencia.Location = this.Location;
+                    MensajeAdvertencia.ShowInTaskbar = false;
+                    //MensajeAdvertencia.TopMost = true;
+
+                    Mensaje.Owner = MensajeAdvertencia;
+                    MensajeAdvertencia.Show();
+                    Mensaje.ShowDialog();
+                    MensajeAdvertencia.Dispose();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Aun no se ha realizado el cierre sobre este lote, no puede imprimirlo.","Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void verMovimientosPreCierre()
@@ -361,34 +440,69 @@ namespace ModuloCajaRC.Facturas
                 movimientoTotal = (movimientoCheques + movimientoTransferencias + movimientoTarjetas + movimientoEfectivo);
             }
         }
-        private void verMovimientos() 
+        private void CierreEspecifico()
         {
+
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
-                Opcion = "ListadoRegistros",
-                UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName,
-                Estado = true
+                Opcion = "MostrarCierreEspecifico",
+                ControlID = Convert.ToInt64(cmbLotes.SelectedValue.ToString())
             };
 
             dtMovimientosCaja.Clear();
             dtMovimientosCaja.Rows.Clear();
 
             dtMovimientosCaja = logica.SP_ControlCaja(sendApertura);
-            if (dtMovimientosCaja.Rows.Count > 0) 
+            if (dtMovimientosCaja.Rows.Count > 0)
             {
                 dgvMovimientos.DataSource = dtMovimientosCaja;
-                dgvMovimientos.Columns["ControlID"].Visible = false;
-                dgvMovimientos.Columns["EncabezadoID"].Visible = false;
-                dgvMovimientos.Columns["Factura"].Width = 250;
+                //dgvMovimientos.Columns["LoteNro"].Visible = false;
+                dgvMovimientos.Columns["Tipo"].Width = 150;
+                dgvMovimientos.Columns["Fecha"].Width = 150;
+                dgvMovimientos.Columns["FacturaID"].Width = 150;
                 dgvMovimientos.Columns["Cheque"].Width = 150;
                 dgvMovimientos.Columns["Efectivo"].Width = 150;
                 dgvMovimientos.Columns["Transferencia"].Width = 150;
                 dgvMovimientos.Columns["Tarjeta"].Width = 150;
 
+
                 //Cargar Resumen Movimientos
                 CargarResumenMovimientos();
             }
+
+        }
+        private void ListadoLoteActual() 
+        {
+            ControlCajaDTO sendApertura = new ControlCajaDTO
+            {
+                Opcion = "ListadoLoteActual",
+                FechaInicio = dtpInicio.Value.Date,
+                FechaFinal = dtpFinal.Value.Date,
+                UPosteo = DynamicMain.usuarionlogin,
+                PC = System.Environment.MachineName
+            };
+
+            dtMovimientosCaja.Clear();
+            dtMovimientosCaja.Rows.Clear();
+
+            dtMovimientosCaja = logica.SP_ControlCaja(sendApertura);
+            if (dtMovimientosCaja.Rows.Count > 0)
+            {
+                dgvMovimientos.DataSource = dtMovimientosCaja;
+                //dgvMovimientos.Columns["LoteNro"].Visible = false;
+                dgvMovimientos.Columns["Tipo"].Width = 150;
+                dgvMovimientos.Columns["Fecha"].Width = 150;
+                dgvMovimientos.Columns["FacturaID"].Width = 150;
+                dgvMovimientos.Columns["Cheque"].Width = 150;
+                dgvMovimientos.Columns["Efectivo"].Width = 150;
+                dgvMovimientos.Columns["Transferencia"].Width = 150;
+                dgvMovimientos.Columns["Tarjeta"].Width = 150;
+
+
+                //Cargar Resumen Movimientos
+                CargarResumenMovimientos();
+            }
+
         }
 
         private void dgvRegistroValores_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -403,7 +517,6 @@ namespace ModuloCajaRC.Facturas
                     celda.Value = "0.00";
                 }
             }
-         
         }
         private void dgvRegistroValores_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
@@ -442,12 +555,12 @@ namespace ModuloCajaRC.Facturas
 
                     if (Convert.ToDouble(filaEsperado.Cells["Varianza"].Value) < 0)
                     {
-                        filaEsperado.DefaultCellStyle.BackColor = Color.FromArgb(218, 192, 183);
+                        filaEsperado.DefaultCellStyle.ForeColor = Color.FromArgb(162, 44, 36);
                     }
                     else
                 if (Convert.ToDouble(filaEsperado.Cells["Varianza"].Value) >= 0)
                     {
-                        filaEsperado.DefaultCellStyle.BackColor = Color.FromArgb(139, 194, 150);
+                        filaEsperado.DefaultCellStyle.ForeColor = Color.FromArgb(0,0,0);
                     }
                     break;
                 }
@@ -457,17 +570,26 @@ namespace ModuloCajaRC.Facturas
 
         }
 
-
+        private void btnMovimientos_Click(object sender, EventArgs e)
+        {
+            ListadoLoteActual();
+            //verMovimientosPreCierre();
+        }
 
         private void CargarResumenMovimientos() 
         {
+            movimientoCheques = 0;
+            movimientoEfectivo = 0;
+            movimientoTarjetas = 0;
+            movimientoTransferencias = 0;
+
             //Cargar Resumen
-            foreach (DataRow row in dtMovimientosCaja.Rows)
+            foreach (DataGridViewRow row in dgvMovimientos.Rows)
             {
-                movimientoCheques += row["Cheque"] != DBNull.Value ? Convert.ToDecimal(row["Cheque"]) : 0;
-                movimientoTransferencias += row["Transferencia"] != DBNull.Value ? Convert.ToDecimal(row["Transferencia"]) : 0;
-                movimientoEfectivo += row["Efectivo"] != DBNull.Value ? Convert.ToDecimal(row["Efectivo"]) : 0;
-                movimientoTarjetas += row["Tarjeta"] != DBNull.Value ? Convert.ToDecimal(row["Tarjeta"]) : 0;
+                movimientoCheques += row.Cells["Cheque"].Value != DBNull.Value ? Convert.ToDecimal(row.Cells["Cheque"].Value) : 0;
+                movimientoTransferencias += row.Cells["Transferencia"].Value != DBNull.Value ? Convert.ToDecimal(row.Cells["Transferencia"].Value) : 0;
+                movimientoEfectivo += row.Cells["Efectivo"].Value != DBNull.Value ? Convert.ToDecimal(row.Cells["Efectivo"].Value) : 0;
+                movimientoTarjetas += row.Cells["Tarjeta"].Value != DBNull.Value ? Convert.ToDecimal(row.Cells["Tarjeta"].Value) : 0;
             }
 
             lblCheque.Text = movimientoCheques.ToString("N2");
@@ -475,24 +597,75 @@ namespace ModuloCajaRC.Facturas
             lblTarjeta.Text = movimientoTarjetas.ToString("N2");
             lblEfectivo.Text = movimientoEfectivo.ToString("N2");
 
-            lblRegistros.Text = dtMovimientosCaja.Rows.Count.ToString();
+            lblRegistros.Text = dgvMovimientos.Rows.Count.ToString();
             lblTotalIngresos.Text = (movimientoCheques + movimientoTransferencias + movimientoEfectivo + movimientoTarjetas).ToString("N2");
         }
-       
+
+        private void dgvMovimientos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvMovimientos.Rows)
+            {
+                string tipo = row.Cells["Tipo"].Value?.ToString()?.Trim();
+
+                if (tipo == "Apertura")
+                {
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(143, 171, 190); // Verde
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                }
+                else if (tipo == "Cierre")
+                {
+                    row.DefaultCellStyle.BackColor = Color.FromArgb(54, 84, 134); // Rojo
+                    row.DefaultCellStyle.ForeColor = Color.White;
+                }
+            }
+            dgvMovimientos.ClearSelection();
+        }
+
+        private void cmbLotes_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            MessageBox.Show(cmbLotes.SelectedValue.ToString());
+            CierreEspecifico();
+        }
+
         private void dtpFinal_ValueChanged(object sender, EventArgs e)
         {
-            if (dtpFinal.Value < dtpInicio.Value)
+            if (dtpFinal.Value.Date < dtpInicio.Value.Date)
             {
                 MessageBox.Show("La fecha final no puede ser menor que la fecha de inicio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dtpFinal.Value = dtpInicio.Value;
             }
 
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
         }
         private void dtpInicio_ValueChanged(object sender, EventArgs e)
         {
-            dtpFinal.MinDate = dtpInicio.Value;
+            if (dtpFinal.Value.Date < dtpInicio.Value.Date)
+            {
+                dtpFinal.Value = dtpInicio.Value;
+            }
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+        }
+        private void verCierresEntreFechas(DateTime Inicio, DateTime Final)
+        {
+            ControlCajaDTO sendApertura = new ControlCajaDTO
+            {
+                Opcion = "CierresEntreFechas",
+                FechaInicio = Inicio,
+                FechaFinal = Final,
+            };
+
+            dtCierresEntreFechas.Clear();
+            dtCierresEntreFechas.Rows.Clear();
+
+            dtCierresEntreFechas = logica.SP_ControlCaja(sendApertura);
+            if (dtCierresEntreFechas.Rows.Count > 0)
+            {
+                cmbLotes.DataSource = dtCierresEntreFechas;
+                cmbLotes.DisplayMember = "Descripcion";
+                cmbLotes.ValueMember = "ControlID";
+            }
         }
         private void verMovimientosEntreFechas(DateTime Inicio, DateTime Final)
         {
@@ -501,25 +674,35 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ListadoRegistrosFechas",
                 FechaInicio = Inicio,
                 FechaFinal = Final,
+                UPosteo = DynamicMain.usuarionlogin,
+                PC = System.Environment.MachineName
             };
 
             dtMovimientosCaja.Clear();
             dtMovimientosCaja.Rows.Clear();
 
             dtMovimientosCaja = logica.SP_ControlCaja(sendApertura);
+
             if (dtMovimientosCaja.Rows.Count > 0)
             {
                 dgvMovimientos.DataSource = dtMovimientosCaja;
-                dgvMovimientos.Columns["ControlID"].Visible = false;
-                dgvMovimientos.Columns["EncabezadoID"].Visible = false;
-                dgvMovimientos.Columns["Factura"].Width = 250;
+
+                // Configurar columnas
+                dgvMovimientos.Columns["LoteNro"].Visible = true;
+                dgvMovimientos.Columns["EncabezadoID"].Visible = true;
+                dgvMovimientos.Columns["ControlID"].Visible = true;
+                dgvMovimientos.Columns["Tipo"].Width = 150;
+                dgvMovimientos.Columns["Fecha"].Width = 150;
+                dgvMovimientos.Columns["FacturaID"].Width = 150;
                 dgvMovimientos.Columns["Cheque"].Width = 150;
                 dgvMovimientos.Columns["Efectivo"].Width = 150;
                 dgvMovimientos.Columns["Transferencia"].Width = 150;
                 dgvMovimientos.Columns["Tarjeta"].Width = 150;
 
-                //Cargar Resumen Movimientos
+             
+                // Cargar resumen
                 CargarResumenMovimientos();
+                
             }
             else
             {
@@ -533,6 +716,7 @@ namespace ModuloCajaRC.Facturas
                 lblTotalIngresos.Text = "0.00";
             }
         }
+
         private void dgvRegistroValores_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dgvRegistroValores.CurrentCell.ColumnIndex == dgvRegistroValores.Columns["ValorRegistro"].Index)

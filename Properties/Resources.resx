@@ -127,11 +127,11 @@
   <data name="inbox_tray_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\inbox_tray_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="close_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cancel_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cancel_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="money_bag_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\money_bag_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Credito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Credito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bill_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bill_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -148,32 +148,32 @@
   <data name="outbox_tray_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\outbox_tray_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="inbox_tray_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inbox_tray_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="white_sort_right_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\white_sort_right_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="white_sort_down_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white_sort_down_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="synchronize_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\synchronize_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cancel_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cancel_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="checkout_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\checkout_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="money_bag_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money_bag_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TikTok Verified Account_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TikTok Verified Account_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="user_shield_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user_shield_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_Checkmark_22px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue_Checkmark_22px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="TikTok Verified Account_28px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\TikTok Verified Account_28px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="white_sort_right_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\white_sort_right_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="inbox_tray_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inbox_tray_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MoneyTransfer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoneyTransfer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,13 +187,16 @@
   <data name="cashier-machine_3584418" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cashier-machine_3584418.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="alert_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\alert_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="credit-card_13114177" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\credit-card_13114177.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Credito" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Credito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="close_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\close_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="alert_20px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\alert_20px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="print_26px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\print_26px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

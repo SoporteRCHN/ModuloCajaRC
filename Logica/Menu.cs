@@ -396,6 +396,7 @@ namespace Logica
         public bool? Estado { get; set; }                   // Estado activo/inactivo
         public DateTime? FechaInicio { get; set; }          // FechaInicio
         public DateTime? FechaFinal { get; set; }           // FechaFinal
+        public string Comentario { get; set; }                 //comentario de cierre
     }
 
 }

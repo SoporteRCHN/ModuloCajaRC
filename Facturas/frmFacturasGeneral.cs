@@ -277,6 +277,7 @@ namespace ModuloCajaRC.Facturas
             }
             if(_GeneraError == false) { return; }
 
+
             CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
             {
                 Opcion = "Agregar",
@@ -307,6 +308,11 @@ namespace ModuloCajaRC.Facturas
                     if (!decimal.TryParse(valorCell.ToString(), out decimal monto))
                         continue;
 
+                    if (Convert.ToInt32(row.Cells["Id"].Value) == 4 && Convert.ToDecimal (lblCambio.Text) > 0) 
+                    {
+                        monto = Convert.ToDecimal(row.Cells["Valor"]?.Value) - Convert.ToDecimal(lblCambio.Text);
+                    }
+                    
                     CobroCajaMetodosDTO sendMetodos = new CobroCajaMetodosDTO
                     {
                         Opcion = "Agregar",
