@@ -144,7 +144,6 @@ namespace ModuloCajaRC.Facturas
                 Mensaje.ShowDialog();
                 MensajeAdvertencia.Dispose();
             }
-
         }
 
         private void CargarMetodoPago()
@@ -466,8 +465,7 @@ namespace ModuloCajaRC.Facturas
                         
                     }
                 }
-  
-            }
+              }
             if (existeApertura == true && existeCierre == true) 
             {
                 Form MensajeAdvertencia = new Form();
@@ -492,9 +490,7 @@ namespace ModuloCajaRC.Facturas
             {
                 MessageBox.Show("Aun no se ha realizado el cierre sobre este lote, no puede imprimirlo.","Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
-
         private void verMovimientosPreCierre()
         {
             movimientoCheques = 0;
@@ -546,7 +542,6 @@ namespace ModuloCajaRC.Facturas
         }
         private void CierreEspecifico()
         {
-
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "MostrarCierreEspecifico",
@@ -569,11 +564,9 @@ namespace ModuloCajaRC.Facturas
                 dgvMovimientos.Columns["Transferencia"].Width = 150;
                 dgvMovimientos.Columns["Tarjeta"].Width = 150;
 
-
                 //Cargar Resumen Movimientos
                 CargarResumenMovimientos();
             }
-
         }
         private void ListadoLoteActual() 
         {
@@ -606,9 +599,7 @@ namespace ModuloCajaRC.Facturas
                 //Cargar Resumen Movimientos
                 CargarResumenMovimientos();
             }
-
         }
-
         private void dgvRegistroValores_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvRegistroValores.Columns[e.ColumnIndex].Name == "ValorRegistro")
@@ -670,14 +661,11 @@ namespace ModuloCajaRC.Facturas
                 }
             }
             dgvValoresEsperados.ClearSelection();
-
-
         }
 
         private void btnMovimientos_Click(object sender, EventArgs e)
         {
             ListadoLoteActual();
-            //verMovimientosPreCierre();
         }
 
         private void CargarResumenMovimientos() 
@@ -731,16 +719,10 @@ namespace ModuloCajaRC.Facturas
             CierreEspecifico();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void dtpFinal_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFinal.Value.Date < dtpInicio.Value.Date)
             {
-                //MessageBox.Show("La fecha final no puede ser menor que la fecha de inicio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dtpFinal.Value = dtpInicio.Value;
             }
 

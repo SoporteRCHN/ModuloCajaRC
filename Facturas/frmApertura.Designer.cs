@@ -132,6 +132,7 @@
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.panel4.SuspendLayout();
+            this.pAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -348,7 +349,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.pAcciones);
-            this.panel1.Controls.Add(this.btnProceso);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 492);
             this.panel1.Name = "panel1";
@@ -362,7 +362,7 @@
             this.btnProceso.ForeColor = System.Drawing.Color.White;
             this.btnProceso.Image = global::ModuloCajaRC.Properties.Resources.TikTok_Verified_Account_28px;
             this.btnProceso.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnProceso.Location = new System.Drawing.Point(544, 3);
+            this.btnProceso.Location = new System.Drawing.Point(3, 3);
             this.btnProceso.Name = "btnProceso";
             this.btnProceso.Size = new System.Drawing.Size(159, 49);
             this.btnProceso.TabIndex = 35;
@@ -984,9 +984,10 @@
             // 
             // pAcciones
             // 
-            this.pAcciones.Location = new System.Drawing.Point(146, 4);
+            this.pAcciones.Controls.Add(this.btnProceso);
+            this.pAcciones.Location = new System.Drawing.Point(3, 4);
             this.pAcciones.Name = "pAcciones";
-            this.pAcciones.Size = new System.Drawing.Size(200, 57);
+            this.pAcciones.Size = new System.Drawing.Size(700, 57);
             this.pAcciones.TabIndex = 36;
             // 
             // frmApertura
@@ -994,7 +995,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1349, 643);
+            this.ClientSize = new System.Drawing.Size(1151, 643);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmApertura";
             this.Text = "frmApertura";
@@ -1032,6 +1033,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.pAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
