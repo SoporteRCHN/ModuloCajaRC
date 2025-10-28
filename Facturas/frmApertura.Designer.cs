@@ -105,6 +105,7 @@
             this.dtpFinal = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
+            this.pAcciones = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.MainPanel.SuspendLayout();
@@ -346,6 +347,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.Controls.Add(this.pAcciones);
             this.panel1.Controls.Add(this.btnProceso);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 492);
@@ -980,6 +982,13 @@
             this.dtpInicio.TabIndex = 0;
             this.dtpInicio.ValueChanged += new System.EventHandler(this.dtpInicio_ValueChanged);
             // 
+            // pAcciones
+            // 
+            this.pAcciones.Location = new System.Drawing.Point(146, 4);
+            this.pAcciones.Name = "pAcciones";
+            this.pAcciones.Size = new System.Drawing.Size(200, 57);
+            this.pAcciones.TabIndex = 36;
+            // 
             // frmApertura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1105,5 +1114,6 @@
         private System.Windows.Forms.Panel panel20;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.FlowLayoutPanel pAcciones;
     }
 }

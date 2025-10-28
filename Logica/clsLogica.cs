@@ -143,6 +143,12 @@ namespace Logica
             tabla = enviar.SP_FacturasProceso(a);
             return tabla;
         }
+        public DataTable SP_FacturasProceso50(FacturaProcesoDTO50 a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_FacturasProceso50(a);
+            return tabla;
+        }
         public DataTable SP_MetodoPagos(MetodoPagoDTO a)
         {
             DataTable tabla = new DataTable();

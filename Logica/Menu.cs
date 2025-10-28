@@ -362,6 +362,7 @@ namespace Logica
         public DateTime? FPosteo { get; set; }           // Fecha de registro
         public string PC { get; set; }                   // Nombre del equipo desde donde se registró
         public bool? Estado { get; set; }                // Estado activo/inactivo
+        public string Origen { get; set; }
     }
     public class CobroCajaMetodosDTO
     {
@@ -398,5 +399,15 @@ namespace Logica
         public DateTime? FechaFinal { get; set; }           // FechaFinal
         public string Comentario { get; set; }                 //comentario de cierre
     }
-
+    public class FacturaProcesoDTO50
+    {
+        public string Opcion { get; set; }             // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
+        public long? ProcesoID { get; set; }           // Clave primaria del proceso
+        public int? FacturaID { get; set; }            // ID de la factura asociada
+        public int? Proceso { get; set; }              // Estado o tipo de proceso
+        public string UPosteo { get; set; }            // Usuario que registra el proceso
+        public DateTime? FPosteo { get; set; }         // Fecha del registro
+        public string PC { get; set; }                 // Nombre del equipo desde donde se registró
+        public string Guia { get; set; }
+    }
 }

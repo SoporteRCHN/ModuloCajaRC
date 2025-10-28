@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace ModuloCajaRC.Facturas
 {
     public partial class frmApertura : Form
     {
+        DataTable dtPermisos = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
         DataTable dtMetodoPago = new DataTable();
         DataTable dtResumenAperturaCaja = new DataTable();
@@ -28,7 +30,9 @@ namespace ModuloCajaRC.Facturas
 
         decimal tarjetaApertura, chequeApertura, transferenciaApertura, efectivoApertura, totalApertura, movimientoCheques, movimientoTransferencias, movimientoEfectivo,movimientoTarjetas, movimientoTotal = 0;
         public string textoComentario = "";
+        public int UltimoCierre = 0;
         public bool _EstaAperturando = true;
+ 
         public frmApertura()
         {
             InitializeComponent();
@@ -39,7 +43,110 @@ namespace ModuloCajaRC.Facturas
             verResumenApertura();
             verResumenMovimientos();
             verResumenValoresEsperados();
+            CargarAcciones(1, pAcciones, 159, 49, 0, TextImageRelation.ImageBeforeText);
         }
+        public void CargarAcciones(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
+        {
+            dtPermisos.Clear();
+            TBLPermisosEspecificos getPermisos = new TBLPermisosEspecificos()
+            {
+                Opcion = "ListadoPorFormulario",
+                UsuarioID = DynamicMain.usuarioIDNumber,
+                NombreFormulario = this.Name,
+                UbicacionID = _UbicacionID,
+                ModuloID = DynamicMain.ModuloID
+            };
+            dtPermisos = logica.SP_PermisosEspecificos(getPermisos);
+            if (dtPermisos.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtPermisos.Rows)
+                {
+                    string nombreElemento = row["NombreElemento"].ToString();
+                    string accionElemento = row["AccionElemento"].ToString();
+                    string iconoElemento = row["IconoElemento"] != DBNull.Value ? row["IconoElemento"].ToString() : null;
+                    bool visible = Convert.ToBoolean(row["Visible"]);
+
+                    if (visible)
+                    {
+                        Button btn = new Button();
+                        btn.Name = nombreElemento;
+                        btn.Text = accionElemento;
+                        btn.Width = _Ancho;
+                        btn.Height = _Alto;
+                        btn.Margin = new Padding(_Padding);
+
+                        if (!string.IsNullOrEmpty(iconoElemento))
+                        {
+                            try
+                            {
+                                var resourceManager = ModuloCajaRC.Properties.Resources.ResourceManager;
+                                object icono = resourceManager.GetObject(Path.GetFileNameWithoutExtension(iconoElemento));
+
+                                if (icono != null && icono is Image)
+                                {
+                                    btn.Image = new Bitmap((Image)icono, new Size(24, 24));
+                                    btn.TextAlign = ContentAlignment.MiddleCenter;
+                                    btn.ImageAlign = ContentAlignment.BottomCenter;
+                                    btn.TextImageRelation = _Relacion;
+                                }
+                                else
+                                {
+                                    btn.TextAlign = ContentAlignment.MiddleCenter;
+                                }
+                            }
+                            catch
+                            {
+                                btn.TextAlign = ContentAlignment.MiddleCenter;
+                            }
+                        }
+                        else
+                        {
+                            btn.TextAlign = ContentAlignment.MiddleCenter;
+                        }
+
+                        btn.Click += (s, e) =>
+                        {
+                            switch (accionElemento)
+                            {
+                                case "Imprimir":
+                                    if (UltimoCierre!=0) { GenerarCierre(); }
+                                    
+                                    break;
+
+                                default:
+                                    MessageBox.Show($"Acción no reconocida: {accionElemento}");
+                                    break;
+                            }
+                        };
+
+                        _Panel.Controls.Add(btn);
+                        _Panel.WrapContents = true;
+                    }
+                }
+            }
+        }
+        private void GenerarCierre()
+        {
+            Form MensajeAdvertencia = new Form();
+            using (frmVerCierre Mensaje = new frmVerCierre(UltimoCierre.ToString(),DynamicMain.usuarioSucursal, System.Environment.MachineName))
+            {
+                MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
+                MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
+                MensajeAdvertencia.Opacity = .70d;
+                MensajeAdvertencia.BackColor = Color.Black;
+                MensajeAdvertencia.WindowState = FormWindowState.Maximized;
+                MensajeAdvertencia.Location = this.Location;
+                MensajeAdvertencia.ShowInTaskbar = false;
+                //MensajeAdvertencia.TopMost = true;
+
+                Mensaje.Owner = MensajeAdvertencia;
+                MensajeAdvertencia.Show();
+                Mensaje.ShowDialog();
+                MensajeAdvertencia.Dispose();
+            }
+
+        }
+
         private void CargarMetodoPago()
         {
             dtMetodoPago.Clear();
@@ -237,11 +344,6 @@ namespace ModuloCajaRC.Facturas
                     {
                         textoComentario = Mensaje.textoCierre;
                     }
-                    else
-                    {
-                        MessageBox.Show("Es obligatorio ingresar un comentario de cierre.","Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
                 }
             }
             Dictionary<int, decimal> montosPorMetodo = new Dictionary<int, decimal>();
@@ -316,6 +418,8 @@ namespace ModuloCajaRC.Facturas
                 }
                 else if (_TipoID == 2)
                 {
+                    UltimoCierre = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString())-1;
+                    GenerarCierre();
                     Limpiar();
                     MessageBox.Show("¡Cierre de caja realizado exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -627,11 +731,16 @@ namespace ModuloCajaRC.Facturas
             CierreEspecifico();
         }
 
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void dtpFinal_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFinal.Value.Date < dtpInicio.Value.Date)
             {
-                MessageBox.Show("La fecha final no puede ser menor que la fecha de inicio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("La fecha final no puede ser menor que la fecha de inicio.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 dtpFinal.Value = dtpInicio.Value;
             }
 

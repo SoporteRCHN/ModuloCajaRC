@@ -878,6 +878,39 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_FacturasProceso50(dynamic proceso)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(5); // Ajusta el índice según tu lógica de conexión
+
+            comando.Parameters.AddWithValue("@Opcion", proceso.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ProcesoID", proceso.ProcesoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FacturaID", proceso.FacturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Proceso", proceso.Proceso ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", proceso.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", proceso.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", proceso.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Guia", proceso.Guia ?? (object)DBNull.Value);
+
+            comando.CommandText = "ENAC.dbo.SP_FacturasProceso";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
         public DataTable SP_FacturasProceso(dynamic proceso)
         {
             SqlDataReader leer = null;
@@ -968,6 +1001,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@FPosteo", cobroEnc.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", cobroEnc.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", cobroEnc.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Origen", cobroEnc.Origen ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_CobroCajaEncabezado";
             comando.CommandType = CommandType.StoredProcedure;
