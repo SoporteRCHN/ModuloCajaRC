@@ -426,5 +426,18 @@ namespace Logica
         public string PC { get; set; }                // Nombre del equipo
         public bool? Estado { get; set; }             // Estado activo/inactivo
     }
-
+    public class Factura2DTO50
+    {
+        public string Opcion { get; set; }
+        public string Factura { get; set; }
+        public string ClienteRemitente { get; set; }
+        public string ClienteDestino { get; set; }
+        public decimal FactorDolar { get; set; }
+        public string Guia { get; set; }
+        public string Empresa { get; set; }
+        public string UPosteo { get; set; }
+        public DateTime? FPosteo { get; set; }
+        public string PC { get; set; }
+        public string Observacion { get; set; }
+    }
 }

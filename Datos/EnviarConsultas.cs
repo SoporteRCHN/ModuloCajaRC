@@ -1152,6 +1152,43 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_Facturas250(dynamic factura)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(5); // Ajusta según tu lógica
+
+            comando.Parameters.AddWithValue("@Opcion", factura.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Factura", factura.Factura ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ClienteRemitente", factura.ClienteRemitente ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ClienteDestino", factura.ClienteDestino ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FactorDolar", factura.FactorDolar ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Guia", factura.Guia ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Empresa", factura.Empresa ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", factura.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", factura.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", factura.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Observacion", factura.Observacion ?? (object)DBNull.Value);
+
+            comando.CommandText = "ENAC.dbo.SP_Facturas2";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+
 
     }
 }

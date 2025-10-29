@@ -63,6 +63,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_camera_22px {
+            get {
+                object obj = ResourceManager.GetObject("add_camera_22px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap alert_20px {
             get {
                 object obj = ResourceManager.GetObject("alert_20px", resourceCulture);
@@ -196,6 +206,16 @@ namespace ModuloCajaRC.Properties {
         internal static System.Drawing.Bitmap info_22px {
             get {
                 object obj = ResourceManager.GetObject("info_22px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap joyent_22px {
+            get {
+                object obj = ResourceManager.GetObject("joyent_22px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

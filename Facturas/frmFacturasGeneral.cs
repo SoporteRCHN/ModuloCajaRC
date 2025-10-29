@@ -18,6 +18,7 @@ namespace ModuloCajaRC.Facturas
     {
         DataTable dtPermisos = new DataTable();
         DataTable dtFacturas = new DataTable();
+        DataTable dtFacturaUpdateTasa = new DataTable();
         DataTable dtFacturasEncabezado = new DataTable();
         DataTable dtFacturasMetodos = new DataTable();
         DataTable dtMetodoPago = new DataTable();
@@ -30,16 +31,6 @@ namespace ModuloCajaRC.Facturas
         private bool _GeneraError = true;
         private bool _ErrorRecibido = true;
         private bool _CambioError = false;
-
-        Label lblTooltipFlotante = new Label
-        {
-            AutoSize = true,
-            BackColor = Color.LightYellow,
-            ForeColor = Color.Black,
-            BorderStyle = BorderStyle.FixedSingle,
-            Font = new Font("Segoe UI", 9, FontStyle.Bold),
-            Visible = false
-        };
         public frmFacturasGeneral()
         {
             InitializeComponent();
@@ -51,7 +42,6 @@ namespace ModuloCajaRC.Facturas
         private void frmFacturasGeneral_Load(object sender, EventArgs e)
         {
             tmrBuscarFacturas.Start();
-            this.Controls.Add(lblTooltipFlotante);
         }
         private void CargarFacturas()
         {
@@ -127,6 +117,8 @@ namespace ModuloCajaRC.Facturas
 
         private void CargarMetodoPago()
         {
+            dgvMetodosPago.Rows.Clear();
+            
             MetodoPagoDTO getMetodo = new MetodoPagoDTO
             {
                 Opcion = "LISTADO",
@@ -332,7 +324,6 @@ namespace ModuloCajaRC.Facturas
             }
             if (_GeneraError == false) { return; }
 
-
             CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
             {
                 Opcion = "Agregar",
@@ -397,12 +388,26 @@ namespace ModuloCajaRC.Facturas
 
                 ActualizarEstadoFactura();
                 Limpiar();
-
+                CargarMetodoPago();
             }
             else // Hubo clavo desde el encabezado
             {
                 MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+        }
+        private void ActualizarTasaFactura2(decimal tasa, string factura) 
+        {
+            Factura2DTO50 setTasa = new Factura2DTO50 
+            {
+                Opcion = "Actualizar",
+                FactorDolar = tasa,
+                Factura = factura
+            };
+            dtFacturaUpdateTasa = logica.SP_Facturas250(setTasa);
+            if (dtFacturaUpdateTasa.Rows.Count > 0 && dtFacturaUpdateTasa.Rows[0]["Estado"].ToString() == "0") 
+            {
+                MessageBox.Show(dtFacturaUpdateTasa.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void ActualizarEstadoFactura()
@@ -421,6 +426,9 @@ namespace ModuloCajaRC.Facturas
                 };
                 dtFacturas = logica.SP_FacturasProceso(sendFacturas);
             } else if (dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString() == "INTER") {
+                
+                ActualizarTasaFactura2(DynamicMain.tasa, _FacturaID.ToString());
+               
                 FacturaProcesoDTO50 sendFacturas50 = new FacturaProcesoDTO50
                 {
                     Opcion = "AGREGAR",
@@ -494,7 +502,6 @@ namespace ModuloCajaRC.Facturas
                 }
 
                 ActualizarTotalRecibido();
-
             }
         }
         private void ActualizarTotalRecibido()
@@ -535,6 +542,7 @@ namespace ModuloCajaRC.Facturas
         {
             if (dgvFacturas.CurrentRow.Cells["Total"].Value != null)
             {
+                lblOrigen.Text = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString();
                 lblFecha.Text = Convert.ToDateTime(dgvFacturas.CurrentRow.Cells["Fecha"].Value).ToString("dd/MM/yyyy");
                 lblRemitente.Text = dgvFacturas.CurrentRow.Cells["Remitente"].Value.ToString();
                 lblDestinatario.Text = dgvFacturas.CurrentRow.Cells["Destinatario"].Value.ToString();
@@ -550,38 +558,20 @@ namespace ModuloCajaRC.Facturas
         {
             if (e.RowIndex >= 0 && dgvMetodosPago.Columns[e.ColumnIndex].Name == "Ayuda")
             {
-                var idValue = dgvMetodosPago.Rows[e.RowIndex].Cells["Id"].Value?.ToString();
-                string mensaje = null;
+                // Obtener valores de la fila actual
+                var filaActual = dgvMetodosPago.Rows[e.RowIndex];
+                var metodoID = filaActual.Cells["Id"].Value;
+                var descripcion = filaActual.Cells["Metodo"].Value;
+                var icono = filaActual.Cells["Ayuda"].Value;
 
-                switch (idValue)
-                {
-                    case "3":
-                        mensaje = "Número de referencia";
-                        break;
-                    case "4":
-                        mensaje = "No Referencia";
-                        break;
-                    case "5":
-                    case "6":
-                        mensaje = "No. Transacción";
-                        break;
-                }
+                // Crear nueva fila con los valores deseados
+                int nuevaFilaIndex = e.RowIndex + 1;
+                dgvMetodosPago.Rows.Insert(nuevaFilaIndex, metodoID, descripcion, "", "", icono);
 
-                if (!string.IsNullOrEmpty(mensaje))
-                {
-                    Rectangle celda = dgvMetodosPago.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-                    Point posicion = dgvMetodosPago.PointToScreen(new Point(440, celda.Top));
-
-                    lblTooltipFlotante.Text = mensaje;
-                    lblTooltipFlotante.Location = this.PointToClient(posicion);
-                    lblTooltipFlotante.BringToFront();
-                    lblTooltipFlotante.Visible = true;
-
-                    await Task.Delay(10000);
-                    lblTooltipFlotante.Visible = false;
-                }
+                // Opcional: seleccionar la nueva fila o enfocar en "Valor"
+                dgvMetodosPago.CurrentCell = dgvMetodosPago.Rows[nuevaFilaIndex].Cells["Valor"];
+                dgvMetodosPago.BeginEdit(true);
             }
         }
-
     }
 }

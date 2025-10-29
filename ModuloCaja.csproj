@@ -225,5 +225,11 @@
       <Version>13.0.4</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_camera_22px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\joyent_22px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

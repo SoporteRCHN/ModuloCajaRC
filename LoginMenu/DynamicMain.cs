@@ -103,14 +103,14 @@ namespace ModuloCajaRC
             EstadoENAC();
             CargarEncabezado(usuarionlogin);
 
-            tasa = await TasaDeCambioAsync();
-            lblTasa.Text = tasa.ToString();
-
-            ActualizarTasaCambio(tasa);
-
-            // Podés usar la tasa aquí para cálculos, asignaciones, etc.
             BuscarMenu();
             CargarMenuDinamico();
+
+            tasa = await TasaDeCambioAsync();
+            lblTasa.Text = tasa.ToString();
+            
+            ActualizarTasaCambio(tasa);
+            ActualizarTasaCambioHistorico(tasa);
         }
         private void ActualizarTasaCambio(decimal tasa) 
         {
@@ -131,7 +131,7 @@ namespace ModuloCajaRC
             {
                 Opcion = "Agregar",
                 FactorDolar = tasa,
-                UPosteo = "Josue",
+                UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = Environment.MachineName,
                 Estado = true

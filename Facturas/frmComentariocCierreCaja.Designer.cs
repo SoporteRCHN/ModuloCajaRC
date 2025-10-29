@@ -63,6 +63,8 @@
             // 
             // txtTextoCierre
             // 
+            this.txtTextoCierre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtTextoCierre.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTextoCierre.Location = new System.Drawing.Point(28, 65);
             this.txtTextoCierre.Multiline = true;
             this.txtTextoCierre.Name = "txtTextoCierre";
