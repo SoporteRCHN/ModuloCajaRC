@@ -1037,6 +1037,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@FPosteo", cobroMetodo.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", cobroMetodo.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", cobroMetodo.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@EfectivoRecibido", cobroMetodo.EfectivoRecibido ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_CobroCajaMetodos";
             comando.CommandType = CommandType.StoredProcedure;
@@ -1083,6 +1084,33 @@ namespace Datos
             comando.Parameters.AddWithValue("@Comentario", controlCaja.Comentario ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_ControlCaja";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_FactorDolar50(dynamic factor)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(5); 
+
+            comando.Parameters.AddWithValue("@Opcion", factor.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FactorDolar", factor.FactorDolar ?? (object)DBNull.Value);
+
+            comando.CommandText = "ENAC.dbo.SP_FactorDolar";
             comando.CommandType = CommandType.StoredProcedure;
 
             leer = comando.ExecuteReader();

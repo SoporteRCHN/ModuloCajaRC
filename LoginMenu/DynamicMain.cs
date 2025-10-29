@@ -1,4 +1,10 @@
-﻿using Logica;
+﻿
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Logica;
 using ModuloCajaRC.Facturas;
 using ModuloCajaRC.LoginMenu;
 using System;
@@ -20,6 +26,7 @@ namespace ModuloCajaRC
     {
         DataTable tablaEncabezado = new DataTable();
         DataTable dtMenuOpciones = new DataTable();
+        DataTable dtTasaCambio = new DataTable();
         DataTable dtSeguimientoUsuario = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
         private static Form activeForm;
@@ -45,6 +52,7 @@ namespace ModuloCajaRC
         public static int usuarioSucursalCaja;
         public static int Confidencial;
         public static int cajaID;
+        public static decimal tasa;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
         public static bool existeAvisos = false; //Variable para controlar el mostrar o no los avisos.
 
@@ -55,18 +63,14 @@ namespace ModuloCajaRC
         {
             InitializeComponent();
             Instance = this;
-            EstadoENAC();
-            CargarEncabezado(usuario);
             usuarionombre = usuario;
             usuarionlogin = usuario;
             ModuloID = 17;
-            //VERSION
 
             FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             string versionStr = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}.{versionInfo.ProductPrivatePart}";
-
-
             toolStripLabel2.Text = versionStr;
+
             if (Datos.BD_Conexion.servidor.ToString() == "192.168.1.180")
             {
                 rutaEmitirEvento = "http://192.168.1.179:3001";
@@ -75,22 +79,86 @@ namespace ModuloCajaRC
             {
                 rutaEmitirEvento = "https://app.rapidocargo.online:3000";
             }
+
             toolStripLabel4.Text = Datos.BD_Conexion.servidor.ToString();
             toolStripLabel6.Text = usuarionlogin;
 
-            BuscarMenu();
-            CargarMenuDinamico();
+            // Llamar método async separado
+            _ = InicializarAsync();
 
             int ancho = Screen.PrimaryScreen.WorkingArea.Width;
             int alto = Screen.PrimaryScreen.WorkingArea.Height;
 
             this.MaximumSize = new System.Drawing.Size(ancho, alto);
-            this.WindowState = FormWindowState.Maximized; // Iniciar maximizado
+            this.WindowState = FormWindowState.Maximized;
 
             flowLayoutPanelMenu.PerformLayout();
             flowLayoutPanelMenu.Refresh();
             flowLayoutPanelMenu.Invalidate();
         }
+
+        private async Task InicializarAsync()
+        {
+            EstadoENAC();
+            CargarEncabezado(usuarionlogin);
+
+            tasa = await TasaDeCambioAsync();
+            lblTasa.Text = tasa.ToString();
+
+            ActualizarTasaCambio(tasa);
+
+            // Podés usar la tasa aquí para cálculos, asignaciones, etc.
+            BuscarMenu();
+            CargarMenuDinamico();
+        }
+        private void ActualizarTasaCambio(decimal tasa) 
+        {
+            FactorDolar50DTO setTasa = new FactorDolar50DTO
+            {
+                Opcion = "Actualizar",
+                FactorDolar = tasa,
+            };
+            dtTasaCambio = logica.SP_FactorDolar50(setTasa);
+            if (dtTasaCambio.Rows.Count > 0 && dtTasaCambio.Rows[0]["Estado"] == "0") 
+            {
+                MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos","Aviso Urgente",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public static async Task<decimal> TasaDeCambioAsync()
+        {
+            string fecha = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            string codigo = "620";
+            string clave = "4354437e7fd3475090c6c739d3276af8";
+
+            string url = $"https://bchapi-am.azure-api.net/api/v1/indicadores/{codigo}/cifras?formato=Json&fechaInicio={fecha}&fechaFinal={fecha}";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = true };
+                client.DefaultRequestHeaders.Add("clave", clave);
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    JArray data = JArray.Parse(responseBody);
+
+                    // Convertir a decimal
+                    decimal tasaCambio = Convert.ToDecimal(data[0]["Valor"]);
+
+                    Console.WriteLine("Tasa de cambio recibida: " + tasaCambio);
+                    return tasaCambio;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    return 0m; // Valor por defecto en caso de error
+                }
+            }
+        }
+
         private void CargarEncabezado(string usuario)
         {
             tablaEncabezado = loginn.DatosEncabezado(usuario, typeof(Program).Namespace);

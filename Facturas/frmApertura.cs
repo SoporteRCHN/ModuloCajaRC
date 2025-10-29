@@ -43,7 +43,7 @@ namespace ModuloCajaRC.Facturas
             verResumenApertura();
             verResumenMovimientos();
             verResumenValoresEsperados();
-            CargarAcciones(1, pAcciones, 159, 49, 0, TextImageRelation.ImageBeforeText);
+            CargarAcciones(1, pAcciones, 159, 48, 0, TextImageRelation.ImageBeforeText);
         }
         public void CargarAcciones(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
         {
@@ -110,7 +110,6 @@ namespace ModuloCajaRC.Facturas
                             {
                                 case "Imprimir":
                                     if (UltimoCierre!=0) { GenerarCierre(); }
-                                    
                                     break;
 
                                 default:
@@ -150,6 +149,8 @@ namespace ModuloCajaRC.Facturas
         {
             dtMetodoPago.Clear();
             dtMetodoPago.Rows.Clear();
+            dgvRegistroValores.DataSource = null;
+
             MetodoPagoDTO getMetodo = new MetodoPagoDTO
             {
                 Opcion = "LISTADO",
@@ -421,6 +422,7 @@ namespace ModuloCajaRC.Facturas
                     GenerarCierre();
                     Limpiar();
                     MessageBox.Show("¡Cierre de caja realizado exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CargarMetodoPago();
                 }
             }
         }
@@ -556,13 +558,19 @@ namespace ModuloCajaRC.Facturas
             {
                 dgvMovimientos.DataSource = dtMovimientosCaja;
                 //dgvMovimientos.Columns["LoteNro"].Visible = false;
-                dgvMovimientos.Columns["Tipo"].Width = 150;
+                //dgvMovimientos.Columns["LoteNro"].Visible = true;
+                dgvMovimientos.Columns["EncabezadoID"].Visible = false;
+                dgvMovimientos.Columns["ControlID"].Visible = false;
+                //dgvMovimientos.Columns["LoteNro"].Width = 50;
+                dgvMovimientos.Columns["Tipo"].Width = 100;
                 dgvMovimientos.Columns["Fecha"].Width = 150;
                 dgvMovimientos.Columns["FacturaID"].Width = 150;
-                dgvMovimientos.Columns["Cheque"].Width = 150;
-                dgvMovimientos.Columns["Efectivo"].Width = 150;
-                dgvMovimientos.Columns["Transferencia"].Width = 150;
-                dgvMovimientos.Columns["Tarjeta"].Width = 150;
+                dgvMovimientos.Columns["Cheque"].Width = 120;
+                dgvMovimientos.Columns["Efectivo"].Width = 120;
+                dgvMovimientos.Columns["EfectivoRecibido"].Width = 120;
+                dgvMovimientos.Columns["Transferencia"].Width = 120;
+                dgvMovimientos.Columns["Tarjeta"].Width = 120;
+
 
                 //Cargar Resumen Movimientos
                 CargarResumenMovimientos();
@@ -586,14 +594,18 @@ namespace ModuloCajaRC.Facturas
             if (dtMovimientosCaja.Rows.Count > 0)
             {
                 dgvMovimientos.DataSource = dtMovimientosCaja;
-                //dgvMovimientos.Columns["LoteNro"].Visible = false;
-                dgvMovimientos.Columns["Tipo"].Width = 150;
+                dgvMovimientos.Columns["LoteNro"].Visible = true;
+                dgvMovimientos.Columns["EncabezadoID"].Visible = false;
+                dgvMovimientos.Columns["ControlID"].Visible = false;
+                dgvMovimientos.Columns["LoteNro"].Width = 50;
+                dgvMovimientos.Columns["Tipo"].Width = 100;
                 dgvMovimientos.Columns["Fecha"].Width = 150;
                 dgvMovimientos.Columns["FacturaID"].Width = 150;
-                dgvMovimientos.Columns["Cheque"].Width = 150;
-                dgvMovimientos.Columns["Efectivo"].Width = 150;
-                dgvMovimientos.Columns["Transferencia"].Width = 150;
-                dgvMovimientos.Columns["Tarjeta"].Width = 150;
+                dgvMovimientos.Columns["Cheque"].Width = 120;
+                dgvMovimientos.Columns["Efectivo"].Width = 120;
+                dgvMovimientos.Columns["EfectivoRecibido"].Width = 120;
+                dgvMovimientos.Columns["Transferencia"].Width = 120;
+                dgvMovimientos.Columns["Tarjeta"].Width = 120;
 
 
                 //Cargar Resumen Movimientos
@@ -715,7 +727,7 @@ namespace ModuloCajaRC.Facturas
 
         private void cmbLotes_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            MessageBox.Show(cmbLotes.SelectedValue.ToString());
+          //  MessageBox.Show(cmbLotes.SelectedValue.ToString());
             CierreEspecifico();
         }
 
@@ -780,15 +792,17 @@ namespace ModuloCajaRC.Facturas
 
                 // Configurar columnas
                 dgvMovimientos.Columns["LoteNro"].Visible = true;
-                dgvMovimientos.Columns["EncabezadoID"].Visible = true;
-                dgvMovimientos.Columns["ControlID"].Visible = true;
-                dgvMovimientos.Columns["Tipo"].Width = 150;
+                dgvMovimientos.Columns["EncabezadoID"].Visible = false;
+                dgvMovimientos.Columns["ControlID"].Visible = false;
+                dgvMovimientos.Columns["LoteNro"].Width = 50;
+                dgvMovimientos.Columns["Tipo"].Width = 100;
                 dgvMovimientos.Columns["Fecha"].Width = 150;
                 dgvMovimientos.Columns["FacturaID"].Width = 150;
-                dgvMovimientos.Columns["Cheque"].Width = 150;
-                dgvMovimientos.Columns["Efectivo"].Width = 150;
-                dgvMovimientos.Columns["Transferencia"].Width = 150;
-                dgvMovimientos.Columns["Tarjeta"].Width = 150;
+                dgvMovimientos.Columns["Cheque"].Width = 120;
+                dgvMovimientos.Columns["Efectivo"].Width = 120;
+                dgvMovimientos.Columns["EfectivoRecibido"].Width = 120;
+                dgvMovimientos.Columns["Transferencia"].Width = 120;
+                dgvMovimientos.Columns["Tarjeta"].Width = 120;
 
              
                 // Cargar resumen

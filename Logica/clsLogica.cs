@@ -173,5 +173,11 @@ namespace Logica
             tabla = enviar.SP_ControlCaja(a);
             return tabla;
         }
+        public DataTable SP_FactorDolar50(FactorDolar50DTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_FactorDolar50(a);
+            return tabla;
+        }
     }
 }

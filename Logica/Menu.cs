@@ -376,6 +376,7 @@ namespace Logica
         public DateTime? FPosteo { get; set; }           // Fecha de registro
         public string PC { get; set; }                   // Equipo desde donde se registró
         public bool? Estado { get; set; }                // Estado activo/inactivo
+        public decimal? EfectivoRecibido { get; set; }
     }
     public class ControlCajaDTO
     {
@@ -410,4 +411,10 @@ namespace Logica
         public string PC { get; set; }                 // Nombre del equipo desde donde se registró
         public string Guia { get; set; }
     }
+    public class FactorDolar50DTO
+    {
+        public string Opcion { get; set; }            // Acción a ejecutar en el SP (AGREGAR, LISTADO, RECUPERAR, etc.)
+        public decimal? FactorDolar { get; set; }     // Valor del factor de cambio (USD)
+    }
+
 }

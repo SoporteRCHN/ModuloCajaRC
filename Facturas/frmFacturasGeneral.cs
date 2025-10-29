@@ -311,7 +311,6 @@ namespace ModuloCajaRC.Facturas
                    _CambioError = true;
                 }
             }
-
         }
 
         private void InsertarCobro() 
@@ -365,9 +364,12 @@ namespace ModuloCajaRC.Facturas
                     if (!decimal.TryParse(valorCell.ToString(), out decimal monto))
                         continue;
 
+                    decimal EfectivoRecibido = 0;
+
                     if (Convert.ToInt32(row.Cells["Id"].Value) == 4 && Convert.ToDecimal (lblCambio.Text) > 0) 
                     {
                         monto = Convert.ToDecimal(row.Cells["Valor"]?.Value) - Convert.ToDecimal(lblCambio.Text);
+                        EfectivoRecibido = Convert.ToDecimal(row.Cells["Valor"]?.Value);
                     }
                     
                     CobroCajaMetodosDTO sendMetodos = new CobroCajaMetodosDTO
@@ -380,7 +382,8 @@ namespace ModuloCajaRC.Facturas
                         UPosteo = DynamicMain.usuarionlogin,
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
-                        Estado = true
+                        Estado = true,
+                        EfectivoRecibido = EfectivoRecibido
                     };
 
                     dtFacturasMetodos = logica.SP_CobroCajaMetodos(sendMetodos);

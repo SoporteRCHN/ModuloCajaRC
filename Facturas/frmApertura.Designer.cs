@@ -218,7 +218,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.tabControl1.Location = new System.Drawing.Point(29, 27);
+            this.tabControl1.Location = new System.Drawing.Point(29, 15);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1096, 593);
@@ -362,7 +362,8 @@
             this.btnProceso.ForeColor = System.Drawing.Color.White;
             this.btnProceso.Image = global::ModuloCajaRC.Properties.Resources.TikTok_Verified_Account_28px;
             this.btnProceso.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnProceso.Location = new System.Drawing.Point(3, 3);
+            this.btnProceso.Location = new System.Drawing.Point(3, 0);
+            this.btnProceso.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.btnProceso.Name = "btnProceso";
             this.btnProceso.Size = new System.Drawing.Size(159, 49);
             this.btnProceso.TabIndex = 35;
@@ -985,9 +986,9 @@
             // pAcciones
             // 
             this.pAcciones.Controls.Add(this.btnProceso);
-            this.pAcciones.Location = new System.Drawing.Point(3, 4);
+            this.pAcciones.Location = new System.Drawing.Point(3, 6);
             this.pAcciones.Name = "pAcciones";
-            this.pAcciones.Size = new System.Drawing.Size(700, 57);
+            this.pAcciones.Size = new System.Drawing.Size(700, 55);
             this.pAcciones.TabIndex = 36;
             // 
             // frmApertura
@@ -995,7 +996,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1151, 643);
+            this.ClientSize = new System.Drawing.Size(1151, 631);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmApertura";
             this.Text = "frmApertura";
