@@ -416,5 +416,15 @@ namespace Logica
         public string Opcion { get; set; }            // Acción a ejecutar en el SP (AGREGAR, LISTADO, RECUPERAR, etc.)
         public decimal? FactorDolar { get; set; }     // Valor del factor de cambio (USD)
     }
+    public class FactorDolarHistorico50DTO
+    {
+        public string Opcion { get; set; }            // Acción a ejecutar en el SP
+        public long? FactorID { get; set; }           // ID del registro histórico
+        public decimal? FactorDolar { get; set; }     // Valor del factor
+        public string UPosteo { get; set; }           // Usuario que registra
+        public DateTime? FPosteo { get; set; }        // Fecha del registro
+        public string PC { get; set; }                // Nombre del equipo
+        public bool? Estado { get; set; }             // Estado activo/inactivo
+    }
 
 }

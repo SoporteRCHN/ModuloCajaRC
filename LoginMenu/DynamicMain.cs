@@ -27,6 +27,7 @@ namespace ModuloCajaRC
         DataTable tablaEncabezado = new DataTable();
         DataTable dtMenuOpciones = new DataTable();
         DataTable dtTasaCambio = new DataTable();
+        DataTable dtTasaCambioHistorico = new DataTable();
         DataTable dtSeguimientoUsuario = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
         private static Form activeForm;
@@ -122,6 +123,25 @@ namespace ModuloCajaRC
             if (dtTasaCambio.Rows.Count > 0 && dtTasaCambio.Rows[0]["Estado"] == "0") 
             {
                 MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos","Aviso Urgente",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ActualizarTasaCambioHistorico(decimal tasa) 
+        {
+            FactorDolarHistorico50DTO setTasaHistorico = new FactorDolarHistorico50DTO()
+            {
+                Opcion = "Agregar",
+                FactorDolar = tasa,
+                UPosteo = "Josue",
+                FPosteo = DateTime.Now,
+                PC = Environment.MachineName,
+                Estado = true
+            };
+
+            dtTasaCambioHistorico = logica.SP_FactorDolarHistorico50(setTasaHistorico);
+
+            if (dtTasaCambioHistorico.Rows.Count > 0 && dtTasaCambioHistorico.Rows[0]["Estado"] == "0")
+            {
+                MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos", "Aviso Urgente", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         public static async Task<decimal> TasaDeCambioAsync()

@@ -1120,6 +1120,38 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_FactorDolarHistorico50(dynamic factor)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(5); // Ajusta según tu lógica
+
+            comando.Parameters.AddWithValue("@Opcion", factor.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FactorID", factor.FactorID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FactorDolar", factor.FactorDolar ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", factor.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", factor.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", factor.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", factor.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "ENAC.dbo.SP_FactorDolarHistorico";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
 
     }
 }

@@ -179,5 +179,11 @@ namespace Logica
             tabla = enviar.SP_FactorDolar50(a);
             return tabla;
         }
+        public DataTable SP_FactorDolarHistorico50(FactorDolarHistorico50DTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_FactorDolarHistorico50(a);
+            return tabla;
+        }
     }
 }
