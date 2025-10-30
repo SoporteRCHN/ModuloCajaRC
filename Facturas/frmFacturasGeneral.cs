@@ -19,6 +19,7 @@ namespace ModuloCajaRC.Facturas
         DataTable dtPermisos = new DataTable();
         DataTable dtFacturas = new DataTable();
         DataTable dtFacturaUpdateTasa = new DataTable();
+        DataTable dtBodegaExistente = new DataTable();
         DataTable dtFacturasEncabezado = new DataTable();
         DataTable dtFacturasMetodos = new DataTable();
         DataTable dtMetodoPago = new DataTable();
@@ -103,7 +104,7 @@ namespace ModuloCajaRC.Facturas
             dgvFacturas.Columns["Fecha"].Visible = false;
             dgvFacturas.Columns["Fila"].Visible = false;
             dgvFacturas.Columns["Proceso"].Visible = false;
-            dgvFacturas.Columns["Destinatario"].Visible = false;
+            dgvFacturas.Columns["Remitente"].Visible = false;
             dgvFacturas.Columns["FacturaDei"].Visible = false;
 
             dgvFacturas.Columns["Remitente"].Width = 150;
@@ -118,7 +119,7 @@ namespace ModuloCajaRC.Facturas
         private void CargarMetodoPago()
         {
             dgvMetodosPago.Rows.Clear();
-            
+
             MetodoPagoDTO getMetodo = new MetodoPagoDTO
             {
                 Opcion = "LISTADO",
@@ -128,7 +129,7 @@ namespace ModuloCajaRC.Facturas
             {
                 foreach (DataRow row in dtMetodoPago.Rows)
                 {
-                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"], "","");
+                    dgvMetodosPago.Rows.Add(row["MetodoID"], row["Descripcion"], "", "");
 
                     dgvMetodosPago.Columns["Id"].Visible = false;
                     dgvMetodosPago.Columns["Metodo"].Width = 150;
@@ -207,7 +208,7 @@ namespace ModuloCajaRC.Facturas
                             {
                                 case "Procesar":
                                     InsertarCobro();
-                                    
+
                                     dgvFacturas.DataSource = null;
                                     CargarFacturas();
                                     break;
@@ -237,7 +238,7 @@ namespace ModuloCajaRC.Facturas
         }
         private void RechazarFactura()
         {
-            DialogResult resultado = MessageBox.Show("¿Desea rechazar esta factura?", "Confirmación", MessageBoxButtons.YesNo,  MessageBoxIcon.Question);
+            DialogResult resultado = MessageBox.Show("¿Desea rechazar esta factura?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
             {
@@ -262,9 +263,27 @@ namespace ModuloCajaRC.Facturas
 
                 if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
                 {
-                    MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MostrarAvisoTemporal("La guia ha sido rechazada exitosamente.");
                 }
+
             }
+        }
+        private void MostrarAvisoTemporal(string Comentario)
+        {
+            pAviso.Visible = true;
+
+            timerAviso = new Timer();
+            timerAviso.Interval = 5000; // 5 segundos
+            timerAviso.Tick += TimerAviso_Tick;
+            timerAviso.Start();
+            lblComentario.Text = Comentario;
+        }
+        private void TimerAviso_Tick(object sender, EventArgs e)
+        {
+            pAviso.Visible = false;
+            timerAviso.Stop();
+            timerAviso.Dispose();
         }
         private void Validaciones()
         {
@@ -301,13 +320,13 @@ namespace ModuloCajaRC.Facturas
                         if ((metodoID == 3 || metodoID == 5 || metodoID == 6) && string.IsNullOrWhiteSpace(referencia))
                         {
                             pasaValidacion = false;
-                            break; 
+                            break;
                         }
                     }
                 }
             }
-          //Valido que el total recibido no sea menor al total esperado
-          _ErrorRecibido = (Convert.ToDecimal(lblRecibido.Text) < Convert.ToDecimal(lblGranTotal.Text)) ? true : false;
+            //Valido que el total recibido no sea menor al total esperado
+            _ErrorRecibido = (Convert.ToDecimal(lblRecibido.Text) < Convert.ToDecimal(lblGranTotal.Text)) ? true : false;
 
             decimal sumaMetodos = 0;
             decimal sumaEfectivo = 0;
@@ -336,14 +355,14 @@ namespace ModuloCajaRC.Facturas
             // Validación final para saber si puede darle cambio o no
             if (sumaMetodos > Convert.ToDecimal(lblGranTotal.Text))
             {
-                if (sumaEfectivo < Convert.ToDecimal(lblCambio.Text)) 
+                if (sumaEfectivo < Convert.ToDecimal(lblCambio.Text))
                 {
-                   _CambioError = true;
+                    _CambioError = true;
                 }
             }
         }
 
-        private void InsertarCobro() 
+        private void InsertarCobro()
         {
             Validaciones();
             if (_ErrorRecibido == true)
@@ -352,7 +371,7 @@ namespace ModuloCajaRC.Facturas
                 return;
             }
             if (pasaValidacion == false) {
-                MessageBox.Show("Debe completar el campo de referencia cuando no sea efectivo.","Aviso",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Debe completar el campo de referencia cuando no sea efectivo.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (_CambioError == true)
@@ -396,7 +415,7 @@ namespace ModuloCajaRC.Facturas
 
                     decimal EfectivoRecibido = 0;
 
-                    if (Convert.ToInt32(row.Cells["Id"].Value) == 4 && Convert.ToDecimal (lblCambio.Text) > 0) 
+                    if (Convert.ToInt32(row.Cells["Id"].Value) == 4 && Convert.ToDecimal(lblCambio.Text) > 0)
                     {
                         monto = Convert.ToDecimal(row.Cells["Valor"]?.Value) - Convert.ToDecimal(lblCambio.Text);
                         EfectivoRecibido = Convert.ToDecimal(row.Cells["Valor"]?.Value);
@@ -421,7 +440,7 @@ namespace ModuloCajaRC.Facturas
                     if ((dtFacturasMetodos.Rows.Count > 0 && dtFacturasMetodos.Rows[0]["Estado"].ToString() == "0") || dtFacturasMetodos.Rows.Count <= 0)
                     {
                         MessageBox.Show("Ha ocurrido un error al momento de procesar la solicitud, los cambios se revertiran.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        
+
                         //Eliminar el encabezado y cualquier registro coincidente en el metodo
                         CobroCajaEncabezadoDTO deleteEncabezado = new CobroCajaEncabezadoDTO
                         {
@@ -429,9 +448,9 @@ namespace ModuloCajaRC.Facturas
                             ID = _IDCobroCajaEncabezado
                         };
                         dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(deleteEncabezado);
-                        if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString()=="0") 
+                        if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString() == "0")
                         {
-                            MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(),"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                         //Eliminar cualquier registro que sea ligado al encabezado
@@ -446,7 +465,7 @@ namespace ModuloCajaRC.Facturas
                         {
                             MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        
+
                         return;
                     }
                 }
@@ -461,16 +480,16 @@ namespace ModuloCajaRC.Facturas
                 return;
             }
         }
-        private void ActualizarTasaFactura2(decimal tasa, string factura) 
+        private void ActualizarTasaFactura2(decimal tasa, string factura)
         {
-            Factura2DTO50 setTasa = new Factura2DTO50 
+            Factura2DTO50 setTasa = new Factura2DTO50
             {
                 Opcion = "Actualizar",
                 FactorDolar = tasa,
                 Factura = factura
             };
             dtFacturaUpdateTasa = logica.SP_Facturas250(setTasa);
-            if (dtFacturaUpdateTasa.Rows.Count > 0 && dtFacturaUpdateTasa.Rows[0]["Estado"].ToString() == "0") 
+            if (dtFacturaUpdateTasa.Rows.Count > 0 && dtFacturaUpdateTasa.Rows[0]["Estado"].ToString() == "0")
             {
                 MessageBox.Show(dtFacturaUpdateTasa.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -491,30 +510,104 @@ namespace ModuloCajaRC.Facturas
                 };
                 dtFacturas = logica.SP_FacturasProceso(sendFacturas);
             } else if (dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString() == "INTER") {
-                
-                ActualizarTasaFactura2(DynamicMain.tasa, _FacturaID.ToString());
-               
-                FacturaProcesoDTO50 sendFacturas50 = new FacturaProcesoDTO50
-                {
-                    Opcion = "AGREGAR",
-                    FacturaID = _FacturaID,
-                    Proceso = 2,
-                    UPosteo = DynamicMain.usuarionlogin,
-                    FPosteo = DateTime.Now,
-                    PC = System.Environment.MachineName,
-                    Guia = _GuiaID
-                };
-                dtFacturas = logica.SP_FacturasProceso50(sendFacturas50);
-            }
 
-            if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
-            {
-                MessageBox.Show("Registro Ingresado correctamente, Solicitud de busqueda de carga enviada a bodega.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ActualizarTasaFactura2(DynamicMain.tasa, _FacturaID.ToString());
+
+                int SucursalUbicacion =  ConsultaBodegaExistente();
+
+                if (SucursalUbicacion == 3) 
+                {
+                    DialogResult resultado = MessageBox.Show("¿Desea enviar la solicitud a bodega para buscar el producto?","Confirmación de envío",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        // Aquí llamás tu método para enviar la solicitud
+                        FacturaProcesoDTO50 sendFacturas50 = new FacturaProcesoDTO50
+                        {
+                            Opcion = "AGREGAR",
+                            FacturaID = _FacturaID,
+                            Proceso = 2,
+                            UPosteo = DynamicMain.usuarionlogin,
+                            FPosteo = DateTime.Now,
+                            PC = System.Environment.MachineName,
+                            Guia = _GuiaID
+                        };
+                        dtFacturas = logica.SP_FacturasProceso50(sendFacturas50);
+
+                        if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+                        {
+                            MostrarAvisoTemporal("Solicitud enviada a bodega correctamente.");
+                            Limpiar();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error al procesar la solicitud", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else if (resultado == DialogResult.No) 
+                    {
+                        // Aquí llamás tu método para enviar la solicitud
+                        FacturaProcesoDTO50 sendFacturas50 = new FacturaProcesoDTO50
+                        {
+                            Opcion = "AGREGAR",
+                            FacturaID = _FacturaID,
+                            Proceso = 2,
+                            UPosteo = DynamicMain.usuarionlogin,
+                            FPosteo = DateTime.Now,
+                            PC = System.Environment.MachineName,
+                            Guia = _GuiaID
+                        };
+                        dtFacturas = logica.SP_FacturasProceso50(sendFacturas50);
+                    }
+                    if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+                    {
+                        MostrarAvisoTemporal("Registro ingresado correctamente.");
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error al procesar la solicitud", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    // Aquí llamás tu método para enviar la solicitud
+                    FacturaProcesoDTO50 sendFacturas50 = new FacturaProcesoDTO50
+                    {
+                        Opcion = "AGREGAR",
+                        FacturaID = _FacturaID,
+                        Proceso = 2,
+                        UPosteo = DynamicMain.usuarionlogin,
+                        FPosteo = DateTime.Now,
+                        PC = System.Environment.MachineName,
+                        Guia = _GuiaID
+                    };
+                    dtFacturas = logica.SP_FacturasProceso50(sendFacturas50);
+                    if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+                    {
+                        MostrarAvisoTemporal("Registro ingresado correctamente.");
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ha ocurrido un error al procesar la solicitud", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            else
+        }
+        private int ConsultaBodegaExistente() 
+        {
+            SucursalUbicacionDTO buscar = new SucursalUbicacionDTO
             {
-                MessageBox.Show("Ha ocurrido un error al intentar enviar a bodega", "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Opcion = "Recuperar",
+                UbicacionID = DynamicMain.usuarioSucursalID
+            };
+            dtBodegaExistente = logica.SP_SucursalUbicaciones(buscar);
+            if (dtBodegaExistente.Rows[0]["CajaActiva"].ToString() == "3") 
+            {
+                return Convert.ToInt32(dtBodegaExistente.Rows[0]["CajaActiva"].ToString());
             }
+            return 0;
         }
         private void tmrBuscarFacturas_Tick(object sender, EventArgs e)
         {
@@ -585,6 +678,9 @@ namespace ModuloCajaRC.Facturas
             lblRestante.Text = (total < Convert.ToDecimal(lblGranTotal.Text)? (total - Convert.ToDecimal(lblGranTotal.Text)).ToString() : "0.00" );
             lblRecibido.Text = $"{total:N2}";
         }
+
+
+
 
         private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
         {

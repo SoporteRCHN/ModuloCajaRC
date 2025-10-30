@@ -440,4 +440,15 @@ namespace Logica
         public string PC { get; set; }
         public string Observacion { get; set; }
     }
+    public class SucursalUbicacionDTO
+    {
+        public string Opcion { get; set; }            // Acción a ejecutar en el SP (AGREGAR, ACTUALIZAR, ELIMINAR, LISTADO, RECUPERAR)
+        public int? UbicacionID { get; set; }         // ID de la ubicación (clave primaria)
+        public string Descripcion { get; set; }       // Nombre o detalle de la ubicación
+        public string UPosteo { get; set; }           // Usuario que registra
+        public DateTime? FPosteo { get; set; }        // Fecha del registro
+        public string PC { get; set; }                // Nombre del equipo
+        public bool? Estado { get; set; }             // Estado activo/inactivo
+    }
+
 }

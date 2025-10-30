@@ -1188,6 +1188,38 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_SucursalUbicaciones(dynamic ubicacion)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3); // Ajusta según tu lógica
+
+            comando.Parameters.AddWithValue("@Opcion", ubicacion.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UbicacionID", ubicacion.UbicacionID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Descripcion", ubicacion.Descripcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", ubicacion.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", ubicacion.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", ubicacion.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", ubicacion.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_SucursalUbicaciones";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
 
 
     }

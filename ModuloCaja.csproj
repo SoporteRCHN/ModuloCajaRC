@@ -234,5 +234,14 @@
   <ItemGroup>
     <None Include="Resources\unavailable_26px.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\commercial_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\about_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info_50px.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

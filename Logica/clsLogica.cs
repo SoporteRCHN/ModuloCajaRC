@@ -191,5 +191,11 @@ namespace Logica
             tabla = enviar.SP_Facturas250(a);
             return tabla;
         }
+        public DataTable SP_SucursalUbicaciones(SucursalUbicacionDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_SucursalUbicaciones(a);
+            return tabla;
+        }
     }
 }

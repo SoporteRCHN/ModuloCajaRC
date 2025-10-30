@@ -71,7 +71,11 @@
             this.Metodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pAviso = new System.Windows.Forms.Panel();
+            this.lblComentario = new System.Windows.Forms.Label();
+            this.timerAviso = new System.Windows.Forms.Timer(this.components);
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.Ayuda = new System.Windows.Forms.DataGridViewImageColumn();
@@ -79,6 +83,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetodosPago)).BeginInit();
+            this.pAviso.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -533,12 +539,48 @@
             this.Referencia.Name = "Referencia";
             this.Referencia.Width = 99;
             // 
+            // pAviso
+            // 
+            this.pAviso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(144)))), ((int)(((byte)(152)))));
+            this.pAviso.Controls.Add(this.pictureBox5);
+            this.pAviso.Controls.Add(this.lblComentario);
+            this.pAviso.Location = new System.Drawing.Point(33, 567);
+            this.pAviso.Name = "pAviso";
+            this.pAviso.Size = new System.Drawing.Size(844, 37);
+            this.pAviso.TabIndex = 56;
+            this.pAviso.Visible = false;
+            // 
+            // lblComentario
+            // 
+            this.lblComentario.AutoSize = true;
+            this.lblComentario.BackColor = System.Drawing.Color.Transparent;
+            this.lblComentario.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComentario.Location = new System.Drawing.Point(59, 9);
+            this.lblComentario.Name = "lblComentario";
+            this.lblComentario.Size = new System.Drawing.Size(96, 18);
+            this.lblComentario.TabIndex = 57;
+            this.lblComentario.Text = "Comentario";
+            // 
+            // timerAviso
+            // 
+            this.timerAviso.Tick += new System.EventHandler(this.TimerAviso_Tick);
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.HeaderText = "Ayuda";
             this.dataGridViewImageColumn1.Image = global::ModuloCajaRC.Properties.Resources.info_22px;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.Width = 76;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::ModuloCajaRC.Properties.Resources.info_50px;
+            this.pictureBox5.Location = new System.Drawing.Point(16, 3);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(32, 30);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox5.TabIndex = 57;
+            this.pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -588,7 +630,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(911, 610);
+            this.ClientSize = new System.Drawing.Size(911, 672);
+            this.Controls.Add(this.pAviso);
             this.Controls.Add(this.lblOrigen);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.pictureBox4);
@@ -631,6 +674,9 @@
             this.Load += new System.EventHandler(this.frmFacturasGeneral_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetodosPago)).EndInit();
+            this.pAviso.ResumeLayout(false);
+            this.pAviso.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -686,5 +732,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Referencia;
         private System.Windows.Forms.DataGridViewImageColumn Ayuda;
+        private System.Windows.Forms.Panel pAviso;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label lblComentario;
+        private System.Windows.Forms.Timer timerAviso;
     }
 }

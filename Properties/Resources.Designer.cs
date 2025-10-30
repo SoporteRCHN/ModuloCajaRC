@@ -63,6 +63,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap about_50px {
+            get {
+                object obj = ResourceManager.GetObject("about_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add_camera_22px {
             get {
                 object obj = ResourceManager.GetObject("add_camera_22px", resourceCulture);
@@ -163,6 +173,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap commercial_50px {
+            get {
+                object obj = ResourceManager.GetObject("commercial_50px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap credit_card_13114177 {
             get {
                 object obj = ResourceManager.GetObject("credit-card_13114177", resourceCulture);
@@ -206,6 +226,16 @@ namespace ModuloCajaRC.Properties {
         internal static System.Drawing.Bitmap info_22px {
             get {
                 object obj = ResourceManager.GetObject("info_22px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info_50px {
+            get {
+                object obj = ResourceManager.GetObject("info_50px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
