@@ -313,6 +313,16 @@ namespace ModuloCajaRC.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap unavailable_26px {
+            get {
+                object obj = ResourceManager.GetObject("unavailable_26px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap user_shield_32px {
             get {
                 object obj = ResourceManager.GetObject("user_shield_32px", resourceCulture);

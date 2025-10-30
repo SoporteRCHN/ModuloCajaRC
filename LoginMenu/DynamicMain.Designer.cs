@@ -32,6 +32,9 @@
             this.pWorkspace = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.pHeaderOptions = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblTasa = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnAlertas = new System.Windows.Forms.Button();
             this.lblUbicacion = new System.Windows.Forms.Label();
@@ -63,11 +66,9 @@
             this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
             this.pHeaderMain = new System.Windows.Forms.Panel();
             this.PanelLeftTimer = new System.Windows.Forms.Timer(this.components);
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblTasa = new System.Windows.Forms.Label();
             this.pWorkspace.SuspendLayout();
             this.pHeaderOptions.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pHederOptionsInfo2.SuspendLayout();
             this.pLeftMenu.SuspendLayout();
@@ -78,7 +79,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pFooter.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // pWorkspace
@@ -115,6 +115,40 @@
             this.pHeaderOptions.Name = "pHeaderOptions";
             this.pHeaderOptions.Size = new System.Drawing.Size(894, 46);
             this.pHeaderOptions.TabIndex = 38;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.lblTasa);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(538, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(158, 46);
+            this.panel3.TabIndex = 4;
+            // 
+            // lblTasa
+            // 
+            this.lblTasa.AutoSize = true;
+            this.lblTasa.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTasa.ForeColor = System.Drawing.Color.DimGray;
+            this.lblTasa.Location = new System.Drawing.Point(15, 24);
+            this.lblTasa.Name = "lblTasa";
+            this.lblTasa.Size = new System.Drawing.Size(14, 16);
+            this.lblTasa.TabIndex = 6;
+            this.lblTasa.Text = "0";
+            this.lblTasa.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DimGray;
+            this.label1.Location = new System.Drawing.Point(15, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(119, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "TASA DE CAMBIO";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel2
             // 
@@ -396,40 +430,6 @@
             this.PanelLeftTimer.Interval = 10;
             this.PanelLeftTimer.Tick += new System.EventHandler(this.PanelLeftTimer_Tick);
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.lblTasa);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(538, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(158, 46);
-            this.panel3.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DimGray;
-            this.label1.Location = new System.Drawing.Point(15, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "TASA DE CAMBIO";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblTasa
-            // 
-            this.lblTasa.AutoSize = true;
-            this.lblTasa.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTasa.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTasa.Location = new System.Drawing.Point(15, 24);
-            this.lblTasa.Name = "lblTasa";
-            this.lblTasa.Size = new System.Drawing.Size(14, 16);
-            this.lblTasa.TabIndex = 6;
-            this.lblTasa.Text = "0";
-            this.lblTasa.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // DynamicMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -449,6 +449,8 @@
             this.pWorkspace.PerformLayout();
             this.pHeaderOptions.ResumeLayout(false);
             this.pHeaderOptions.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.pHederOptionsInfo2.ResumeLayout(false);
             this.pLeftMenu.ResumeLayout(false);
@@ -463,8 +465,6 @@
             this.pFooter.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }

@@ -24,7 +24,7 @@ namespace ModuloCajaRC.Facturas
         DataTable dtMetodoPago = new DataTable();
         clsLogica logica = new clsLogica();
 
-        public int _FacturaID;
+        public int _FacturaID, _IDCobroCajaEncabezado, _IDCobroMetodo, _IDControlCaja;
         public string _GuiaID;
         private bool usuarioInteractuando = false;
         public bool pasaValidacion = true;
@@ -34,7 +34,7 @@ namespace ModuloCajaRC.Facturas
         public frmFacturasGeneral()
         {
             InitializeComponent();
-            CargarAcciones(1, pAcciones, 60, 50, 10, TextImageRelation.ImageAboveText);
+            CargarAcciones(1, pAcciones, 70, 50, 10, TextImageRelation.ImageAboveText);
             CargarFacturas();
             CargarMetodoPago();
         }
@@ -99,7 +99,7 @@ namespace ModuloCajaRC.Facturas
             }
 
             // Configuración visual
-            dgvFacturas.Columns["ProcesoID"].Visible = false;
+            dgvFacturas.Columns["ProcesoID"].Visible = true;
             dgvFacturas.Columns["Fecha"].Visible = false;
             dgvFacturas.Columns["Fila"].Visible = false;
             dgvFacturas.Columns["Proceso"].Visible = false;
@@ -216,6 +216,13 @@ namespace ModuloCajaRC.Facturas
                                     Limpiar();
                                     dgvFacturas.DataSource = null;
                                     break;
+
+                                case "Rechazar":
+                                    RechazarFactura();
+
+                                    dgvFacturas.DataSource = null;
+                                    CargarFacturas();
+                                    break;
                                 default:
                                     MessageBox.Show($"Acción no reconocida: {accionElemento}");
                                     break;
@@ -225,6 +232,37 @@ namespace ModuloCajaRC.Facturas
                         _Panel.Controls.Add(btn);
                         _Panel.WrapContents = true;
                     }
+                }
+            }
+        }
+        private void RechazarFactura()
+        {
+            DialogResult resultado = MessageBox.Show("¿Desea rechazar esta factura?", "Confirmación", MessageBoxButtons.YesNo,  MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                if (dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString() == "ENAC.")
+                {
+                    FacturaProcesoDTO sendFacturas = new FacturaProcesoDTO
+                    {
+                        Opcion = "ELIMINAR",
+                        FacturaID = _FacturaID,
+                    };
+                    dtFacturas = logica.SP_FacturasProceso(sendFacturas);
+                }
+                else if (dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString() == "INTER")
+                {
+                    FacturaProcesoDTO50 sendFacturas = new FacturaProcesoDTO50
+                    {
+                        Opcion = "ELIMINAR",
+                        FacturaID = _FacturaID,
+                    };
+                    dtFacturas = logica.SP_FacturasProceso50(sendFacturas);
+                }
+
+                if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+                {
+                    MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -341,6 +379,7 @@ namespace ModuloCajaRC.Facturas
             dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(sendEncabezado);
             if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1")
             {
+                _IDCobroCajaEncabezado = Convert.ToInt32(dtFacturasEncabezado.Rows[0]["UltimoID"]);
                 int _EncabezadoID = Convert.ToInt32(dtFacturasEncabezado.Rows[0]["UltimoID"]);
 
                 foreach (DataGridViewRow row in dgvMetodosPago.Rows)
@@ -362,7 +401,7 @@ namespace ModuloCajaRC.Facturas
                         monto = Convert.ToDecimal(row.Cells["Valor"]?.Value) - Convert.ToDecimal(lblCambio.Text);
                         EfectivoRecibido = Convert.ToDecimal(row.Cells["Valor"]?.Value);
                     }
-                    
+
                     CobroCajaMetodosDTO sendMetodos = new CobroCajaMetodosDTO
                     {
                         Opcion = "Agregar",
@@ -381,7 +420,33 @@ namespace ModuloCajaRC.Facturas
 
                     if ((dtFacturasMetodos.Rows.Count > 0 && dtFacturasMetodos.Rows[0]["Estado"].ToString() == "0") || dtFacturasMetodos.Rows.Count <= 0)
                     {
-                        MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Ha ocurrido un error al momento de procesar la solicitud, los cambios se revertiran.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
+                        //Eliminar el encabezado y cualquier registro coincidente en el metodo
+                        CobroCajaEncabezadoDTO deleteEncabezado = new CobroCajaEncabezadoDTO
+                        {
+                            Opcion = "EliminarEncabezado",
+                            ID = _IDCobroCajaEncabezado
+                        };
+                        dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(deleteEncabezado);
+                        if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString()=="0") 
+                        {
+                            MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(),"Aviso",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        }
+
+                        //Eliminar cualquier registro que sea ligado al encabezado
+                        CobroCajaMetodosDTO deleteMetodos = new CobroCajaMetodosDTO
+                        {
+                            Opcion = "EliminarPorEncabezado",
+                            EncabezadoID = _EncabezadoID,
+                        };
+
+                        dtFacturasMetodos = logica.SP_CobroCajaMetodos(deleteMetodos);
+                        if (dtFacturasMetodos.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString() == "0")
+                        {
+                            MessageBox.Show(dtFacturasMetodos.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        
                         return;
                     }
                 }
@@ -442,7 +507,7 @@ namespace ModuloCajaRC.Facturas
                 dtFacturas = logica.SP_FacturasProceso50(sendFacturas50);
             }
 
-                if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
+            if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
             {
                 MessageBox.Show("Registro Ingresado correctamente, Solicitud de busqueda de carga enviada a bodega.", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

@@ -67,16 +67,16 @@
             this.label16 = new System.Windows.Forms.Label();
             this.lblOrigen = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Metodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Referencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.Ayuda = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetodosPago)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -508,49 +508,6 @@
             this.label20.TabIndex = 54;
             this.label20.Text = "Origen:";
             // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.HeaderText = "Ayuda";
-            this.dataGridViewImageColumn1.Image = global::ModuloCajaRC.Properties.Resources.info_22px;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Width = 76;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
-            this.pictureBox4.Location = new System.Drawing.Point(512, 22);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox4.TabIndex = 53;
-            this.pictureBox4.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
-            this.pictureBox3.Location = new System.Drawing.Point(512, 312);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox3.TabIndex = 52;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
-            this.pictureBox2.Location = new System.Drawing.Point(32, 312);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
-            this.pictureBox1.Location = new System.Drawing.Point(32, 22);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // ID
             // 
             this.ID.HeaderText = "id";
@@ -576,12 +533,55 @@
             this.Referencia.Name = "Referencia";
             this.Referencia.Width = 99;
             // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.HeaderText = "Ayuda";
+            this.dataGridViewImageColumn1.Image = global::ModuloCajaRC.Properties.Resources.info_22px;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 76;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox4.Location = new System.Drawing.Point(512, 22);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox4.TabIndex = 53;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox3.Location = new System.Drawing.Point(512, 312);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox3.TabIndex = 52;
+            this.pictureBox3.TabStop = false;
+            // 
             // Ayuda
             // 
             this.Ayuda.HeaderText = "";
             this.Ayuda.Image = global::ModuloCajaRC.Properties.Resources.joyent_22px;
             this.Ayuda.Name = "Ayuda";
             this.Ayuda.Width = 99;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox2.Location = new System.Drawing.Point(32, 312);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ModuloCajaRC.Properties.Resources.blue_Checkmark_22px;
+            this.pictureBox1.Location = new System.Drawing.Point(32, 22);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // frmFacturasGeneral
             // 
