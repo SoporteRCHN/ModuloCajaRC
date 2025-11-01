@@ -678,6 +678,7 @@ namespace ModuloCajaRC.Facturas
         private void btnMovimientos_Click(object sender, EventArgs e)
         {
             ListadoLoteActual();
+            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
 
         private void CargarResumenMovimientos() 
@@ -740,6 +741,7 @@ namespace ModuloCajaRC.Facturas
 
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
         private void dtpInicio_ValueChanged(object sender, EventArgs e)
         {
@@ -749,6 +751,7 @@ namespace ModuloCajaRC.Facturas
             }
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
         private void verCierresEntreFechas(DateTime Inicio, DateTime Final)
         {
@@ -876,10 +879,13 @@ namespace ModuloCajaRC.Facturas
         private void btnProceso_Click(object sender, EventArgs e)
         {
             if (_EstaAperturando == true) 
-            { EnviarControlCaja(1); } 
+            { EnviarControlCaja(1);
+                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 55);
+            } 
             else 
             {
-                EnviarControlCaja(2); 
+                EnviarControlCaja(2);
+                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
             }
         }
 

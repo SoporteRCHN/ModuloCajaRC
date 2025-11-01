@@ -339,6 +339,18 @@ namespace Logica
         public string PC { get; set; }                 // Nombre del equipo desde donde se registró
         public string Guia { get; set; }
     }
+    public class FacturaProcesoActualDTO
+    {
+        public string Opcion { get; set; }             // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
+        public long? ProcesoID { get; set; }           // Clave primaria del proceso
+        public int? FacturaID { get; set; }            // ID de la factura asociada
+        public int? Proceso { get; set; }              // Estado o tipo de proceso
+        public string UPosteo { get; set; }            // Usuario que registra el proceso
+        public DateTime? FPosteo { get; set; }         // Fecha del registro
+        public string PC { get; set; }                 // Nombre del equipo desde donde se registró
+        public string Guia { get; set; }
+        public string Origen { get; set; }
+    }
     public class MetodoPagoDTO
     {
         public string Opcion { get; set; }           // Acción a ejecutar en el SP (AGREGAR, LISTADO, etc.)
@@ -445,6 +457,16 @@ namespace Logica
         public string Opcion { get; set; }            // Acción a ejecutar en el SP (AGREGAR, ACTUALIZAR, ELIMINAR, LISTADO, RECUPERAR)
         public int? UbicacionID { get; set; }         // ID de la ubicación (clave primaria)
         public string Descripcion { get; set; }       // Nombre o detalle de la ubicación
+        public string UPosteo { get; set; }           // Usuario que registra
+        public DateTime? FPosteo { get; set; }        // Fecha del registro
+        public string PC { get; set; }                // Nombre del equipo
+        public bool? Estado { get; set; }             // Estado activo/inactivo
+    }
+    public class PlanContingenciaDTO
+    {
+        public string Opcion { get; set; }            // Acción a ejecutar en el SP
+        public int? ContingenciaID { get; set; }      // ID del plan de contingencia
+        public string Descripcion { get; set; }       // Descripción del plan
         public string UPosteo { get; set; }           // Usuario que registra
         public DateTime? FPosteo { get; set; }        // Fecha del registro
         public string PC { get; set; }                // Nombre del equipo

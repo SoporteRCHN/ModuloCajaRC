@@ -191,7 +191,6 @@ namespace ModuloCajaRC.LoginMenu
         }
         private void SeguimientoUsuario(string _Operacion, int _AccionID)
         {
-
             SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
             {
                 Operacion = _Operacion,

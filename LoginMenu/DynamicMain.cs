@@ -29,6 +29,7 @@ namespace ModuloCajaRC
         DataTable dtTasaCambio = new DataTable();
         DataTable dtTasaCambioHistorico = new DataTable();
         DataTable dtSeguimientoUsuario = new DataTable();
+        DataTable dtContingencias = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
         private static Form activeForm;
         public static RegistroAcciones registro = new RegistroAcciones(); //REGISTRO DE ACCIONES DE USUARIO
@@ -56,6 +57,7 @@ namespace ModuloCajaRC
         public static decimal tasa;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
         public static bool existeAvisos = false; //Variable para controlar el mostrar o no los avisos.
+        public static bool ContingenciaBodega = false;
 
         bool panelLeftExpand = true;
         clsLogica logica = new clsLogica();
@@ -83,7 +85,7 @@ namespace ModuloCajaRC
 
             toolStripLabel4.Text = Datos.BD_Conexion.servidor.ToString();
             toolStripLabel6.Text = usuarionlogin;
-
+           
             // Llamar método async separado
             _ = InicializarAsync();
 
@@ -102,15 +104,34 @@ namespace ModuloCajaRC
         {
             EstadoENAC();
             CargarEncabezado(usuarionlogin);
-
+            RecuperarContingencias();
             BuscarMenu();
             CargarMenuDinamico();
+            
 
             tasa = await TasaDeCambioAsync();
             lblTasa.Text = tasa.ToString();
             
             ActualizarTasaCambio(tasa);
             ActualizarTasaCambioHistorico(tasa);
+           
+        }
+        public void SeguimientoUsuario(string _Operacion, int _AccionID)
+        {
+            SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
+            {
+                Operacion = _Operacion,
+                Usuario = usuarionlogin,
+                Modulo = Assembly.GetExecutingAssembly().GetName().Name,
+                Formulario = this.Name,
+                AccionID = _AccionID,
+                UPosteo = usuarionlogin,
+                FPosteo = DateTime.Now,
+                PC = System.Environment.MachineName,
+                Estado = true
+
+            };
+            dtSeguimientoUsuario = logica.SP_SeguimientoUsuario(sendSeguimiento);
         }
         private void ActualizarTasaCambio(decimal tasa) 
         {
@@ -146,11 +167,23 @@ namespace ModuloCajaRC
         }
         public static async Task<decimal> TasaDeCambioAsync()
         {
-            string fecha = DateTime.UtcNow.ToString("yyyy-MM-dd");
+
+            DateTime fecha = DateTime.UtcNow;
+            
+            if (fecha.DayOfWeek == DayOfWeek.Saturday) 
+            {
+                fecha = fecha.AddDays(2);
+            }
+            else if (fecha.DayOfWeek == DayOfWeek.Sunday)
+            {
+                fecha = fecha.AddDays(1);
+
+            }
+            
             string codigo = "620";
             string clave = "4354437e7fd3475090c6c739d3276af8";
 
-            string url = $"https://bchapi-am.azure-api.net/api/v1/indicadores/{codigo}/cifras?formato=Json&fechaInicio={fecha}&fechaFinal={fecha}";
+            string url = $"https://bchapi-am.azure-api.net/api/v1/indicadores/{codigo}/cifras?formato=Json&fechaInicio={fecha.ToString("yyyy-MM-dd")}&fechaFinal={fecha.ToString("yyyy-MM-dd")}";
 
             using (HttpClient client = new HttpClient())
             {
@@ -202,6 +235,21 @@ namespace ModuloCajaRC
                 usuarioSucursalCaja = Convert.ToInt32(row["CajaActiva"]);
             }
         }
+
+        private void RecuperarContingencias()
+        {
+            PlanContingenciaDTO getContingencia = new PlanContingenciaDTO 
+            {
+                Opcion = "Recuperar",
+                Descripcion = "ContingenciaBodega"
+            };
+            dtContingencias = logica.SP_PlanContingencia(getContingencia);
+            if(dtContingencias.Rows.Count>0) 
+            {
+                ContingenciaBodega = Convert.ToBoolean(dtContingencias.Rows[0]["Estado"].ToString());
+            }
+        }
+
         private void BuscarMenu()
         {
             TBLMenuDinamicoLista getTBLMenuDinamicoLista = new TBLMenuDinamicoLista
@@ -640,3 +688,4 @@ namespace ModuloCajaRC
         }
     }
 }
+

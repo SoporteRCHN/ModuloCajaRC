@@ -197,5 +197,17 @@ namespace Logica
             tabla = enviar.SP_SucursalUbicaciones(a);
             return tabla;
         }
+        public DataTable SP_PlanContingencia(PlanContingenciaDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_PlanContingencia(a);
+            return tabla;
+        }
+        public DataTable SP_FacturasProcesoActual(FacturaProcesoActualDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_FacturasProcesoActual(a);
+            return tabla;
+        }
     }
 }

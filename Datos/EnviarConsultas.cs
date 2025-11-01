@@ -944,6 +944,33 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_FacturasProcesoActual(dynamic proceso)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", proceso.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ProcesoID", proceso.ProcesoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FacturaID", proceso.FacturaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Proceso", proceso.Proceso ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", proceso.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", proceso.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", proceso.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Guia", proceso.Guia ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Origen", proceso.Origen ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_FacturasProceso";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader(CommandBehavior.CloseConnection);
+            tabla.Load(leer);
+
+            return tabla;
+        }
+
         public DataTable SP_MetodoPagos(dynamic metodo)
         {
             SqlDataReader leer = null;
@@ -1211,6 +1238,38 @@ namespace Datos
             comando.Parameters.AddWithValue("@Estado", ubicacion.Estado ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Empresa.SP_SucursalUbicaciones";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_PlanContingencia(dynamic plan)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3); // Ajusta según tu lógica
+
+            comando.Parameters.AddWithValue("@Opcion", plan.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ContingenciaID", plan.ContingenciaID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Descripcion", plan.Descripcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", plan.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", plan.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", plan.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", plan.Estado ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_PlanContingencia";
             comando.CommandType = CommandType.StoredProcedure;
 
             leer = comando.ExecuteReader();
