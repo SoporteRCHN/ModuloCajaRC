@@ -53,7 +53,8 @@ namespace ModuloCajaRC
         public static int usuarioNivelAccesoSolicitud;
         public static int usuarioSucursalCaja;
         public static int Confidencial;
-        public static int cajaID;
+        public static int cajaID; //Ayuda en el manejo del ControlID cuando se apertura caja
+        public static int usuarioAutorizaCierreCaja;
         public static decimal tasa;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
         public static bool existeAvisos = false; //Variable para controlar el mostrar o no los avisos.
@@ -233,6 +234,7 @@ namespace ModuloCajaRC
                 usuarioEmpresaID = Convert.ToInt32(row["EmpresaID"]);
                 usuarionEmpresaNombre = row["Empresa"].ToString();
                 usuarioSucursalCaja = Convert.ToInt32(row["CajaActiva"]);
+                usuarioAutorizaCierreCaja = Convert.ToInt32(row["AutorizaCierreCaja"]);
             }
         }
 
@@ -241,7 +243,8 @@ namespace ModuloCajaRC
             PlanContingenciaDTO getContingencia = new PlanContingenciaDTO 
             {
                 Opcion = "Recuperar",
-                Descripcion = "ContingenciaBodega"
+                Descripcion = "ContingenciaBodega",
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             dtContingencias = logica.SP_PlanContingencia(getContingencia);
             if(dtContingencias.Rows.Count>0) 
@@ -481,7 +484,8 @@ namespace ModuloCajaRC
                 Opcion = "AperturaCaja",
                 Estado = true,
                 UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName
+                PC = System.Environment.MachineName,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0)
@@ -685,6 +689,11 @@ namespace ModuloCajaRC
                     Application.Exit(); // Cierra toda la aplicación
                 }
             }
+        }
+
+        private void pHeaderMain_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

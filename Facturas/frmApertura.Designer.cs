@@ -48,6 +48,7 @@
             this.lblValoresCierre = new System.Windows.Forms.Label();
             this.panelPrimero = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pAcciones = new System.Windows.Forms.FlowLayoutPanel();
             this.btnProceso = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel14 = new System.Windows.Forms.Panel();
@@ -105,7 +106,6 @@
             this.dtpFinal = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpInicio = new System.Windows.Forms.DateTimePicker();
-            this.pAcciones = new System.Windows.Forms.FlowLayoutPanel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.MainPanel.SuspendLayout();
@@ -114,6 +114,7 @@
             this.panel12.SuspendLayout();
             this.panelPrimero.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pAcciones.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValoresEsperados)).BeginInit();
@@ -132,7 +133,6 @@
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).BeginInit();
             this.panel4.SuspendLayout();
-            this.pAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -354,6 +354,14 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(709, 64);
             this.panel1.TabIndex = 38;
+            // 
+            // pAcciones
+            // 
+            this.pAcciones.Controls.Add(this.btnProceso);
+            this.pAcciones.Location = new System.Drawing.Point(3, 6);
+            this.pAcciones.Name = "pAcciones";
+            this.pAcciones.Size = new System.Drawing.Size(700, 55);
+            this.pAcciones.TabIndex = 36;
             // 
             // btnProceso
             // 
@@ -983,14 +991,6 @@
             this.dtpInicio.TabIndex = 0;
             this.dtpInicio.ValueChanged += new System.EventHandler(this.dtpInicio_ValueChanged);
             // 
-            // pAcciones
-            // 
-            this.pAcciones.Controls.Add(this.btnProceso);
-            this.pAcciones.Location = new System.Drawing.Point(3, 6);
-            this.pAcciones.Name = "pAcciones";
-            this.pAcciones.Size = new System.Drawing.Size(700, 55);
-            this.pAcciones.TabIndex = 36;
-            // 
             // frmApertura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1001,6 +1001,7 @@
             this.Name = "frmApertura";
             this.Text = "frmApertura";
             this.Load += new System.EventHandler(this.frmApertura_Load);
+            this.Shown += new System.EventHandler(this.frmApertura_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.MainPanel.ResumeLayout(false);
@@ -1011,6 +1012,7 @@
             this.panelPrimero.ResumeLayout(false);
             this.panelPrimero.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.pAcciones.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvValoresEsperados)).EndInit();
@@ -1034,7 +1036,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMovimientos)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.pAcciones.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

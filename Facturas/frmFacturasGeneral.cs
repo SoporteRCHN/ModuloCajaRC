@@ -23,6 +23,7 @@ namespace ModuloCajaRC.Facturas
         DataTable dtFacturasEncabezado = new DataTable();
         DataTable dtFacturasMetodos = new DataTable();
         DataTable dtMetodoPago = new DataTable();
+        DataTable dtContingencias = new DataTable();
         clsLogica logica = new clsLogica();
 
         public int _FacturaID, _IDCobroCajaEncabezado, _IDCobroMetodo, _IDControlCaja;
@@ -32,6 +33,8 @@ namespace ModuloCajaRC.Facturas
         private bool _GeneraError = true;
         private bool _ErrorRecibido = true;
         private bool _CambioError = false;
+        public static bool ContingenciaBodega = false;
+        
         public frmFacturasGeneral()
         {
             InitializeComponent();
@@ -51,7 +54,8 @@ namespace ModuloCajaRC.Facturas
             FacturaProcesoActualDTO getFacturas = new FacturaProcesoActualDTO
             {
                 Opcion = "RECUPERAR-ENAC",
-                Proceso = 1
+                Proceso = 1,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             DataTable nuevaTabla = logica.SP_FacturasProcesoActual(getFacturas);
 
@@ -59,7 +63,8 @@ namespace ModuloCajaRC.Facturas
             FacturaProcesoActualDTO getFacturas50 = new FacturaProcesoActualDTO
             {
                 Opcion = "RECUPERAR-INTER",
-                Proceso = 1
+                Proceso = 1,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             DataTable nuevaTabla50 = logica.SP_FacturasProcesoActual(getFacturas50);
 
@@ -152,7 +157,20 @@ namespace ModuloCajaRC.Facturas
                 }
             }
         }
-
+        private void RecuperarContingencias()
+        {
+            PlanContingenciaDTO getContingencia = new PlanContingenciaDTO
+            {
+                Opcion = "Recuperar",
+                Descripcion = "ContingenciaBodega",
+                SucursalID = DynamicMain.usuarioSucursalID
+            };
+            dtContingencias = logica.SP_PlanContingencia(getContingencia);
+            if (dtContingencias.Rows.Count > 0)
+            {
+                ContingenciaBodega = Convert.ToBoolean(dtContingencias.Rows[0]["Estado"].ToString());
+            }
+        }
         public void CargarAcciones(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
         {
             dtPermisos.Clear();
@@ -217,6 +235,7 @@ namespace ModuloCajaRC.Facturas
                             switch (accionElemento)
                             {
                                 case "Procesar":
+                                    RecuperarContingencias();
                                     InsertarCobro();
 
                                     dgvFacturas.DataSource = null;
@@ -257,7 +276,8 @@ namespace ModuloCajaRC.Facturas
                 {
                     Opcion = "ELIMINAR",
                     FacturaID = _FacturaID,
-                    Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString()
+                    Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                    SucursalID = DynamicMain.usuarioSucursalID
                 };
                 dtFacturas = logica.SP_FacturasProcesoActual(sendFacturas);
                 if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
@@ -396,6 +416,7 @@ namespace ModuloCajaRC.Facturas
                 PC = System.Environment.MachineName,
                 Estado = true,
                 Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(sendEncabezado);
             if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1")
@@ -447,7 +468,8 @@ namespace ModuloCajaRC.Facturas
                         CobroCajaEncabezadoDTO deleteEncabezado = new CobroCajaEncabezadoDTO
                         {
                             Opcion = "EliminarEncabezado",
-                            ID = _IDCobroCajaEncabezado
+                            ID = _IDCobroCajaEncabezado,
+                            SucursalID = DynamicMain.usuarioSucursalID
                         };
                         dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(deleteEncabezado);
                         if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString() == "0")
@@ -504,7 +526,7 @@ namespace ModuloCajaRC.Facturas
 
             if (SucursalUbicacion == 3) //Valido si si tiene bodega
             {
-                if (DynamicMain.ContingenciaBodega == true) //Valido si hay contingencia en bodega.
+                if (ContingenciaBodega == true) //Valido si hay contingencia en bodega.
                 {
                     dtFacturas.Clear();
                     FacturaProcesoActualDTO sendFacturas = new FacturaProcesoActualDTO
@@ -516,7 +538,8 @@ namespace ModuloCajaRC.Facturas
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
-                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString()
+                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                        SucursalID = DynamicMain.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendFacturas);
                     if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
@@ -525,7 +548,7 @@ namespace ModuloCajaRC.Facturas
                         Limpiar();
                     }
                 }//Fin de la contingencia de Bodega
-                else if (DynamicMain.ContingenciaBodega == false) //En caso que no tenga Contingencia Bodega
+                else if (ContingenciaBodega == false) //En caso que no tenga Contingencia Bodega
                 {
                     dtFacturas.Clear();
                     FacturaProcesoActualDTO sendCobro = new FacturaProcesoActualDTO
@@ -537,7 +560,8 @@ namespace ModuloCajaRC.Facturas
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
-                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString()
+                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                        SucursalID = DynamicMain.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendCobro);
                     if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "0")
@@ -556,7 +580,8 @@ namespace ModuloCajaRC.Facturas
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
-                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString()
+                        Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                        SucursalID = DynamicMain.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendBodega);
 
@@ -579,7 +604,8 @@ namespace ModuloCajaRC.Facturas
                     FPosteo = DateTime.Now,
                     PC = System.Environment.MachineName,
                     Guia = _GuiaID,
-                    Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString()
+                    Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
+                    SucursalID = DynamicMain.usuarioSucursalID
                 };
                 dtFacturas = logica.SP_FacturasProcesoActual(sendBodega);
 
@@ -590,6 +616,7 @@ namespace ModuloCajaRC.Facturas
                 }
             }
             DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 52);
+            ContingenciaBodega = false;
         }
 
         private int ConsultaBodegaExistente()
@@ -627,6 +654,7 @@ namespace ModuloCajaRC.Facturas
                 _cargandoFacturas = false;
             }
         }
+
 
         private void dgvFacturas_Click(object sender, EventArgs e)
         {

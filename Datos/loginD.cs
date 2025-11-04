@@ -32,7 +32,7 @@ namespace Datos
             comando.Connection = Conexion.AbrirConexion(3);
             comando.Parameters.AddWithValue("@usuario", usuario);
             comando.Parameters.AddWithValue("@modulo", modulo);
-            comando.CommandText = "empleados.SP_ObtenerEncabezadoGeneral";
+            comando.CommandText = "RCRH.empleados.SP_ObtenerEncabezadoGeneral";
             comando.CommandType = CommandType.StoredProcedure;
 
             leer = comando.ExecuteReader();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,11 @@ namespace ModuloCajaRC.Facturas
     {
         DataTable dtPermisos = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
+        DataTable dtCierreCaja = new DataTable();
         DataTable dtMetodoPago = new DataTable();
         DataTable dtResumenAperturaCaja = new DataTable();
         DataTable dtResumenValoresEsperados = new DataTable();
+        DataTable dtLoteActual = new DataTable();
         DataTable dtMovimientosCaja = new DataTable();
         DataTable dtResumenMovimientos = new DataTable();
         DataTable dtCierresEntreFechas = new DataTable();
@@ -28,21 +31,23 @@ namespace ModuloCajaRC.Facturas
         DataTable dtMovimientosUltimoCierreCaja = new DataTable();
         clsLogica logica = new clsLogica();
 
-        decimal tarjetaApertura, chequeApertura, transferenciaApertura, efectivoApertura, totalApertura, movimientoCheques, movimientoTransferencias, movimientoEfectivo,movimientoTarjetas, movimientoTotal = 0;
+        decimal tarjetaApertura, chequeApertura, transferenciaApertura, efectivoApertura, totalApertura, movimientoCheques, movimientoTransferencias, movimientoEfectivo, movimientoTarjetas, movimientoTotal = 0;
         public string textoComentario = "";
         public int UltimoCierre = 0;
         public bool _EstaAperturando = true;
- 
+        public static int LoteActual = 0;
+        public static int ControlIDApertura = 0;
+        public static DateTime FechaAperturaLote;
+
         public frmApertura()
         {
             InitializeComponent();
             CargarMetodoPago();
             AperturarCaja();
-            verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
-            verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verResumenApertura();
             verResumenMovimientos();
             verResumenValoresEsperados();
+            verLoteActual();
             CargarAcciones(1, pAcciones, 159, 48, 0, TextImageRelation.ImageBeforeText);
         }
         public void CargarAcciones(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
@@ -109,7 +114,7 @@ namespace ModuloCajaRC.Facturas
                             switch (accionElemento)
                             {
                                 case "Imprimir":
-                                    if (UltimoCierre!=0) { GenerarCierre(); }
+                                    if (UltimoCierre != 0) { GenerarCierre(Convert.ToInt32(cmbLotes.SelectedValue)); }
                                     break;
 
                                 default:
@@ -124,10 +129,10 @@ namespace ModuloCajaRC.Facturas
                 }
             }
         }
-        private void GenerarCierre()
+        private void GenerarCierre(int CierreID)
         {
             Form MensajeAdvertencia = new Form();
-            using (frmVerCierre Mensaje = new frmVerCierre(UltimoCierre.ToString(),DynamicMain.usuarioSucursal, System.Environment.MachineName))
+            using (frmVerCierre Mensaje = new frmVerCierre(CierreID.ToString(), DynamicMain.usuarioSucursal, System.Environment.MachineName))
             {
                 MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
                 MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
@@ -159,6 +164,7 @@ namespace ModuloCajaRC.Facturas
             if (dtMetodoPago.Rows.Count > 0)
             {
                 dgvRegistroValores.Rows.Clear();
+                dgvRegistroValores.ReadOnly = false;
                 foreach (DataRow row in dtMetodoPago.Rows)
                 {
                     dgvRegistroValores.Rows.Add(row["MetodoID"], row["Descripcion"], "0.00", row["Edicion"]);
@@ -167,9 +173,33 @@ namespace ModuloCajaRC.Facturas
                 {
                     bool esSoloLectura = Convert.ToBoolean(row.Cells["EdicionRegistro"].Value);
                     row.Cells["ValorRegistro"].ReadOnly = esSoloLectura;
-                    if (!esSoloLectura) 
+                    if (!esSoloLectura)
                     {
                         row.Cells["ValorRegistro"].Style.ForeColor = Color.FromArgb(162, 44, 36);
+                    }
+                }
+            }
+        }
+        private void verLoteActual()
+        {
+            ControlCajaDTO getLoteActual = new ControlCajaDTO
+            {
+                Opcion = "ListadoLoteActual",
+                UPosteo = DynamicMain.usuarionlogin,
+                SucursalID = DynamicMain.usuarioSucursalID
+            };
+
+            dtLoteActual.Clear();
+            dtLoteActual.Rows.Clear();
+
+            dtLoteActual = logica.SP_ControlCaja(getLoteActual);
+            if (dtLoteActual.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtLoteActual.Rows)
+                {
+                    if (dtLoteActual.Rows[0]["Tipo"].ToString() == "Apertura") {
+                        FechaAperturaLote  = Convert.ToDateTime(dtLoteActual.Rows[0]["Fecha"].ToString());
+                        LoteActual = Convert.ToInt32(dtLoteActual.Rows[0]["LoteNro"].ToString());
                     }
                 }
             }
@@ -181,7 +211,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ResumenValoresEsperados",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = Environment.MachineName,
-                Estado = true
+                Estado = true,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtResumenValoresEsperados.Clear();
@@ -225,7 +256,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ResumenAperturaCaja",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName,
-                Estado = true
+                Estado = true,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtResumenAperturaCaja.Clear();
@@ -254,7 +286,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ResumenCajaVertical",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName,
-                Estado = true
+                Estado = true,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtResumenMovimientosCaja.Clear();
@@ -275,7 +308,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "AperturaCaja",
                 UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
@@ -324,6 +357,7 @@ namespace ModuloCajaRC.Facturas
         {
             if (_TipoID == 2) 
             {
+                ControlIDApertura = DynamicMain.cajaID;
                 Form MensajeAdvertencia = new Form();
                 using (frmComentariocCierreCaja Mensaje = new frmComentariocCierreCaja())
                 {
@@ -400,8 +434,9 @@ namespace ModuloCajaRC.Facturas
                 PC = Environment.MachineName,
                 Estado = true,
                 Comentario = textoComentario,
+                SucursalID = DynamicMain.usuarioSucursalID,
+                ControlIDCierre = ControlIDApertura
             };
-
 
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0 && dtAperturaCaja.Rows[0]["Estado"].ToString() == "1")
@@ -411,15 +446,20 @@ namespace ModuloCajaRC.Facturas
                     DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
                     MessageBox.Show("¡Apertura de caja realizada exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     AperturarCaja();
+
                     verResumenApertura();
                     verResumenMovimientos();
                     verResumenValoresEsperados();
                     CargarMetodoPago();
+                    verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+                    verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
                 }
                 else if (_TipoID == 2)
                 {
-                    UltimoCierre = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString())-1;
-                    GenerarCierre();
+                    UltimoCierre = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
+                    verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+                    verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+                    GenerarCierre(UltimoCierre);
                     Limpiar();
                     MessageBox.Show("¡Cierre de caja realizado exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarMetodoPago();
@@ -449,6 +489,21 @@ namespace ModuloCajaRC.Facturas
             bool existeCierre = false;
             int idBuscar = Convert.ToInt32(cmbLotes.SelectedValue);
             int idCierre = 0;
+
+            ControlCajaDTO getCierre = new ControlCajaDTO
+            {
+                Opcion = "RecuperarIDCierrePorIDApertura",
+                ControlIDCierre = Convert.ToInt32(cmbLotes.SelectedValue),
+                UPosteo = DynamicMain.usuarionlogin,
+                SucursalID = DynamicMain.usuarioSucursalID
+            };
+
+            dtCierreCaja = logica.SP_ControlCaja(getCierre);
+            if (dtCierreCaja.Rows.Count > 0) 
+            {
+                UltimoCierre = Convert.ToInt32(dtCierreCaja.Rows[0]["CierreID"].ToString());
+            }
+
             foreach (DataGridViewRow item in dgvMovimientos.Rows)
             {
                 if (Convert.ToInt32(item.Cells["ControlID"].Value) == idBuscar) 
@@ -456,7 +511,7 @@ namespace ModuloCajaRC.Facturas
                     if (item.Cells["Tipo"].Value.ToString() == "Apertura")
                     { 
                         existeApertura = true;
-                        idCierre = idBuscar + 1; 
+                        idCierre = UltimoCierre; 
                     }
                 }
                 if (idCierre != 0 && Convert.ToInt32(item.Cells["ControlID"].Value) == idCierre) 
@@ -464,7 +519,6 @@ namespace ModuloCajaRC.Facturas
                     if (item.Cells["Tipo"].Value.ToString() == "Cierre")
                     {
                         existeCierre = true;
-                        
                     }
                 }
               }
@@ -506,7 +560,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ListadoRegistros",
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName,
-                Estado = true
+                Estado = true,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtMovimientosPreCierreCaja.Clear();
@@ -547,7 +602,8 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "MostrarCierreEspecifico",
-                ControlID = Convert.ToInt64(cmbLotes.SelectedValue.ToString())
+                ControlID = Convert.ToInt64(cmbLotes.SelectedValue.ToString()),
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -584,7 +640,8 @@ namespace ModuloCajaRC.Facturas
                 FechaInicio = dtpInicio.Value.Date,
                 FechaFinal = dtpFinal.Value.Date,
                 UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName
+                PC = System.Environment.MachineName,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -732,6 +789,12 @@ namespace ModuloCajaRC.Facturas
             CierreEspecifico();
         }
 
+        private void frmApertura_Shown(object sender, EventArgs e)
+        {
+            verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+            verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+        }
+
         private void dtpFinal_ValueChanged(object sender, EventArgs e)
         {
             if (dtpFinal.Value.Date < dtpInicio.Value.Date)
@@ -760,6 +823,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "CierresEntreFechas",
                 FechaInicio = Inicio,
                 FechaFinal = Final,
+                SucursalID = DynamicMain.usuarioSucursalID,
+                UPosteo = DynamicMain.usuarionlogin
             };
 
             dtCierresEntreFechas.Clear();
@@ -768,6 +833,7 @@ namespace ModuloCajaRC.Facturas
             dtCierresEntreFechas = logica.SP_ControlCaja(sendApertura);
             if (dtCierresEntreFechas.Rows.Count > 0)
             {
+                cmbLotes.DataSource = null; 
                 cmbLotes.DataSource = dtCierresEntreFechas;
                 cmbLotes.DisplayMember = "Descripcion";
                 cmbLotes.ValueMember = "ControlID";
@@ -781,7 +847,8 @@ namespace ModuloCajaRC.Facturas
                 FechaInicio = Inicio,
                 FechaFinal = Final,
                 UPosteo = DynamicMain.usuarionlogin,
-                PC = System.Environment.MachineName
+                PC = System.Environment.MachineName,
+                SucursalID = DynamicMain.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -884,6 +951,15 @@ namespace ModuloCajaRC.Facturas
             } 
             else 
             {
+                if (FechaAperturaLote.Date != DateTime.Now.Date && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
+                {
+                    MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (FechaAperturaLote.Date != DateTime.Now.Date && DynamicMain.usuarioAutorizaCierreCaja == 0) 
+                {
+                    MessageBox.Show("El cierre no se proceso el dia correspondiente: "+FechaAperturaLote.ToString("dd/MM/yyyy")+", Solicite autorizacion para poder realizar su cierre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 EnviarControlCaja(2);
                 DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
             }

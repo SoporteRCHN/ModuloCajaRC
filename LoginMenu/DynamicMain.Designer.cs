@@ -424,6 +424,7 @@
             this.pHeaderMain.Name = "pHeaderMain";
             this.pHeaderMain.Size = new System.Drawing.Size(1124, 16);
             this.pHeaderMain.TabIndex = 35;
+            this.pHeaderMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pHeaderMain_Paint);
             // 
             // PanelLeftTimer
             // 

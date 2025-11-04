@@ -350,6 +350,7 @@ namespace Logica
         public string PC { get; set; }                 // Nombre del equipo desde donde se registró
         public string Guia { get; set; }
         public string Origen { get; set; }
+        public int? SucursalID { get; set; }
     }
     public class MetodoPagoDTO
     {
@@ -375,6 +376,7 @@ namespace Logica
         public string PC { get; set; }                   // Nombre del equipo desde donde se registró
         public bool? Estado { get; set; }                // Estado activo/inactivo
         public string Origen { get; set; }
+        public int? SucursalID { get; set; }
     }
     public class CobroCajaMetodosDTO
     {
@@ -411,6 +413,8 @@ namespace Logica
         public DateTime? FechaInicio { get; set; }          // FechaInicio
         public DateTime? FechaFinal { get; set; }           // FechaFinal
         public string Comentario { get; set; }                 //comentario de cierre
+        public int? SucursalID { get; set; }
+        public int? ControlIDCierre { get; set; }
     }
     public class FacturaProcesoDTO50
     {
@@ -471,6 +475,7 @@ namespace Logica
         public DateTime? FPosteo { get; set; }        // Fecha del registro
         public string PC { get; set; }                // Nombre del equipo
         public bool? Estado { get; set; }             // Estado activo/inactivo
+        public int? SucursalID { get; set; }
     }
 
 }

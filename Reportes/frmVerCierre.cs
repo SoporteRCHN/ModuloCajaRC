@@ -34,6 +34,7 @@ namespace ModuloCajaRC.Reportes
             parameters[0] = new ReportParameter("ControlID", ControlID);
             parameters[1] = new ReportParameter("Sucursal", Sucursal);
             parameters[2] = new ReportParameter("Equipo", Equipo);
+            
 
             reportViewer1.ServerReport.SetParameters(parameters);
             reportViewer1.RefreshReport();

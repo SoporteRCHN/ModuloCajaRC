@@ -961,6 +961,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@PC", proceso.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Guia", proceso.Guia ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Origen", proceso.Origen ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@SucursalID", proceso.SucursalID ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Empresa.SP_FacturasProceso";
             comando.CommandType = CommandType.StoredProcedure;
@@ -1029,6 +1030,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@PC", cobroEnc.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", cobroEnc.Estado ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Origen", cobroEnc.Origen ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@SucursalID", cobroEnc.SucursalID ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_CobroCajaEncabezado";
             comando.CommandType = CommandType.StoredProcedure;
@@ -1109,6 +1111,8 @@ namespace Datos
             comando.Parameters.AddWithValue("@FechaInicio", controlCaja.FechaInicio ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@FechaFinal", controlCaja.FechaFinal ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Comentario", controlCaja.Comentario ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@SucursalID", controlCaja.SucursalID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ControlIDCierre", controlCaja.ControlIDCierre ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Facturacion.SP_ControlCaja";
             comando.CommandType = CommandType.StoredProcedure;
@@ -1268,6 +1272,7 @@ namespace Datos
             comando.Parameters.AddWithValue("@FPosteo", plan.FPosteo ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@PC", plan.PC ?? (object)DBNull.Value);
             comando.Parameters.AddWithValue("@Estado", plan.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@SucursalID", plan.SucursalID ?? (object)DBNull.Value);
 
             comando.CommandText = "RCCONFIG.Empresa.SP_PlanContingencia";
             comando.CommandType = CommandType.StoredProcedure;
