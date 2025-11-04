@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace ModuloCajaRC.Facturas
 {
@@ -951,8 +952,8 @@ namespace ModuloCajaRC.Facturas
             } 
             else 
             {
-                string AperturaLote = FechaAperturaLote.Date.ToString("dd/MM/yyyy");
-                string CierreLote = DateTime.Today.ToString("dd/MM/yyyy");
+                string AperturaLote = FechaAperturaLote.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                string CierreLote = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                 if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
                 {
                     MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
