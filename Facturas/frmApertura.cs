@@ -951,11 +951,13 @@ namespace ModuloCajaRC.Facturas
             } 
             else 
             {
-                if (FechaAperturaLote.Date != DateTime.Now.Date && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
+                string AperturaLote = FechaAperturaLote.Date.ToString("dd/MM/yyyy");
+                string CierreLote = DateTime.Today.ToString("dd/MM/yyyy");
+                if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
                 {
                     MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                else if (FechaAperturaLote.Date != DateTime.Now.Date && DynamicMain.usuarioAutorizaCierreCaja == 0) 
+                else if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 0) 
                 {
                     MessageBox.Show("El cierre no se proceso el dia correspondiente: "+FechaAperturaLote.ToString("dd/MM/yyyy")+", Solicite autorizacion para poder realizar su cierre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
