@@ -333,6 +333,7 @@ namespace ModuloCajaRC.Facturas
                 totalApertura = efectivoApertura + transferenciaApertura + chequeApertura + tarjetaApertura;
  
                 label9.Text = "Ya existe una apertura de caja realizada.";
+                tabControl1.TabPages[0].Text = "Cierre de caja";
                 label9.Visible = true;
 
                 lblValoresCierre.Text = "VALORES DE CIERRE";
@@ -349,6 +350,7 @@ namespace ModuloCajaRC.Facturas
                 lblUsuario.Text = DynamicMain.usuarionlogin;
 
                 btnProceso.BackColor = Color.FromArgb(97, 172, 112);
+                tabControl1.TabPages[0].Text = "Apertura de caja";
                 btnProceso.Text = "APERTURAR";
                 _EstaAperturando = true;
             }
@@ -947,7 +949,10 @@ namespace ModuloCajaRC.Facturas
         private void btnProceso_Click(object sender, EventArgs e)
         {
             if (_EstaAperturando == true) 
-            { EnviarControlCaja(1);
+            { 
+                EnviarControlCaja(1);
+                tabControl1.TabPages[0].Text = "Cierre de caja";
+                DynamicMain.Instance.ActualizarUbicacion("HOME / CIERRE DE CAJA");
                 DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 55);
             } 
             else 
@@ -964,6 +969,9 @@ namespace ModuloCajaRC.Facturas
                     return;
                 }
                 EnviarControlCaja(2);
+                tabControl1.TabPages[0].Text = "Apertura de caja";
+                DynamicMain.Instance.ActualizarUbicacion("HOME / APERTURA DE CAJA");
+                DynamicMain.cajaID = 0 ;
                 DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
             }
         }

@@ -235,12 +235,21 @@ namespace ModuloCajaRC.Facturas
                             switch (accionElemento)
                             {
                                 case "Procesar":
-                                    RecuperarContingencias();
-                                    InsertarCobro();
+                                    DialogResult resultado = MessageBox.Show("¿Desea realizar el cobro?","Confirmación de cobro",MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question
+                                    );
 
-                                    dgvFacturas.DataSource = null;
-                                    CargarFacturas();
+                                    if (resultado == DialogResult.Yes)
+                                    {
+                                        RecuperarContingencias();
+                                        InsertarCobro();
+
+                                        dgvFacturas.DataSource = null;
+                                        CargarFacturas();
+                                    }
+                                    
                                     break;
+
 
                                 case "Limpiar":
                                     Limpiar();
@@ -398,7 +407,7 @@ namespace ModuloCajaRC.Facturas
             }
             if (_CambioError == true)
             {
-                MessageBox.Show("Verifique los montos ingresados porque la suma del total de los metodos no debe ser mayor al total de la factura", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El monto es mayor al facturado, favor revise.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (_GeneraError == false) { return; }
@@ -688,21 +697,21 @@ namespace ModuloCajaRC.Facturas
             DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 53);
         }
 
-        private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e) 
         {
-            if (dgvMetodosPago.Columns[e.ColumnIndex].Name == "Valor")
-            {
-                var celda = dgvMetodosPago.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                string texto = celda.Value?.ToString() ?? "";
-
+            if (dgvMetodosPago.Columns[e.ColumnIndex].Name == "Valor") 
+            { 
+                var celda = dgvMetodosPago.Rows[e.RowIndex].Cells[e.ColumnIndex]; 
+                string texto = celda.Value?.ToString() ?? ""; 
                 if (!decimal.TryParse(texto, out decimal valor))
                 {
-                    celda.Value = DBNull.Value;
+                    celda.Value = DBNull.Value; 
                 }
-
                 ActualizarTotalRecibido();
-            }
+            } 
         }
+
+
         private void ActualizarTotalRecibido()
         {
             decimal total = 0;
@@ -719,9 +728,36 @@ namespace ModuloCajaRC.Facturas
             lblRestante.Text = (total < Convert.ToDecimal(lblGranTotal.Text) ? (total - Convert.ToDecimal(lblGranTotal.Text)).ToString() : "0.00");
             lblRecibido.Text = $"{total:N2}";
         }
+        private void dgvMetodosPago_RowLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvMetodosPago.IsCurrentRowDirty)
+                dgvMetodosPago.CommitEdit(DataGridViewDataErrorContexts.Commit);
 
+            var fila = dgvMetodosPago.Rows[e.RowIndex];
 
+            var celdaValor = fila.Cells["Valor"];
+            var celdaReferencia = fila.Cells["Referencia"];
+            var celdaID = fila.Cells["ID"];
 
+            string textoValor = celdaValor?.Value?.ToString() ?? "";
+            string textoReferencia = celdaReferencia?.Value?.ToString() ?? "";
+            int id = celdaID?.Value != null ? Convert.ToInt32(celdaID.Value) : 0;
+
+            bool valorValido = decimal.TryParse(textoValor, out decimal valor);
+
+            // Solo borrar si hay valor válido, ID ≠ 4 y referencia vacía
+            if (valorValido && id != 4 && string.IsNullOrWhiteSpace(textoReferencia))
+            {
+                celdaValor.Value = DBNull.Value;
+                ActualizarTotalRecibido();
+            }
+            // Solo borrar si hay valor válido, ID ≠ 4 y referencia vacía
+            if (!valorValido  && !string.IsNullOrWhiteSpace(textoReferencia))
+            {
+                celdaReferencia.Value = DBNull.Value;
+                ActualizarTotalRecibido();
+            }
+        }
 
         private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
         {

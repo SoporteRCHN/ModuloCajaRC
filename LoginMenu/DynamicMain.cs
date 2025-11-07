@@ -86,9 +86,17 @@ namespace ModuloCajaRC
 
             toolStripLabel4.Text = Datos.BD_Conexion.servidor.ToString();
             toolStripLabel6.Text = usuarionlogin;
-           
+
             // Llamar método async separado
-            _ = InicializarAsync();
+            EstadoENAC();
+            CargarEncabezado(usuarionlogin);
+            RecuperarContingencias();
+            BuscarMenu();
+            CargarMenuDinamico();
+
+            tasa = ActualizarTasaCambio();
+            lblTasa.Text = tasa.ToString();
+            lblFechaActual.Text = DateTime.Today.ToString("dd/MM/yyyy");
 
             int ancho = Screen.PrimaryScreen.WorkingArea.Width;
             int alto = Screen.PrimaryScreen.WorkingArea.Height;
@@ -101,22 +109,6 @@ namespace ModuloCajaRC
             flowLayoutPanelMenu.Invalidate();
         }
 
-        private async Task InicializarAsync()
-        {
-            EstadoENAC();
-            CargarEncabezado(usuarionlogin);
-            RecuperarContingencias();
-            BuscarMenu();
-            CargarMenuDinamico();
-            
-
-            tasa = await TasaDeCambioAsync();
-            lblTasa.Text = tasa.ToString();
-            
-            ActualizarTasaCambio(tasa);
-            ActualizarTasaCambioHistorico(tasa);
-           
-        }
         public void SeguimientoUsuario(string _Operacion, int _AccionID)
         {
             SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
@@ -134,18 +126,24 @@ namespace ModuloCajaRC
             };
             dtSeguimientoUsuario = logica.SP_SeguimientoUsuario(sendSeguimiento);
         }
-        private void ActualizarTasaCambio(decimal tasa) 
+        private decimal ActualizarTasaCambio() 
         {
             FactorDolar50DTO setTasa = new FactorDolar50DTO
             {
-                Opcion = "Actualizar",
-                FactorDolar = tasa,
+                Opcion = "Recuperar"
             };
             dtTasaCambio = logica.SP_FactorDolar50(setTasa);
-            if (dtTasaCambio.Rows.Count > 0 && dtTasaCambio.Rows[0]["Estado"] == "0") 
+            if (dtTasaCambio.Rows.Count > 0) 
             {
-                MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos","Aviso Urgente",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                return Convert.ToDecimal(dtTasaCambio.Rows[0]["FactorDolar"].ToString());
             }
+            else 
+            {
+                MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos", "Aviso Urgente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+            return 0;
         }
         private void ActualizarTasaCambioHistorico(decimal tasa) 
         {
@@ -235,6 +233,7 @@ namespace ModuloCajaRC
                 usuarionEmpresaNombre = row["Empresa"].ToString();
                 usuarioSucursalCaja = Convert.ToInt32(row["CajaActiva"]);
                 usuarioAutorizaCierreCaja = Convert.ToInt32(row["AutorizaCierreCaja"]);
+                toolStripLabel12.Text = row["Sucursal"].ToString();
             }
         }
 
@@ -463,12 +462,29 @@ namespace ModuloCajaRC
                         switch (clickedButton.Text.Trim())
                         {
                             case "FACTURAS":
+                                if (cajaID != 0) 
+                                {
                                     SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
-                                    AperturarCaja();
+                                    LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Debe iniciar la caja primero.","Aviso",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                                }
+                                    
                                 break;
-                            case "CAJA - APERTURA":
+                            case "CAJA CONTROL":
                                     SeguimientoUsuario(44); //44 ESTA DEFINIDO COMO - INGRESA A frmConsultarClientes
-                                    LanzarForm(new frmApertura(), "HOME / APERTURA");
+
+                                if (cajaID != 0) 
+                                {
+                                    LanzarForm(new frmApertura(), "HOME / CIERRE DE CAJA");
+                                }
+                                else
+                                {
+                                    LanzarForm(new frmApertura(), "HOME / APERTURA DE CAJA");
+                                }
+                                   
                                 break;
                             default:
                                 break;
@@ -482,7 +498,7 @@ namespace ModuloCajaRC
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "AperturaCaja",
-                Estado = true,
+                Estado = true, 
                 UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName,
                 SucursalID = DynamicMain.usuarioSucursalID
@@ -491,19 +507,13 @@ namespace ModuloCajaRC
             if (dtAperturaCaja.Rows.Count > 0)
             {
                 cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["ControlID"].ToString());
-                LanzarForm(new frmFacturasGeneral(), "HOME / FACTURAS");
-            }
-            else
-            {
-                MessageBox.Show("Aun no ha aperturado la caja.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
         }
         private void ActiveForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             ActualizarUbicacion("HOME / BIENVENIDO: " + usuarioNombreCompleto);
         }
-        private void ActualizarUbicacion(string ubicacionLabel)
+        public void ActualizarUbicacion(string ubicacionLabel)
         {
             // Suspender el diseño del formulario temporalmente
             this.SuspendLayout();
@@ -691,9 +701,9 @@ namespace ModuloCajaRC
             }
         }
 
-        private void pHeaderMain_Paint(object sender, PaintEventArgs e)
+        private void DynamicMain_Shown(object sender, EventArgs e)
         {
-
+            AperturarCaja();
         }
     }
 }

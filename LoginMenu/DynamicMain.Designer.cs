@@ -33,10 +33,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pHeaderOptions = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lblTasa = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.btnAlertas = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblFechaActual = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblTasa = new System.Windows.Forms.Label();
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.pHederOptionsInfo2 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -64,6 +66,9 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel10 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel11 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel12 = new System.Windows.Forms.ToolStripLabel();
             this.pHeaderMain = new System.Windows.Forms.Panel();
             this.PanelLeftTimer = new System.Windows.Forms.Timer(this.components);
             this.pWorkspace.SuspendLayout();
@@ -88,7 +93,7 @@
             this.pWorkspace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pWorkspace.Location = new System.Drawing.Point(230, 62);
             this.pWorkspace.Name = "pWorkspace";
-            this.pWorkspace.Size = new System.Drawing.Size(894, 507);
+            this.pWorkspace.Size = new System.Drawing.Size(894, 603);
             this.pWorkspace.TabIndex = 39;
             // 
             // label2
@@ -97,7 +102,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(70)))), ((int)(((byte)(81)))));
-            this.label2.Location = new System.Drawing.Point(63, 153);
+            this.label2.Location = new System.Drawing.Point(63, 137);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(812, 115);
             this.label2.TabIndex = 0;
@@ -118,46 +123,12 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.lblTasa);
-            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.btnAlertas);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(538, 0);
+            this.panel3.Location = new System.Drawing.Point(491, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(158, 46);
+            this.panel3.Size = new System.Drawing.Size(85, 46);
             this.panel3.TabIndex = 4;
-            // 
-            // lblTasa
-            // 
-            this.lblTasa.AutoSize = true;
-            this.lblTasa.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTasa.ForeColor = System.Drawing.Color.DimGray;
-            this.lblTasa.Location = new System.Drawing.Point(15, 24);
-            this.lblTasa.Name = "lblTasa";
-            this.lblTasa.Size = new System.Drawing.Size(14, 16);
-            this.lblTasa.TabIndex = 6;
-            this.lblTasa.Text = "0";
-            this.lblTasa.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DimGray;
-            this.label1.Location = new System.Drawing.Point(15, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 16);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "TASA DE CAMBIO";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnAlertas);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(696, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(86, 46);
-            this.panel2.TabIndex = 3;
             // 
             // btnAlertas
             // 
@@ -168,7 +139,7 @@
             this.btnAlertas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAlertas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAlertas.ForeColor = System.Drawing.Color.White;
-            this.btnAlertas.Location = new System.Drawing.Point(4, 4);
+            this.btnAlertas.Location = new System.Drawing.Point(3, 4);
             this.btnAlertas.Name = "btnAlertas";
             this.btnAlertas.Size = new System.Drawing.Size(78, 37);
             this.btnAlertas.TabIndex = 1;
@@ -176,6 +147,66 @@
             this.btnAlertas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAlertas.UseVisualStyleBackColor = false;
             this.btnAlertas.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.lblFechaActual);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.lblTasa);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(576, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(206, 46);
+            this.panel2.TabIndex = 3;
+            // 
+            // lblFechaActual
+            // 
+            this.lblFechaActual.AutoSize = true;
+            this.lblFechaActual.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaActual.ForeColor = System.Drawing.Color.Black;
+            this.lblFechaActual.Location = new System.Drawing.Point(127, 6);
+            this.lblFechaActual.Name = "lblFechaActual";
+            this.lblFechaActual.Size = new System.Drawing.Size(15, 17);
+            this.lblFechaActual.TabIndex = 8;
+            this.lblFechaActual.Text = "0";
+            this.lblFechaActual.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DimGray;
+            this.label1.Location = new System.Drawing.Point(6, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(103, 16);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "FECHA ACTUAL";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.DimGray;
+            this.label7.Location = new System.Drawing.Point(6, 23);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(119, 16);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "TASA DE CAMBIO";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblTasa
+            // 
+            this.lblTasa.AutoSize = true;
+            this.lblTasa.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTasa.ForeColor = System.Drawing.Color.Black;
+            this.lblTasa.Location = new System.Drawing.Point(127, 22);
+            this.lblTasa.Name = "lblTasa";
+            this.lblTasa.Size = new System.Drawing.Size(15, 17);
+            this.lblTasa.TabIndex = 6;
+            this.lblTasa.Text = "0";
+            this.lblTasa.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblUbicacion
             // 
@@ -226,7 +257,7 @@
             this.pLeftMenu.MaximumSize = new System.Drawing.Size(230, 9999);
             this.pLeftMenu.MinimumSize = new System.Drawing.Size(54, 629);
             this.pLeftMenu.Name = "pLeftMenu";
-            this.pLeftMenu.Size = new System.Drawing.Size(230, 629);
+            this.pLeftMenu.Size = new System.Drawing.Size(230, 649);
             this.pLeftMenu.TabIndex = 37;
             // 
             // flowLayoutPanelMenu
@@ -235,7 +266,7 @@
             this.flowLayoutPanelMenu.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanelMenu.Location = new System.Drawing.Point(0, 99);
             this.flowLayoutPanelMenu.Name = "flowLayoutPanelMenu";
-            this.flowLayoutPanelMenu.Size = new System.Drawing.Size(230, 530);
+            this.flowLayoutPanelMenu.Size = new System.Drawing.Size(230, 550);
             this.flowLayoutPanelMenu.TabIndex = 1;
             // 
             // pLefMenuSeparator
@@ -315,7 +346,7 @@
             // 
             this.pFooter.Controls.Add(this.toolStrip1);
             this.pFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pFooter.Location = new System.Drawing.Point(0, 569);
+            this.pFooter.Location = new System.Drawing.Point(0, 665);
             this.pFooter.Name = "pFooter";
             this.pFooter.Size = new System.Drawing.Size(1124, 30);
             this.pFooter.TabIndex = 36;
@@ -335,7 +366,10 @@
             this.toolStripLabel7,
             this.toolStripSeparator3,
             this.toolStripLabel9,
-            this.toolStripLabel10});
+            this.toolStripLabel10,
+            this.toolStripSeparator4,
+            this.toolStripLabel11,
+            this.toolStripLabel12});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1124, 25);
@@ -417,6 +451,23 @@
             this.toolStripLabel10.Size = new System.Drawing.Size(13, 22);
             this.toolStripLabel10.Text = "0";
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel11
+            // 
+            this.toolStripLabel11.Name = "toolStripLabel11";
+            this.toolStripLabel11.Size = new System.Drawing.Size(67, 22);
+            this.toolStripLabel11.Text = "SUCURSAL:";
+            // 
+            // toolStripLabel12
+            // 
+            this.toolStripLabel12.Name = "toolStripLabel12";
+            this.toolStripLabel12.Size = new System.Drawing.Size(13, 22);
+            this.toolStripLabel12.Text = "0";
+            // 
             // pHeaderMain
             // 
             this.pHeaderMain.Dock = System.Windows.Forms.DockStyle.Top;
@@ -424,7 +475,6 @@
             this.pHeaderMain.Name = "pHeaderMain";
             this.pHeaderMain.Size = new System.Drawing.Size(1124, 16);
             this.pHeaderMain.TabIndex = 35;
-            this.pHeaderMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pHeaderMain_Paint);
             // 
             // PanelLeftTimer
             // 
@@ -436,7 +486,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1124, 599);
+            this.ClientSize = new System.Drawing.Size(1124, 695);
             this.Controls.Add(this.pWorkspace);
             this.Controls.Add(this.pHeaderOptions);
             this.Controls.Add(this.pLeftMenu);
@@ -446,13 +496,14 @@
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DynamicMain_FormClosing);
             this.Load += new System.EventHandler(this.DynamicMain_Load);
+            this.Shown += new System.EventHandler(this.DynamicMain_Shown);
             this.pWorkspace.ResumeLayout(false);
             this.pWorkspace.PerformLayout();
             this.pHeaderOptions.ResumeLayout(false);
             this.pHeaderOptions.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.pHederOptionsInfo2.ResumeLayout(false);
             this.pLeftMenu.ResumeLayout(false);
             this.pLefMenuSeparator.ResumeLayout(false);
@@ -509,6 +560,11 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label lblTasa;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel11;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel12;
+        private System.Windows.Forms.Label lblFechaActual;
+        private System.Windows.Forms.Label label7;
     }
 }
 

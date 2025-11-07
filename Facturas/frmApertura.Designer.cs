@@ -261,9 +261,10 @@
             // 
             this.dgvRegistroValores.AllowUserToAddRows = false;
             this.dgvRegistroValores.AllowUserToDeleteRows = false;
+            this.dgvRegistroValores.AllowUserToResizeRows = false;
             this.dgvRegistroValores.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRegistroValores.BackgroundColor = System.Drawing.Color.White;
-            this.dgvRegistroValores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRegistroValores.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvRegistroValores.ColumnHeadersVisible = false;
             this.dgvRegistroValores.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MetodoID,
@@ -275,6 +276,7 @@
             this.dgvRegistroValores.Location = new System.Drawing.Point(0, 37);
             this.dgvRegistroValores.Name = "dgvRegistroValores";
             this.dgvRegistroValores.RowHeadersVisible = false;
+            this.dgvRegistroValores.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvRegistroValores.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvRegistroValores.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.White;
             this.dgvRegistroValores.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -417,9 +419,10 @@
             // 
             this.dgvValoresEsperados.AllowUserToAddRows = false;
             this.dgvValoresEsperados.AllowUserToDeleteRows = false;
+            this.dgvValoresEsperados.AllowUserToResizeRows = false;
             this.dgvValoresEsperados.BackgroundColor = System.Drawing.Color.White;
             this.dgvValoresEsperados.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvValoresEsperados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvValoresEsperados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvValoresEsperados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PagoID,
             this.MetodoEsperado,
@@ -430,6 +433,7 @@
             this.dgvValoresEsperados.Name = "dgvValoresEsperados";
             this.dgvValoresEsperados.ReadOnly = true;
             this.dgvValoresEsperados.RowHeadersVisible = false;
+            this.dgvValoresEsperados.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.dgvValoresEsperados.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -509,9 +513,10 @@
             // 
             this.dgvResumenMovimientos.AllowUserToAddRows = false;
             this.dgvResumenMovimientos.AllowUserToDeleteRows = false;
+            this.dgvResumenMovimientos.AllowUserToResizeRows = false;
             this.dgvResumenMovimientos.BackgroundColor = System.Drawing.Color.White;
             this.dgvResumenMovimientos.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvResumenMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResumenMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvResumenMovimientos.ColumnHeadersVisible = false;
             this.dgvResumenMovimientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MetodoMovimiento,
@@ -521,6 +526,7 @@
             this.dgvResumenMovimientos.Name = "dgvResumenMovimientos";
             this.dgvResumenMovimientos.ReadOnly = true;
             this.dgvResumenMovimientos.RowHeadersVisible = false;
+            this.dgvResumenMovimientos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.dgvResumenMovimientos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -587,10 +593,11 @@
             // 
             this.dgvResumenApertura.AllowUserToAddRows = false;
             this.dgvResumenApertura.AllowUserToDeleteRows = false;
+            this.dgvResumenApertura.AllowUserToResizeRows = false;
             this.dgvResumenApertura.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvResumenApertura.BackgroundColor = System.Drawing.Color.White;
             this.dgvResumenApertura.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvResumenApertura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResumenApertura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvResumenApertura.ColumnHeadersVisible = false;
             this.dgvResumenApertura.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MetodoInicial,
@@ -600,6 +607,7 @@
             this.dgvResumenApertura.Name = "dgvResumenApertura";
             this.dgvResumenApertura.ReadOnly = true;
             this.dgvResumenApertura.RowHeadersVisible = false;
+            this.dgvResumenApertura.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvResumenApertura.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvResumenApertura.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.dgvResumenApertura.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -856,13 +864,15 @@
             // 
             this.dgvMovimientos.AllowUserToAddRows = false;
             this.dgvMovimientos.AllowUserToDeleteRows = false;
+            this.dgvMovimientos.AllowUserToResizeRows = false;
             this.dgvMovimientos.BackgroundColor = System.Drawing.Color.White;
-            this.dgvMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMovimientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvMovimientos.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvMovimientos.Location = new System.Drawing.Point(3, 114);
             this.dgvMovimientos.Name = "dgvMovimientos";
             this.dgvMovimientos.ReadOnly = true;
             this.dgvMovimientos.RowHeadersVisible = false;
+            this.dgvMovimientos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvMovimientos.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dgvMovimientos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.Gainsboro;
             this.dgvMovimientos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
