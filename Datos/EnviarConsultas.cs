@@ -1285,6 +1285,32 @@ namespace Datos
             return tabla;
         }
 
+        public DataTable SP_TBLUsuarios(dynamic user)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
 
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3); // Ajusta según tu lógica
+
+            comando.Parameters.AddWithValue("@opcion", user.opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@usuario", user.usuario ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCRH.Empleados.SP_TBLUsuarios";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
     }
 }

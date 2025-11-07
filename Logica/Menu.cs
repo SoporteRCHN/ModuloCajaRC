@@ -477,5 +477,9 @@ namespace Logica
         public bool? Estado { get; set; }             // Estado activo/inactivo
         public int? SucursalID { get; set; }
     }
-
+    public class TBLUsuariosDTO
+    {
+        public string opcion { get; set; }
+        public string usuario { get; set; }
+    }
 }

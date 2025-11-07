@@ -209,5 +209,11 @@ namespace Logica
             tabla = enviar.SP_FacturasProcesoActual(a);
             return tabla;
         }
+        public DataTable SP_TBLUsuarios(TBLUsuariosDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_TBLUsuarios(a);
+            return tabla;
+        }
     }
 }

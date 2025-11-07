@@ -30,6 +30,7 @@ namespace ModuloCajaRC.Facturas
         DataTable dtResumenMovimientosCaja = new DataTable();
         DataTable dtMovimientosPreCierreCaja = new DataTable();
         DataTable dtMovimientosUltimoCierreCaja = new DataTable();
+        DataTable dtCierreAutoriza = new DataTable();
         clsLogica logica = new clsLogica();
 
         decimal tarjetaApertura, chequeApertura, transferenciaApertura, efectivoApertura, totalApertura, movimientoCheques, movimientoTransferencias, movimientoEfectivo, movimientoTarjetas, movimientoTotal = 0;
@@ -199,7 +200,7 @@ namespace ModuloCajaRC.Facturas
                 foreach (DataRow row in dtLoteActual.Rows)
                 {
                     if (dtLoteActual.Rows[0]["Tipo"].ToString() == "Apertura") {
-                        FechaAperturaLote  = Convert.ToDateTime(dtLoteActual.Rows[0]["Fecha"].ToString());
+                        FechaAperturaLote  = Convert.ToDateTime(dtLoteActual.Rows[0]["Fecha"]); 
                         LoteActual = Convert.ToInt32(dtLoteActual.Rows[0]["LoteNro"].ToString());
                     }
                 }
@@ -332,9 +333,7 @@ namespace ModuloCajaRC.Facturas
 
                 totalApertura = efectivoApertura + transferenciaApertura + chequeApertura + tarjetaApertura;
  
-                label9.Text = "Ya existe una apertura de caja realizada.";
                 tabControl1.TabPages[0].Text = "Cierre de caja";
-                label9.Visible = true;
 
                 lblValoresCierre.Text = "VALORES DE CIERRE";
 
@@ -957,6 +956,15 @@ namespace ModuloCajaRC.Facturas
             } 
             else 
             {
+                TBLUsuariosDTO getAutoriza = new TBLUsuariosDTO { 
+                    opcion = "AutorizaCierreCaja",
+                    usuario = DynamicMain.usuarioIDNumber.ToString()
+                };
+                dtCierreAutoriza = logica.SP_TBLUsuarios(getAutoriza);
+                if (dtCierreAutoriza.Rows.Count > 0) 
+                {
+                    DynamicMain.usuarioAutorizaCierreCaja = Convert.ToInt32(dtCierreAutoriza.Rows[0]["AutorizaCierreCaja"].ToString());
+                }
                 string AperturaLote = FechaAperturaLote.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                 string CierreLote = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                 if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
@@ -981,8 +989,6 @@ namespace ModuloCajaRC.Facturas
             lblFecha.Text = "-";
             lblEquipo.Text = "-";
             lblUsuario.Text = "-";
-
-            label9.Visible = false;
 
             btnProceso.BackColor = Color.FromArgb(97, 172, 112);
             btnProceso.Text = "APERTURAR";

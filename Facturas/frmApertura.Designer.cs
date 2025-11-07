@@ -34,7 +34,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lblEquipo = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.MainPanel = new System.Windows.Forms.Panel();
@@ -201,18 +200,6 @@
             this.label8.TabIndex = 10;
             this.label8.Text = "EQUIPO:";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(91)))), ((int)(((byte)(0)))));
-            this.label9.Location = new System.Drawing.Point(265, 12);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(194, 16);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "Mensaje Personalizado AQUI";
-            this.label9.Visible = false;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
@@ -314,7 +301,6 @@
             // 
             this.panel12.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel12.Controls.Add(this.lblValoresCierre);
-            this.panel12.Controls.Add(this.label9);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel12.Location = new System.Drawing.Point(0, 0);
             this.panel12.Name = "panel12";
@@ -1057,7 +1043,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblEquipo;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

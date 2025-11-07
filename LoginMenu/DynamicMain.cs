@@ -49,6 +49,7 @@ namespace ModuloCajaRC
         public static int ModuloID;
         public static int usuarioDepartamentoID;
         public static int usuarioSucursalID;
+        public static int usuarioCiudadID;
         public static int usuarioEmpresaID;
         public static int usuarioNivelAccesoSolicitud;
         public static int usuarioSucursalCaja;
