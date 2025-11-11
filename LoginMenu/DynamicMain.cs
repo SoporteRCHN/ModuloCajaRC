@@ -53,9 +53,9 @@ namespace ModuloCajaRC
         public static int usuarioEmpresaID;
         public static int usuarioNivelAccesoSolicitud;
         public static int usuarioSucursalCaja;
+        public static int usuarioAutorizaCierreCaja;
         public static int Confidencial;
         public static int cajaID; //Ayuda en el manejo del ControlID cuando se apertura caja
-        public static int usuarioAutorizaCierreCaja;
         public static decimal tasa;
         public static bool permisoEditar = false; // variable para poder editar registros / Guardar - Editar - Borrar
         public static bool existeAvisos = false; //Variable para controlar el mostrar o no los avisos.

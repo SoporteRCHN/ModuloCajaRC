@@ -25,13 +25,9 @@ namespace ModuloCajaRC.Facturas
             
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void pbxClose_Click(object sender, EventArgs e)
         {
+            textoCierre = txtTextoCierre.Text;
             this.Close();
         }
 

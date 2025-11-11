@@ -129,8 +129,6 @@ namespace ModuloCajaRC.Facturas
 
             CargarResumen();
         }
-
-
         private void CargarMetodoPago()
         {
             dgvMetodosPago.Rows.Clear();
@@ -250,7 +248,6 @@ namespace ModuloCajaRC.Facturas
                                     
                                     break;
 
-
                                 case "Limpiar":
                                     Limpiar();
                                     dgvFacturas.DataSource = null;
@@ -296,7 +293,6 @@ namespace ModuloCajaRC.Facturas
 
                     DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 54);
                 }
-
             }
         }
         private void MostrarAvisoTemporal(string Comentario)
@@ -501,7 +497,6 @@ namespace ModuloCajaRC.Facturas
 
                         return;
                     }
-
                 }
                 DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 51);
                 ActualizarEstadoFactura();
@@ -663,8 +658,6 @@ namespace ModuloCajaRC.Facturas
                 _cargandoFacturas = false;
             }
         }
-
-
         private void dgvFacturas_Click(object sender, EventArgs e)
         {
             if (dgvFacturas.Rows.Count > 0)
@@ -696,7 +689,6 @@ namespace ModuloCajaRC.Facturas
             _GuiaID = String.Empty;
             DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 53);
         }
-
         private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e) 
         {
             if (dgvMetodosPago.Columns[e.ColumnIndex].Name == "Valor") 
@@ -710,8 +702,6 @@ namespace ModuloCajaRC.Facturas
                 ActualizarTotalRecibido();
             } 
         }
-
-
         private void ActualizarTotalRecibido()
         {
             decimal total = 0;
@@ -758,7 +748,6 @@ namespace ModuloCajaRC.Facturas
                 ActualizarTotalRecibido();
             }
         }
-
         private void dgvFacturas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvFacturas.Rows.Count > 0)

@@ -227,7 +227,7 @@ namespace ModuloCajaRC.Facturas
 
                 foreach (DataRow row in dtResumenValoresEsperados.Rows)
                 {
-                    dgvValoresEsperados.Rows.Add(row["MetodoPagoID"], row["Metodo"], row["Valor"]);
+                    dgvValoresEsperados.Rows.Add(row["MetodoPagoID"], row["Metodo"], row["Valor"], row["Varianza"]);
                 }
 
                 foreach (DataGridViewRow fila in dgvRegistroValores.Rows)
@@ -370,8 +370,6 @@ namespace ModuloCajaRC.Facturas
                     MensajeAdvertencia.WindowState = FormWindowState.Maximized;
                     MensajeAdvertencia.Location = this.Location;
                     MensajeAdvertencia.ShowInTaskbar = false;
-                    //MensajeAdvertencia.TopMost = true;
-
                     Mensaje.Owner = MensajeAdvertencia;
                     MensajeAdvertencia.Show();
                     Mensaje.ShowDialog();
@@ -447,25 +445,51 @@ namespace ModuloCajaRC.Facturas
                 {
                     DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
                     MessageBox.Show("¡Apertura de caja realizada exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    AperturarCaja();
 
-                    verResumenApertura();
-                    verResumenMovimientos();
-                    verResumenValoresEsperados();
-                    CargarMetodoPago();
+                    //AperturarCaja();
+                    //verResumenApertura();
+                    //verResumenMovimientos();
+                    //verResumenValoresEsperados();
+                    //CargarMetodoPago();
+
                     verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
                     verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
+                  
                 }
                 else if (_TipoID == 2)
                 {
                     UltimoCierre = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
+                 
+                    //AperturarCaja();
+                    //verResumenApertura();
                     verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
                     verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
                     GenerarCierre(UltimoCierre);
                     Limpiar();
                     MessageBox.Show("¡Cierre de caja realizado exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    CargarMetodoPago();
+                    //CargarMetodoPago();
                 }
+       
+                CargarMetodoPago();
+                AperturarCaja();
+                verResumenApertura();
+                verResumenMovimientos();
+                verResumenValoresEsperados();
+                verLoteActual();
+
+                dgvRegistroValores.Columns["MetodoRegistro"].ReadOnly = true;
+                dgvRegistroValores.Columns["ValorRegistro"].ReadOnly = false;
+                dgvRegistroValores.EditMode = DataGridViewEditMode.EditOnEnter;
+                dgvRegistroValores.CellBeginEdit += dgvRegistroValores_CellBeginEdit;
+
+                for (int i = 0; i < dgvRegistroValores.Rows.Count; i++)
+                {
+                    ActualizarVarianza(i);
+                }
+                dgvRegistroValores.ClearSelection();
+                dgvResumenApertura.ClearSelection();
+                dgvResumenMovimientos.ClearSelection();
+
             }
         }
 
@@ -947,40 +971,47 @@ namespace ModuloCajaRC.Facturas
 
         private void btnProceso_Click(object sender, EventArgs e)
         {
-            if (_EstaAperturando == true) 
-            { 
+            if (_EstaAperturando == true)
+            {
                 EnviarControlCaja(1);
                 tabControl1.TabPages[0].Text = "Cierre de caja";
                 DynamicMain.Instance.ActualizarUbicacion("HOME / CIERRE DE CAJA");
                 DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 55);
-            } 
-            else 
+            }
+            else
             {
-                TBLUsuariosDTO getAutoriza = new TBLUsuariosDTO { 
-                    opcion = "AutorizaCierreCaja",
-                    usuario = DynamicMain.usuarioIDNumber.ToString()
-                };
-                dtCierreAutoriza = logica.SP_TBLUsuarios(getAutoriza);
-                if (dtCierreAutoriza.Rows.Count > 0) 
+                DialogResult result = MessageBox.Show("Desea realizar el cierre de caja?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
                 {
-                    DynamicMain.usuarioAutorizaCierreCaja = Convert.ToInt32(dtCierreAutoriza.Rows[0]["AutorizaCierreCaja"].ToString());
+                    TBLUsuariosDTO getAutoriza = new TBLUsuariosDTO
+                    {
+                        opcion = "AutorizaCierreCaja",
+                        usuario = DynamicMain.usuarioIDNumber.ToString()
+                    };
+                    dtCierreAutoriza = logica.SP_TBLUsuarios(getAutoriza);
+                    if (dtCierreAutoriza.Rows.Count > 0)
+                    {
+                        DynamicMain.usuarioAutorizaCierreCaja = Convert.ToInt32(dtCierreAutoriza.Rows[0]["AutorizaCierreCaja"].ToString());
+                    }
+                    string AperturaLote = FechaAperturaLote.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    string CierreLote = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
+                    {
+                        MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 0)
+                    {
+                        MessageBox.Show("El cierre no se proceso el dia correspondiente: " + FechaAperturaLote.ToString("dd/MM/yyyy") + ", Solicite autorizacion para poder realizar su cierre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    EnviarControlCaja(2);
+
+                    tabControl1.TabPages[0].Text = "Apertura de caja";
+                    DynamicMain.Instance.ActualizarUbicacion("HOME / APERTURA DE CAJA");
+                    DynamicMain.cajaID = 0;
+                    DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
                 }
-                string AperturaLote = FechaAperturaLote.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                string CierreLote = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
-                {
-                    MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 0) 
-                {
-                    MessageBox.Show("El cierre no se proceso el dia correspondiente: "+FechaAperturaLote.ToString("dd/MM/yyyy")+", Solicite autorizacion para poder realizar su cierre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                EnviarControlCaja(2);
-                tabControl1.TabPages[0].Text = "Apertura de caja";
-                DynamicMain.Instance.ActualizarUbicacion("HOME / APERTURA DE CAJA");
-                DynamicMain.cajaID = 0 ;
-                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
             }
         }
 
