@@ -41,7 +41,7 @@ namespace ModuloCajaRC.Facturas
             CargarAcciones(1, pAcciones, 70, 50, 10, TextImageRelation.ImageAboveText);
             CargarFacturas();
             CargarMetodoPago();
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 49);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 49);
         }
 
         private void frmFacturasGeneral_Load(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "RECUPERAR-ENAC",
                 Proceso = 1,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             DataTable nuevaTabla = logica.SP_FacturasProcesoActual(getFacturas);
 
@@ -64,7 +64,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "RECUPERAR-INTER",
                 Proceso = 1,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             DataTable nuevaTabla50 = logica.SP_FacturasProcesoActual(getFacturas50);
 
@@ -161,7 +161,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "Recuperar",
                 Descripcion = "ContingenciaBodega",
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             dtContingencias = logica.SP_PlanContingencia(getContingencia);
             if (dtContingencias.Rows.Count > 0)
@@ -175,10 +175,10 @@ namespace ModuloCajaRC.Facturas
             TBLPermisosEspecificos getPermisos = new TBLPermisosEspecificos()
             {
                 Opcion = "ListadoPorFormulario",
-                UsuarioID = DynamicMain.usuarioIDNumber,
+                UsuarioID = DynamicMainCaja.usuarioIDNumber,
                 NombreFormulario = this.Name,
                 UbicacionID = _UbicacionID,
-                ModuloID = DynamicMain.ModuloID
+                ModuloID = DynamicMainCaja.ModuloID
             };
             dtPermisos = logica.SP_PermisosEspecificos(getPermisos);
             if (dtPermisos.Rows.Count > 0)
@@ -283,7 +283,7 @@ namespace ModuloCajaRC.Facturas
                     Opcion = "ELIMINAR",
                     FacturaID = _FacturaID,
                     Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                    SucursalID = DynamicMain.usuarioSucursalID
+                    SucursalID = DynamicMainCaja.usuarioSucursalID
                 };
                 dtFacturas = logica.SP_FacturasProcesoActual(sendFacturas);
                 if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
@@ -291,7 +291,7 @@ namespace ModuloCajaRC.Facturas
                     // MessageBox.Show(dtFacturas.Rows[0]["Mensaje"].ToString(), "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     MostrarAvisoTemporal("La guia ha sido rechazada exitosamente.");
 
-                    DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 54);
+                    DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 54);
                 }
             }
         }
@@ -411,17 +411,17 @@ namespace ModuloCajaRC.Facturas
             CobroCajaEncabezadoDTO sendEncabezado = new CobroCajaEncabezadoDTO
             {
                 Opcion = "Agregar",
-                ControlCajaID = DynamicMain.cajaID,
+                ControlCajaID = DynamicMainCaja.cajaID,
                 FacturaID = _FacturaID,
                 TotalAPagar = Convert.ToDecimal(lblGranTotal.Text),
                 TotalRecibido = Convert.ToDecimal(lblRecibido.Text),
                 TotalCambio = Convert.ToDecimal(lblCambio.Text),
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = System.Environment.MachineName,
                 Estado = true,
                 Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(sendEncabezado);
             if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturasEncabezado.Rows[0]["Estado"].ToString() == "1")
@@ -456,7 +456,7 @@ namespace ModuloCajaRC.Facturas
                         MetodoPagoID = Convert.ToInt32(row.Cells["Id"].Value),
                         MontoIngresado = monto,
                         Referencia = row.Cells["Referencia"]?.Value?.ToString() ?? "",
-                        UPosteo = DynamicMain.usuarionlogin,
+                        UPosteo = DynamicMainCaja.usuarionlogin,
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Estado = true,
@@ -474,7 +474,7 @@ namespace ModuloCajaRC.Facturas
                         {
                             Opcion = "EliminarEncabezado",
                             ID = _IDCobroCajaEncabezado,
-                            SucursalID = DynamicMain.usuarioSucursalID
+                            SucursalID = DynamicMainCaja.usuarioSucursalID
                         };
                         dtFacturasEncabezado = logica.SP_CobroCajaEncabezado(deleteEncabezado);
                         if (dtFacturasEncabezado.Rows.Count > 0 && dtFacturas.Rows[0]["Mensaje"].ToString() == "0")
@@ -498,7 +498,7 @@ namespace ModuloCajaRC.Facturas
                         return;
                     }
                 }
-                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 51);
+                DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 51);
                 ActualizarEstadoFactura();
 
                 Limpiar();
@@ -538,12 +538,12 @@ namespace ModuloCajaRC.Facturas
                         Opcion = "AGREGAR",
                         FacturaID = _FacturaID,
                         Proceso = 2,
-                        UPosteo = DynamicMain.usuarionlogin,
+                        UPosteo = DynamicMainCaja.usuarionlogin,
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
                         Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                        SucursalID = DynamicMain.usuarioSucursalID
+                        SucursalID = DynamicMainCaja.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendFacturas);
                     if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "1")
@@ -560,12 +560,12 @@ namespace ModuloCajaRC.Facturas
                         Opcion = "AGREGAR",
                         FacturaID = _FacturaID,
                         Proceso = 2,
-                        UPosteo = DynamicMain.usuarionlogin,
+                        UPosteo = DynamicMainCaja.usuarionlogin,
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
                         Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                        SucursalID = DynamicMain.usuarioSucursalID
+                        SucursalID = DynamicMainCaja.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendCobro);
                     if (dtFacturas.Rows.Count > 0 && dtFacturas.Rows[0]["Estado"].ToString() == "0")
@@ -580,12 +580,12 @@ namespace ModuloCajaRC.Facturas
                         Opcion = "AGREGAR",
                         FacturaID = _FacturaID,
                         Proceso = 3, //Envio a Bodega
-                        UPosteo = DynamicMain.usuarionlogin,
+                        UPosteo = DynamicMainCaja.usuarionlogin,
                         FPosteo = DateTime.Now,
                         PC = System.Environment.MachineName,
                         Guia = _GuiaID,
                         Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                        SucursalID = DynamicMain.usuarioSucursalID
+                        SucursalID = DynamicMainCaja.usuarioSucursalID
                     };
                     dtFacturas = logica.SP_FacturasProcesoActual(sendBodega);
 
@@ -604,12 +604,12 @@ namespace ModuloCajaRC.Facturas
                     Opcion = "AGREGAR",
                     FacturaID = _FacturaID,
                     Proceso = 2, //Envio a Bodega
-                    UPosteo = DynamicMain.usuarionlogin,
+                    UPosteo = DynamicMainCaja.usuarionlogin,
                     FPosteo = DateTime.Now,
                     PC = System.Environment.MachineName,
                     Guia = _GuiaID,
                     Origen = dgvFacturas.CurrentRow.Cells["Origen"].Value.ToString(),
-                    SucursalID = DynamicMain.usuarioSucursalID
+                    SucursalID = DynamicMainCaja.usuarioSucursalID
                 };
                 dtFacturas = logica.SP_FacturasProcesoActual(sendBodega);
 
@@ -619,7 +619,7 @@ namespace ModuloCajaRC.Facturas
                     Limpiar();
                 }
             }
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 52);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 52);
             ContingenciaBodega = false;
         }
 
@@ -628,7 +628,7 @@ namespace ModuloCajaRC.Facturas
             SucursalUbicacionDTO buscar = new SucursalUbicacionDTO
             {
                 Opcion = "Recuperar",
-                UbicacionID = DynamicMain.usuarioSucursalID
+                UbicacionID = DynamicMainCaja.usuarioSucursalID
             };
             dtBodegaExistente = logica.SP_SucursalUbicaciones(buscar);
             if (dtBodegaExistente.Rows[0]["CajaActiva"].ToString() == "3")
@@ -687,7 +687,7 @@ namespace ModuloCajaRC.Facturas
             lblRecibido.Text = "0.00";
             _FacturaID = 0;
             _GuiaID = String.Empty;
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 53);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 53);
         }
         private void dgvMetodosPago_CellEndEdit(object sender, DataGridViewCellEventArgs e) 
         {

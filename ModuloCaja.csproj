@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlCaja.cs" />
     <Compile Include="Facturas\frmApertura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,11 +62,12 @@
     <Compile Include="Facturas\frmComentariocCierreCaja.Designer.cs">
       <DependentUpon>frmComentariocCierreCaja.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginMenu\DynamicMain.cs">
+    <Compile Include="Facturas\IMainContext.cs" />
+    <Compile Include="LoginMenu\DynamicMainCaja.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginMenu\DynamicMain.Designer.cs">
-      <DependentUpon>DynamicMain.cs</DependentUpon>
+    <Compile Include="LoginMenu\DynamicMainCaja.Designer.cs">
+      <DependentUpon>DynamicMainCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="Facturas\frmFacturasGeneral.cs">
       <SubType>Form</SubType>
@@ -91,8 +96,8 @@
     <EmbeddedResource Include="Facturas\frmComentariocCierreCaja.resx">
       <DependentUpon>frmComentariocCierreCaja.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginMenu\DynamicMain.resx">
-      <DependentUpon>DynamicMain.cs</DependentUpon>
+    <EmbeddedResource Include="LoginMenu\DynamicMainCaja.resx">
+      <DependentUpon>DynamicMainCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturas\frmFacturasGeneral.resx">
       <DependentUpon>frmFacturasGeneral.cs</DependentUpon>

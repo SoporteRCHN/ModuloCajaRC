@@ -91,7 +91,7 @@ namespace ModuloCajaRC.LoginMenu
                 // VALIDA EL USUARIO Y CONTRASEÑA INGRESADO
                 if (validarUsuario(txtUser.Text, txtContra.Text))
                 {
-                    DynamicMain mainForm = new DynamicMain(txtUser.Text);
+                    DynamicMainCaja mainForm = new DynamicMainCaja(txtUser.Text);
                     mainForm.Show();
                     this.Hide();
                 }
@@ -184,7 +184,7 @@ namespace ModuloCajaRC.LoginMenu
             {
                 SeguimientoUsuario("INSERTAR", 39);
 
-                DynamicMain mainForm = new DynamicMain(txtUser.Text);
+                DynamicMainCaja mainForm = new DynamicMainCaja(txtUser.Text);
                 mainForm.Show();
                 this.Hide();
             }

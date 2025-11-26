@@ -1,6 +1,6 @@
 ﻿namespace ModuloCajaRC
 {
-    partial class DynamicMain
+    partial class DynamicMainCaja
     {
         /// <summary>
         /// Variable del diseñador necesaria.

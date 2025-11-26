@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 
+
 namespace ModuloCajaRC.Facturas
 {
     public partial class frmApertura : Form
@@ -58,10 +59,10 @@ namespace ModuloCajaRC.Facturas
             TBLPermisosEspecificos getPermisos = new TBLPermisosEspecificos()
             {
                 Opcion = "ListadoPorFormulario",
-                UsuarioID = DynamicMain.usuarioIDNumber,
+                UsuarioID = DynamicMainCaja.usuarioIDNumber,
                 NombreFormulario = this.Name,
                 UbicacionID = _UbicacionID,
-                ModuloID = DynamicMain.ModuloID
+                ModuloID = DynamicMainCaja.ModuloID
             };
             dtPermisos = logica.SP_PermisosEspecificos(getPermisos);
             if (dtPermisos.Rows.Count > 0)
@@ -134,7 +135,7 @@ namespace ModuloCajaRC.Facturas
         private void GenerarCierre(int CierreID)
         {
             Form MensajeAdvertencia = new Form();
-            using (frmVerCierre Mensaje = new frmVerCierre(CierreID.ToString(), DynamicMain.usuarioSucursal, System.Environment.MachineName))
+            using (frmVerCierre Mensaje = new frmVerCierre(CierreID.ToString(), DynamicMainCaja.usuarioSucursal, System.Environment.MachineName))
             {
                 MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
                 MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
@@ -187,8 +188,8 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO getLoteActual = new ControlCajaDTO
             {
                 Opcion = "ListadoLoteActual",
-                UPosteo = DynamicMain.usuarionlogin,
-                SucursalID = DynamicMain.usuarioSucursalID
+                UPosteo = DynamicMainCaja.usuarionlogin,
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtLoteActual.Clear();
@@ -211,10 +212,10 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "ResumenValoresEsperados",
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = Environment.MachineName,
                 Estado = true,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtResumenValoresEsperados.Clear();
@@ -256,10 +257,10 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "ResumenAperturaCaja",
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
                 Estado = true,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtResumenAperturaCaja.Clear();
@@ -286,10 +287,10 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "ResumenCajaVertical",
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
                 Estado = true,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtResumenMovimientosCaja.Clear();
@@ -309,15 +310,15 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "AperturaCaja",
-                UPosteo = DynamicMain.usuarionlogin,
-                SucursalID = DynamicMain.usuarioSucursalID
+                UPosteo = DynamicMainCaja.usuarionlogin,
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
 
             if (dtAperturaCaja.Rows.Count > 0) 
             {
-                DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["ControlID"].ToString());
+                DynamicMainCaja.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["ControlID"].ToString());
 
                 lblFecha.Text = dtAperturaCaja.Rows[0]["FPosteo"].ToString();
                 lblEquipo.Text = dtAperturaCaja.Rows[0]["PC"].ToString();
@@ -346,7 +347,7 @@ namespace ModuloCajaRC.Facturas
             {
                 lblFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 lblEquipo.Text = System.Environment.MachineName;
-                lblUsuario.Text = DynamicMain.usuarionlogin;
+                lblUsuario.Text = DynamicMainCaja.usuarionlogin;
 
                 btnProceso.BackColor = Color.FromArgb(97, 172, 112);
                 tabControl1.TabPages[0].Text = "Apertura de caja";
@@ -359,7 +360,7 @@ namespace ModuloCajaRC.Facturas
         {
             if (_TipoID == 2) 
             {
-                ControlIDApertura = DynamicMain.cajaID;
+                ControlIDApertura = DynamicMainCaja.cajaID;
                 Form MensajeAdvertencia = new Form();
                 using (frmComentariocCierreCaja Mensaje = new frmComentariocCierreCaja())
                 {
@@ -429,12 +430,12 @@ namespace ModuloCajaRC.Facturas
                 VarianzaTransferencia = varianzaPorMetodo.ContainsKey(5) ? varianzaPorMetodo[5] : 0,
                 VarianzaTarjeta = varianzaPorMetodo.ContainsKey(6) ? varianzaPorMetodo[6] : 0,
                 MontoTotal = montosPorMetodo.Values.Sum(),
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = Environment.MachineName,
                 Estado = true,
                 Comentario = textoComentario,
-                SucursalID = DynamicMain.usuarioSucursalID,
+                SucursalID = DynamicMainCaja.usuarioSucursalID,
                 ControlIDCierre = ControlIDApertura
             };
 
@@ -443,7 +444,7 @@ namespace ModuloCajaRC.Facturas
             {
                 if (_TipoID == 1)
                 {
-                    DynamicMain.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
+                    DynamicMainCaja.cajaID = Convert.ToInt32(dtAperturaCaja.Rows[0]["UltimoID"].ToString());
                     MessageBox.Show("¡Apertura de caja realizada exitosamente!", "Notificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     //AperturarCaja();
@@ -520,8 +521,8 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "RecuperarIDCierrePorIDApertura",
                 ControlIDCierre = Convert.ToInt32(cmbLotes.SelectedValue),
-                UPosteo = DynamicMain.usuarionlogin,
-                SucursalID = DynamicMain.usuarioSucursalID
+                UPosteo = DynamicMainCaja.usuarionlogin,
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtCierreCaja = logica.SP_ControlCaja(getCierre);
@@ -551,7 +552,7 @@ namespace ModuloCajaRC.Facturas
             if (existeApertura == true && existeCierre == true) 
             {
                 Form MensajeAdvertencia = new Form();
-                using (frmVerCierre Mensaje = new frmVerCierre((Convert.ToInt32(cmbLotes.SelectedValue)).ToString(), DynamicMain.usuarioSucursal, System.Environment.MachineName))
+                using (frmVerCierre Mensaje = new frmVerCierre((Convert.ToInt32(cmbLotes.SelectedValue)).ToString(), DynamicMainCaja.usuarioSucursal, System.Environment.MachineName))
                 {
                     MensajeAdvertencia.StartPosition = FormStartPosition.CenterScreen;
                     MensajeAdvertencia.FormBorderStyle = FormBorderStyle.None;
@@ -584,10 +585,10 @@ namespace ModuloCajaRC.Facturas
             ControlCajaDTO sendApertura = new ControlCajaDTO
             {
                 Opcion = "ListadoRegistros",
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
                 Estado = true,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtMovimientosPreCierreCaja.Clear();
@@ -629,7 +630,7 @@ namespace ModuloCajaRC.Facturas
             {
                 Opcion = "MostrarCierreEspecifico",
                 ControlID = Convert.ToInt64(cmbLotes.SelectedValue.ToString()),
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -665,9 +666,9 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ListadoLoteActual",
                 FechaInicio = dtpInicio.Value.Date,
                 FechaFinal = dtpFinal.Value.Date,
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -761,7 +762,7 @@ namespace ModuloCajaRC.Facturas
         private void btnMovimientos_Click(object sender, EventArgs e)
         {
             ListadoLoteActual();
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
 
         private void CargarResumenMovimientos() 
@@ -830,7 +831,7 @@ namespace ModuloCajaRC.Facturas
 
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
         private void dtpInicio_ValueChanged(object sender, EventArgs e)
         {
@@ -840,7 +841,7 @@ namespace ModuloCajaRC.Facturas
             }
             verMovimientosEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
             verCierresEntreFechas(dtpInicio.Value.Date, dtpFinal.Value.Date);
-            DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 57);
+            DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 57);
         }
         private void verCierresEntreFechas(DateTime Inicio, DateTime Final)
         {
@@ -849,8 +850,8 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "CierresEntreFechas",
                 FechaInicio = Inicio,
                 FechaFinal = Final,
-                SucursalID = DynamicMain.usuarioSucursalID,
-                UPosteo = DynamicMain.usuarionlogin
+                SucursalID = DynamicMainCaja.usuarioSucursalID,
+                UPosteo = DynamicMainCaja.usuarionlogin
             };
 
             dtCierresEntreFechas.Clear();
@@ -872,9 +873,9 @@ namespace ModuloCajaRC.Facturas
                 Opcion = "ListadoRegistrosFechas",
                 FechaInicio = Inicio,
                 FechaFinal = Final,
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
 
             dtMovimientosCaja.Clear();
@@ -975,8 +976,8 @@ namespace ModuloCajaRC.Facturas
             {
                 EnviarControlCaja(1);
                 tabControl1.TabPages[0].Text = "Cierre de caja";
-                DynamicMain.Instance.ActualizarUbicacion("HOME / CIERRE DE CAJA");
-                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 55);
+                DynamicMainCaja.Instance.ActualizarUbicacion("HOME / CIERRE DE CAJA");
+                DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 55);
             }
             else
             {
@@ -987,20 +988,20 @@ namespace ModuloCajaRC.Facturas
                     TBLUsuariosDTO getAutoriza = new TBLUsuariosDTO
                     {
                         opcion = "AutorizaCierreCaja",
-                        usuario = DynamicMain.usuarioIDNumber.ToString()
+                        usuario = DynamicMainCaja.usuarioIDNumber.ToString()
                     };
                     dtCierreAutoriza = logica.SP_TBLUsuarios(getAutoriza);
                     if (dtCierreAutoriza.Rows.Count > 0)
                     {
-                        DynamicMain.usuarioAutorizaCierreCaja = Convert.ToInt32(dtCierreAutoriza.Rows[0]["AutorizaCierreCaja"].ToString());
+                        DynamicMainCaja.usuarioAutorizaCierreCaja = Convert.ToInt32(dtCierreAutoriza.Rows[0]["AutorizaCierreCaja"].ToString());
                     }
                     string AperturaLote = FechaAperturaLote.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                     string CierreLote = DateTime.Today.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
+                    if (AperturaLote != CierreLote && DynamicMainCaja.usuarioAutorizaCierreCaja == 1) //Valido que el cierre lo quiera hacer en otra fecha diferente al de la apertura, y que tenga permiso para hacer esto.
                     {
                         MessageBox.Show("Recuerda hacer el cierre al final del dia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    else if (AperturaLote != CierreLote && DynamicMain.usuarioAutorizaCierreCaja == 0)
+                    else if (AperturaLote != CierreLote && DynamicMainCaja.usuarioAutorizaCierreCaja == 0)
                     {
                         MessageBox.Show("El cierre no se proceso el dia correspondiente: " + FechaAperturaLote.ToString("dd/MM/yyyy") + ", Solicite autorizacion para poder realizar su cierre.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -1008,9 +1009,9 @@ namespace ModuloCajaRC.Facturas
                     EnviarControlCaja(2);
 
                     tabControl1.TabPages[0].Text = "Apertura de caja";
-                    DynamicMain.Instance.ActualizarUbicacion("HOME / APERTURA DE CAJA");
-                    DynamicMain.cajaID = 0;
-                    DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 56);
+                    DynamicMainCaja.Instance.ActualizarUbicacion("HOME / APERTURA DE CAJA");
+                    DynamicMainCaja.cajaID = 0;
+                    DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 56);
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -22,7 +21,7 @@ using System.Windows.Forms;
 
 namespace ModuloCajaRC
 {
-    public partial class DynamicMain : Form
+    public partial class DynamicMainCaja : Form
     {
         DataTable tablaEncabezado = new DataTable();
         DataTable dtMenuOpciones = new DataTable();
@@ -63,14 +62,14 @@ namespace ModuloCajaRC
 
         bool panelLeftExpand = true;
         clsLogica logica = new clsLogica();
-        public static DynamicMain Instance { get; private set; }
-        public DynamicMain(string usuario)
+        public static DynamicMainCaja Instance { get; private set; }
+        public DynamicMainCaja(string usuario)
         {
             InitializeComponent();
             Instance = this;
             usuarionombre = usuario;
             usuarionlogin = usuario;
-            ModuloID = 17;
+            ModuloID = 22;
 
             FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
             string versionStr = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}.{versionInfo.ProductPrivatePart}";
@@ -152,7 +151,7 @@ namespace ModuloCajaRC
             {
                 Opcion = "Agregar",
                 FactorDolar = tasa,
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = Environment.MachineName,
                 Estado = true
@@ -177,7 +176,6 @@ namespace ModuloCajaRC
             else if (fecha.DayOfWeek == DayOfWeek.Sunday)
             {
                 fecha = fecha.AddDays(1);
-
             }
             
             string codigo = "620";
@@ -244,7 +242,7 @@ namespace ModuloCajaRC
             {
                 Opcion = "Recuperar",
                 Descripcion = "ContingenciaBodega",
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             dtContingencias = logica.SP_PlanContingencia(getContingencia);
             if(dtContingencias.Rows.Count>0) 
@@ -257,8 +255,8 @@ namespace ModuloCajaRC
         {
             TBLMenuDinamicoLista getTBLMenuDinamicoLista = new TBLMenuDinamicoLista
             {
-                Opcion = "ListadoPermiso",
-                Valor = "17",
+                Opcion = "ListadoPermisoNuevo",
+                Valor = "22",
                 Valor2 = "1",
                 Valor3 = usuarioIDNumber.ToString(),
             };
@@ -500,9 +498,9 @@ namespace ModuloCajaRC
             {
                 Opcion = "AperturaCaja",
                 Estado = true, 
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 PC = System.Environment.MachineName,
-                SucursalID = DynamicMain.usuarioSucursalID
+                SucursalID = DynamicMainCaja.usuarioSucursalID
             };
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0)
@@ -563,11 +561,11 @@ namespace ModuloCajaRC
             SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
             {
                 Operacion = "INSERTAR",
-                Usuario = DynamicMain.usuarionlogin,
+                Usuario = DynamicMainCaja.usuarionlogin,
                 Modulo = Assembly.GetExecutingAssembly().GetName().Name,
                 Formulario = this.Name,
                 AccionID = _AccionID,
-                UPosteo = DynamicMain.usuarionlogin,
+                UPosteo = DynamicMainCaja.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = System.Environment.MachineName,
                 Estado = true
