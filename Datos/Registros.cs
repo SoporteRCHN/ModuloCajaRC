@@ -12,7 +12,6 @@ namespace Datos
     {
         private BD_Conexion Conexion = new BD_Conexion();
 
-        SqlDataReader leer = null;
         DataTable tabla = new DataTable();
         SqlDataAdapter adaptador = new SqlDataAdapter();
         SqlParameter parametro = new SqlParameter();

@@ -1312,5 +1312,71 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_PerfilPermisos(dynamic a)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", a.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PerfilPermisoID", a.PerfilPermisoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PerfilID", a.PerfilID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MenuID", a.MenuID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", a.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", a.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", a.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", a.PC ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_PerfilPermisos";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
+        public DataTable SP_PerfilPermisosExtra(dynamic a)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", a.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PermisoExtraID", a.PermisoExtraID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UsuarioID", a.UsuarioID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@MenuID", a.MenuID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", a.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", a.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", a.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", a.PC ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_PerfilPermisosExtra";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
     }
 }

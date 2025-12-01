@@ -482,4 +482,26 @@ namespace Logica
         public string opcion { get; set; }
         public string usuario { get; set; }
     }
+    public class PerfilPermisoDTO
+    {
+        public string Opcion { get; set; }                // Acción: Agregar, Actualizar, Eliminar, Listado, etc.
+        public int? PerfilPermisoID { get; set; }         // Clave primaria
+        public int? PerfilID { get; set; }                // Perfil asociado
+        public int? MenuID { get; set; }                  // Formulario/pantalla
+        public bool? Estado { get; set; }                 // Activo/Inactivo
+        public string UPosteo { get; set; }               // Usuario que registra
+        public DateTime? FPosteo { get; set; }            // Fecha de registro
+        public string PC { get; set; }                    // Equipo desde donde se registró
+    }
+    public class PerfilPermisosExtraDTO
+    {
+        public string Opcion { get; set; }             // Acción: Agregar, Actualizar, Eliminar, Listado, etc.
+        public int? PermisoExtraID { get; set; }       // Clave primaria
+        public int? UsuarioID { get; set; }            // Usuario asociado
+        public int? MenuID { get; set; }               // Formulario/pantalla
+        public bool? Estado { get; set; }              // Activo/Inactivo
+        public string UPosteo { get; set; }            // Usuario que registra
+        public DateTime? FPosteo { get; set; }         // Fecha de registro
+        public string PC { get; set; }                 // Equipo desde donde se registró
+    }
 }

@@ -356,7 +356,6 @@ namespace ModuloCajaRC.Facturas
 
             decimal sumaMetodos = 0;
             decimal sumaEfectivo = 0;
-            decimal sumaTotal = 0;
 
             foreach (DataGridViewRow row in dgvMetodosPago.Rows)
             {

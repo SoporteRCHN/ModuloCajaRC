@@ -6,7 +6,6 @@ using Newtonsoft.Json.Linq;
 using Logica;
 using ModuloCajaRC.Facturas;
 using ModuloCajaRC.LoginMenu;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ModuloCajaRC
@@ -30,10 +28,13 @@ namespace ModuloCajaRC
         DataTable dtSeguimientoUsuario = new DataTable();
         DataTable dtContingencias = new DataTable();
         DataTable dtAperturaCaja = new DataTable();
+        DataTable dtMenuOpcionesFinal = new DataTable();
+        DataTable dtEstadoENAC = new DataTable();
+
         private static Form activeForm;
         public static RegistroAcciones registro = new RegistroAcciones(); //REGISTRO DE ACCIONES DE USUARIO
         login loginn = new login();
-        DataTable dtEstadoENAC = new DataTable();
+       
 
         public static bool _EstadoEnac = false;
         public static string usuarionombre;
@@ -91,8 +92,8 @@ namespace ModuloCajaRC
             EstadoENAC();
             CargarEncabezado(usuarionlogin);
             RecuperarContingencias();
-            BuscarMenu();
-            CargarMenuDinamico();
+
+            BuscarMenuFinal();
 
             tasa = ActualizarTasaCambio();
             lblTasa.Text = tasa.ToString();
@@ -108,7 +109,202 @@ namespace ModuloCajaRC
             flowLayoutPanelMenu.Refresh();
             flowLayoutPanelMenu.Invalidate();
         }
+        private void BuscarMenuFinal()
+        {
+            // 1. Perfil
+            PerfilPermisoDTO perfil = new PerfilPermisoDTO
+            {
+                Opcion = "ListadoPorPerfil",
+                PerfilID = Convert.ToInt32(usuarioPerfilID),
+                PerfilPermisoID = ModuloID
+            };
+            DataTable dtPerfil = logica.SP_PerfilPermisos(perfil);
 
+            // 2. Extras
+            PerfilPermisosExtraDTO extra = new PerfilPermisosExtraDTO
+            {
+                Opcion = "ListadoPorUsuario",
+                UsuarioID = usuarioIDNumber,
+                PermisoExtraID = ModuloID
+            };
+            DataTable dtExtra = logica.SP_PerfilPermisosExtra(extra);
+
+            // 3. Merge
+            dtMenuOpcionesFinal = CombinarMenus(dtPerfil, dtExtra);
+
+            if (dtMenuOpcionesFinal.Rows.Count > 0)
+            {
+                CargarMenuDinamico(dtMenuOpcionesFinal);
+            }
+        }
+        private DataTable CombinarMenus(DataTable dtPerfil, DataTable dtExtra)
+        {
+            // Clonar estructura del perfil
+            DataTable dtFinal = dtPerfil.Clone();
+
+            // Copiar todos los registros del perfil
+            foreach (DataRow row in dtPerfil.Rows)
+            {
+                dtFinal.ImportRow(row);
+            }
+
+            // Aplicar overlay de extras
+            foreach (DataRow extra in dtExtra.Rows)
+            {
+                int menuID = Convert.ToInt32(extra["MenuID"]);
+                bool estadoExtra = Convert.ToBoolean(extra["Estado"]);
+
+                // Buscar si ya existe en el perfil
+                DataRow[] existentes = dtFinal.Select("MenuID = " + menuID);
+
+                if (existentes.Length > 0)
+                {
+                    if (!estadoExtra)
+                    {
+                        // Quitar del menú final
+                        foreach (DataRow r in existentes)
+                            dtFinal.Rows.Remove(r);
+                    }
+                    else
+                    {
+                        // Sobreescribir propiedades
+                        DataRow r = existentes[0];
+                        r["Estado"] = extra["Estado"];
+                    }
+                }
+                else
+                {
+                    if (estadoExtra)
+                    {
+                        // Agregar nuevo registro exclusivo del usuario
+                        dtFinal.ImportRow(extra);
+                    }
+                }
+            }
+
+            // Ordenar por PadreID y luego MenuID
+            DataView dv = dtFinal.DefaultView;
+            dv.Sort = "PadreID ASC, MenuID ASC";
+            return dv.ToTable();
+        }
+        private void CargarMenuDinamico(DataTable dtMenuOpciones)
+        {
+            ToolTip toolTip1 = new ToolTip(); // Crear una instancia de ToolTip
+
+            if (dtMenuOpciones.Rows.Count > 0)
+            {
+                Dictionary<int, FlowLayoutPanel> menuPanels = new Dictionary<int, FlowLayoutPanel>();
+
+                foreach (DataRow row in dtMenuOpciones.Rows)
+                {
+                    int menuID = Convert.ToInt32(row["MenuID"]);
+                    int padreID = Convert.ToInt32(row["PadreID"]);
+                    Button btnMenu = new Button();
+                    btnMenu.Name = "btn" + row["MenuID"].ToString();
+                    btnMenu.Text = row["Tag"].ToString();
+                    btnMenu.Width = 230;
+                    btnMenu.Height = 40;
+                    btnMenu.FlatStyle = FlatStyle.Flat;
+                    btnMenu.Cursor = Cursors.Hand;
+                    btnMenu.FlatAppearance.BorderSize = 0;
+                    btnMenu.FlatAppearance.MouseDownBackColor = Color.FromArgb(47, 51, 54);
+                    btnMenu.ForeColor = System.Drawing.Color.White;
+                    btnMenu.Font = new Font("Century Gothic", 9, FontStyle.Bold);
+                    btnMenu.FlatAppearance.MouseOverBackColor = Color.FromArgb(141, 153, 163);
+                    btnMenu.MouseClick += new MouseEventHandler(BotonMenu_MouseClick);
+
+                    // Cargar el icono desde la carpeta Resources utilizando una ruta absoluta
+                    string elemento = row["Descripcion"].ToString();
+                    if (!string.IsNullOrEmpty(elemento))
+                    {
+                        try
+                        {
+                            if (padreID == 0)
+                            {
+                                // Icono para el menú principal
+                                btnMenu.Image = iconDictionary[elemento];
+                                btnMenu.Tag = "collapsed"; // Etiqueta para controlar el estado del menú
+                                btnMenu.Margin = new Padding(0); // Sin margen para el primer nivel
+                            }
+                            else
+                            {
+                                DataRow[] subMenus = dtMenuOpciones.Select("PadreID = " + menuID);
+                                if (subMenus.Length > 0)
+                                {
+                                    // Icono para los submenús con hijos
+                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_down_16px;
+                                }
+                                else
+                                {
+                                    // Icono para los submenús sin hijos
+                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_right_16px;
+                                }
+
+                                btnMenu.Margin = new Padding(2, 0, 0, 0); // Márgenes para el segundo nivel
+                                if (padreID != 0)
+                                {
+                                    DataRow[] parentRow = dtMenuOpciones.Select("MenuID = " + padreID);
+                                    if (parentRow.Length > 0 && Convert.ToInt32(parentRow[0]["PadreID"]) != 0)
+                                    {
+                                        // Márgenes para el tercer nivel
+                                        btnMenu.Margin = new Padding(2, 0, 0, 0);
+                                    }
+                                }
+                            }
+
+                            btnMenu.ImageAlign = ContentAlignment.MiddleLeft; // Alinea la imagen a la izquierda
+                            btnMenu.TextAlign = ContentAlignment.MiddleRight; // Alinea el texto a la derecha
+                            btnMenu.TextImageRelation = TextImageRelation.ImageBeforeText; // Coloca el texto después de la imagen
+                            btnMenu.Padding = new Padding(10, 0, 0, 0); // Espacio alrededor del botón
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al cargar el icono: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                    // Establecer la descripción del ToolTip
+                    toolTip1.SetToolTip(btnMenu, row["Tag"].ToString());
+
+                    if (padreID == 0)
+                    {
+                        FlowLayoutPanel panel = new FlowLayoutPanel();
+                        panel.FlowDirection = FlowDirection.TopDown;
+                        panel.AutoSize = true;
+                        panel.Controls.Add(btnMenu);
+
+                        flowLayoutPanelMenu.Controls.Add(panel);
+                        menuPanels.Add(menuID, panel);
+                    }
+                    else
+                    {
+                        if (menuPanels.ContainsKey(padreID))
+                        {
+                            btnMenu.Visible = false;  // Los submenús están ocultos por defecto
+                            btnMenu.TextAlign = ContentAlignment.MiddleLeft; // Alinea el texto del submenú a la izquierda
+
+                            FlowLayoutPanel subPanel;
+                            if (!menuPanels.ContainsKey(menuID))
+                            {
+                                subPanel = new FlowLayoutPanel();
+                                subPanel.FlowDirection = FlowDirection.TopDown;
+                                subPanel.AutoSize = true;
+                                subPanel.Margin = new Padding(3, 0, 0, 0);
+                                subPanel.Visible = false;
+                                menuPanels.Add(menuID, subPanel);
+                                menuPanels[padreID].Controls.Add(subPanel);
+                            }
+                            else
+                            {
+                                subPanel = menuPanels[menuID];
+                            }
+
+                            subPanel.Controls.Add(btnMenu);
+                        }
+                    }
+                }
+            }
+        }
         public void SeguimientoUsuario(string _Operacion, int _AccionID)
         {
             SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
@@ -143,7 +339,6 @@ namespace ModuloCajaRC
                 MessageBox.Show("Ocurrio un problema al actualizar la tasa de cambio en la base de datos", "Aviso Urgente", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
-            return 0;
         }
         private void ActualizarTasaCambioHistorico(decimal tasa) 
         {
@@ -251,148 +446,14 @@ namespace ModuloCajaRC
             }
         }
 
-        private void BuscarMenu()
-        {
-            TBLMenuDinamicoLista getTBLMenuDinamicoLista = new TBLMenuDinamicoLista
-            {
-                Opcion = "ListadoPermisoNuevo",
-                Valor = "22",
-                Valor2 = "1",
-                Valor3 = usuarioIDNumber.ToString(),
-            };
-            try
-            {
-                dtMenuOpciones = (DataTable)logica.SP_MenuDinamico_GET(getTBLMenuDinamicoLista);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ha ocurrido un error al momento de recuperar el listado de menu, contacte con sistemas." + ex.Message, "Notificacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
+
 
         private Dictionary<string, Image> iconDictionary = new Dictionary<string, Image>
         {
              { "frmCaja", global::ModuloCajaRC.Properties.Resources.bill_26px },
         };
 
-        private void CargarMenuDinamico()
-        {
-            ToolTip toolTip1 = new ToolTip(); // Crear una instancia de ToolTip
-
-            if (dtMenuOpciones.Rows.Count > 0)
-            {
-                Dictionary<int, FlowLayoutPanel> menuPanels = new Dictionary<int, FlowLayoutPanel>();
-
-                foreach (DataRow row in dtMenuOpciones.Rows)
-                {
-                    int menuID = Convert.ToInt32(row["MenuID"]);
-                    int padreID = Convert.ToInt32(row["PadreID"]);
-                    Button btnMenu = new Button();
-                    btnMenu.Name = "btn" + row["MenuID"].ToString();
-                    btnMenu.Text = "    " + row["Tag"].ToString();
-                    btnMenu.Width = 230;
-                    btnMenu.Height = 40;
-                    btnMenu.FlatStyle = FlatStyle.Flat;
-                    btnMenu.Cursor = Cursors.Hand;
-                    btnMenu.FlatAppearance.BorderSize = 0;
-                    btnMenu.FlatAppearance.MouseDownBackColor = Color.FromArgb(47, 51, 54);
-                    btnMenu.ForeColor = System.Drawing.Color.White;
-                    btnMenu.Font = new Font("Century Gothic", 9, FontStyle.Bold);
-                    btnMenu.FlatAppearance.MouseOverBackColor = Color.FromArgb(141, 153, 163);
-                    btnMenu.MouseClick += new MouseEventHandler(BotonMenu_MouseClick);
-
-                    // Cargar el icono desde la carpeta Resources utilizando una ruta absoluta
-                    string elemento = row["Descripcion"].ToString();
-                    if (!string.IsNullOrEmpty(elemento))
-                    {
-                        try
-                        {
-                            if (padreID == 0)
-                            {
-                                // Icono para el menú principal
-                                btnMenu.Image = iconDictionary[elemento];
-                                btnMenu.Tag = "collapsed"; // Etiqueta para controlar el estado del menú
-                                btnMenu.Margin = new Padding(0); // Sin margen para el primer nivel
-                            }
-                            else
-                            {
-                                DataRow[] subMenus = dtMenuOpciones.Select("PadreID = " + menuID);
-                                if (subMenus.Length > 0)
-                                {
-                                    // Icono para los submenús con hijos
-                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_down_16px;
-                                }
-                                else
-                                {
-                                    // Icono para los submenús sin hijos
-                                    btnMenu.Image = global::ModuloCajaRC.Properties.Resources.white_sort_right_16px;
-                                }
-
-                                btnMenu.Margin = new Padding(2, 0, 0, 0); // Márgenes para el segundo nivel
-                                if (padreID != 0)
-                                {
-                                    DataRow[] parentRow = dtMenuOpciones.Select("MenuID = " + padreID);
-                                    if (parentRow.Length > 0 && Convert.ToInt32(parentRow[0]["PadreID"]) != 0)
-                                    {
-                                        // Márgenes para el tercer nivel
-                                        btnMenu.Margin = new Padding(2, 0, 0, 0);
-                                    }
-                                }
-                            }
-
-                            btnMenu.ImageAlign = ContentAlignment.MiddleLeft; // Alinea la imagen a la izquierda
-                            btnMenu.TextAlign = ContentAlignment.MiddleRight; // Alinea el texto a la derecha
-                            btnMenu.TextImageRelation = TextImageRelation.ImageBeforeText; // Coloca el texto después de la imagen
-                            btnMenu.Padding = new Padding(10, 0, 0, 0); // Espacio alrededor del botón
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error al cargar el icono: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-
-                    // Establecer la descripción del ToolTip
-                    toolTip1.SetToolTip(btnMenu, row["Tag"].ToString());
-
-                    if (padreID == 0)
-                    {
-                        FlowLayoutPanel panel = new FlowLayoutPanel();
-                        panel.FlowDirection = FlowDirection.TopDown;
-                        panel.AutoSize = true;
-                        panel.Controls.Add(btnMenu);
-
-                        flowLayoutPanelMenu.Controls.Add(panel);
-                        menuPanels.Add(menuID, panel);
-                    }
-                    else
-                    {
-                        if (menuPanels.ContainsKey(padreID))
-                        {
-                            btnMenu.Visible = false;  // Los submenús están ocultos por defecto
-                            btnMenu.TextAlign = ContentAlignment.MiddleLeft; // Alinea el texto del submenú a la izquierda
-
-                            FlowLayoutPanel subPanel;
-                            if (!menuPanels.ContainsKey(menuID))
-                            {
-                                subPanel = new FlowLayoutPanel();
-                                subPanel.FlowDirection = FlowDirection.TopDown;
-                                subPanel.AutoSize = true;
-                                subPanel.Margin = new Padding(3, 0, 0, 0);
-                                subPanel.Visible = false;
-                                menuPanels.Add(menuID, subPanel);
-                                menuPanels[padreID].Controls.Add(subPanel);
-                            }
-                            else
-                            {
-                                subPanel = menuPanels[menuID];
-                            }
-
-                            subPanel.Controls.Add(btnMenu);
-                        }
-                    }
-                }
-            }
-        }
+    
         private void BotonMenu_MouseClick(object sender, MouseEventArgs e)
         {
             Button clickedButton = sender as Button;
