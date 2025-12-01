@@ -460,8 +460,8 @@ namespace ModuloCajaRC
             if (clickedButton != null)
             {
                 int menuID = Convert.ToInt32(clickedButton.Name.Replace("btn", ""));
-                bool isParent = dtMenuOpciones.AsEnumerable().Any(row => Convert.ToInt32(row["MenuID"]) == menuID && Convert.ToInt32(row["PadreID"]) == 0);
-                bool hasChild = dtMenuOpciones.AsEnumerable().Any(row => Convert.ToInt32(row["PadreID"]) == menuID && Convert.ToInt32(row["PadreID"]) != 0);
+                bool isParent = dtMenuOpcionesFinal.AsEnumerable().Any(row => Convert.ToInt32(row["MenuID"]) == menuID && Convert.ToInt32(row["PadreID"]) == 0);
+                bool hasChild = dtMenuOpcionesFinal.AsEnumerable().Any(row => Convert.ToInt32(row["PadreID"]) == menuID && Convert.ToInt32(row["PadreID"]) != 0);
 
                 if (isParent && !hasChild)  // Si es "Padre" pero NO tiene hijos, abre directamente el formulario
                 {
