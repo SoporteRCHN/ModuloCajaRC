@@ -1378,5 +1378,76 @@ namespace Datos
 
             return tabla;
         }
+        public DataTable SP_PermisosObjetosExtra(dynamic dto)
+        {
+            using (SqlCommand comando = new SqlCommand("RCCONFIG.Empresa.SP_PermisosObjetosExtra", Conexion.AbrirConexion(3)))
+            {
+                comando.CommandType = CommandType.StoredProcedure;
+
+                comando.Parameters.AddWithValue("@Opcion", dto.Opcion ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@ObjetoID", dto.ObjetoID ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@TipoObjeto", dto.TipoObjeto ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@NombreObjeto", dto.NombreObjeto ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@ModuloID", dto.ModuloID ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@Formulario", dto.Formulario ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@AccionElemento", dto.AccionElemento ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@IconoElemento", dto.IconoElemento ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@UsuarioID", dto.UsuarioID ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@InteraccionID", dto.InteraccionID ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@UPosteo", dto.UPosteo ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@FPosteo", dto.FPosteo ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@PC", dto.PC ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@Estado", dto.Estado ?? (object)DBNull.Value);
+                comando.Parameters.AddWithValue("@UbicacionID", dto.UbicacionID ?? (object)DBNull.Value);
+
+                SqlDataReader leer = comando.ExecuteReader();
+                DataTable tabla = new DataTable();
+                tabla.Load(leer);
+
+                Conexion.CerrarConexion();
+                return tabla;
+            }
+        }
+
+        public DataTable SP_PermisosObjetos(dynamic a)
+        {
+            SqlDataReader leer = null;
+            SqlCommand comando = new SqlCommand();
+            DataTable tabla = new DataTable();
+
+            if (tabla.Rows.Count > 0)
+            {
+                tabla.Rows.Clear();
+                tabla.Clear();
+            }
+
+            comando.Connection = Conexion.AbrirConexion(3);
+
+            comando.Parameters.AddWithValue("@Opcion", a.Opcion ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ObjetoID", a.ObjetoID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@TipoObjeto", a.TipoObjeto ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@NombreObjeto", a.NombreObjeto ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@ModuloID", a.ModuloID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Formulario", a.Formulario ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@AccionElemento", a.AccionElemento ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@IconoElemento", a.IconoElemento ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PerfilID", a.PerfilID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@InteraccionID", a.InteraccionID ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UPosteo", a.UPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@FPosteo", a.FPosteo ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@PC", a.PC ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@Estado", a.Estado ?? (object)DBNull.Value);
+            comando.Parameters.AddWithValue("@UbicacionID", a.UbicacionID ?? (object)DBNull.Value);
+
+            comando.CommandText = "RCCONFIG.Empresa.SP_PermisosObjetos";
+            comando.CommandType = CommandType.StoredProcedure;
+
+            leer = comando.ExecuteReader();
+            tabla.Load(leer);
+
+            Conexion.CerrarConexion();
+
+            return tabla;
+        }
     }
 }

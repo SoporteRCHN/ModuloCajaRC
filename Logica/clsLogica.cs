@@ -227,5 +227,17 @@ namespace Logica
             tabla = enviar.SP_PerfilPermisosExtra(a);
             return tabla;
         }
+        public DataTable SP_PermisosObjetos(PermisosObjetosDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_PermisosObjetos(a);
+            return tabla;
+        }
+        public DataTable SP_PermisosObjetosExtra(PermisosObjetosExtraDTO a)
+        {
+            DataTable tabla = new DataTable();
+            tabla = enviar.SP_PermisosObjetosExtra(a);
+            return tabla;
+        }
     }
 }

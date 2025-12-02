@@ -24,6 +24,9 @@ namespace ModuloCajaRC.Facturas
         DataTable dtFacturasMetodos = new DataTable();
         DataTable dtMetodoPago = new DataTable();
         DataTable dtContingencias = new DataTable();
+        DataTable dtPermisosFormulario = new DataTable();
+        DataTable dtPermisosFormularioExtra = new DataTable();
+        DataTable dtPermisosAccionesUsuarios = new DataTable();
         clsLogica logica = new clsLogica();
 
         public int _FacturaID, _IDCobroCajaEncabezado, _IDCobroMetodo, _IDControlCaja;
@@ -38,7 +41,8 @@ namespace ModuloCajaRC.Facturas
         public frmFacturasGeneral()
         {
             InitializeComponent();
-            CargarAcciones(1, pAcciones, 70, 50, 10, TextImageRelation.ImageAboveText);
+            CargarAccionesPerfil(1, pAcciones, 70, 50, 10, TextImageRelation.ImageAboveText);
+            CargarAccionesUsuario(1, pAcciones, 70, 50, 10, TextImageRelation.ImageAboveText);
             CargarFacturas();
             CargarMetodoPago();
             DynamicMainCaja.Instance.SeguimientoUsuario("INSERTAR", 49);
@@ -129,6 +133,159 @@ namespace ModuloCajaRC.Facturas
 
             CargarResumen();
         }
+        public void CargarAccionesUsuario(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
+        {
+            dtPermisosAccionesUsuarios.Clear();
+            PermisosObjetosExtraDTO getPermisosUsuario = new PermisosObjetosExtraDTO()
+            {
+                Opcion = "Listado",
+                UsuarioID = Convert.ToInt32(DynamicMainCaja.usuarioIDNumber),
+                ModuloID = DynamicMainCaja.ModuloID,
+                Formulario = this.Name,
+            };
+            dtPermisosAccionesUsuarios = logica.SP_PermisosObjetosExtra(getPermisosUsuario);
+            if (dtPermisosAccionesUsuarios.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtPermisosAccionesUsuarios.Rows)
+                {
+                    string NombreObjeto = row["NombreObjeto"].ToString();
+                    string accionElemento = row["AccionElemento"].ToString();
+                    string iconoElemento = row["IconoElemento"] != DBNull.Value ? row["IconoElemento"].ToString() : null;
+                    bool visible = Convert.ToBoolean(row["Estado"]);
+
+                    if (visible)
+                    {
+                        Button btn = new Button();
+                        btn.Name = NombreObjeto;
+                        btn.Text = accionElemento;
+                        btn.Width = _Ancho;
+                        btn.Height = _Alto;
+                        btn.Margin = new Padding(_Padding);
+
+                        if (!string.IsNullOrEmpty(iconoElemento))
+                        {
+                            try
+                            {
+                                var resourceManager = ModuloCajaRC.Properties.Resources.ResourceManager;
+                                object icono = resourceManager.GetObject(Path.GetFileNameWithoutExtension(iconoElemento));
+
+                                if (icono != null && icono is Image)
+                                {
+                                    btn.Image = new Bitmap((Image)icono, new Size(24, 24));
+                                    btn.TextAlign = ContentAlignment.MiddleCenter;
+                                    btn.ImageAlign = ContentAlignment.BottomCenter;
+                                    btn.TextImageRelation = _Relacion;
+                                }
+                                else
+                                {
+                                    btn.TextAlign = ContentAlignment.MiddleCenter;
+                                }
+                            }
+                            catch
+                            {
+                                btn.TextAlign = ContentAlignment.MiddleCenter;
+                            }
+                        }
+                        else
+                        {
+                            btn.TextAlign = ContentAlignment.MiddleCenter;
+                        }
+
+                        btn.Click += (s, e) =>
+                        {
+                            switch (accionElemento)
+                            {
+                                case "Procesar":
+                                    DialogResult resultado = MessageBox.Show("¿Desea realizar el cobro?", "Confirmación de cobro", MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question
+                                    );
+
+                                    if (resultado == DialogResult.Yes)
+                                    {
+                                        RecuperarContingencias();
+                                        InsertarCobro();
+
+                                        dgvFacturas.DataSource = null;
+                                        CargarFacturas();
+                                    }
+
+                                    break;
+
+                                case "Limpiar":
+                                    Limpiar();
+                                    dgvFacturas.DataSource = null;
+                                    break;
+
+                                case "Rechazar":
+                                    RechazarFactura();
+
+                                    dgvFacturas.DataSource = null;
+                                    CargarFacturas();
+                                    break;
+                                default:
+                                    MessageBox.Show($"Acción no reconocida: {accionElemento}");
+                                    break;
+                            }
+                        };
+
+                        _Panel.Controls.Add(btn);
+                        _Panel.WrapContents = true;
+
+                        AplicarPermisos(dtPermisosAccionesUsuarios, this);
+                    }
+                    else if (!visible)
+                    {
+                        AplicarPermisos(dtPermisosAccionesUsuarios, this);
+                    }
+                }
+            }
+        }
+        public void AplicarPermisos(DataTable permisos, Form formulario)
+        {
+            foreach (DataRow row in permisos.Rows)
+            {
+                string nombreObjeto = row["NombreObjeto"].ToString();
+                int interaccionID = Convert.ToInt32(row["InteraccionID"]);
+
+                Control[] controles = formulario.Controls.Find(nombreObjeto, true);
+                if (controles.Length > 0)
+                {
+                    Control control = controles[0];
+                    AplicarInteraccion(control, interaccionID);
+                }
+            }
+        }
+
+        private void AplicarInteraccion(Control control, int interaccionID)
+        {
+            switch (interaccionID)
+            {
+                case 1: // Solo lectura
+                    if (control is TextBox txt)
+                        txt.ReadOnly = true;
+                    else
+                        control.Enabled = false;
+                    break;
+
+                case 2: // Escritura
+                    if (control is TextBox txt2)
+                        txt2.ReadOnly = false;
+                    else if (control is DataGridView dgv2)
+                        dgv2.ReadOnly = false; // aquí lo habilitás para edición
+                    else
+                        control.Enabled = true;
+                    break;
+
+                case 3: // Ocultar
+                    control.Visible = false;
+                    break;
+
+                case 4: // Full acceso
+                    control.Enabled = true;
+                    control.Visible = true;
+                    break;
+            }
+        }
         private void CargarMetodoPago()
         {
             dgvMetodosPago.Rows.Clear();
@@ -169,31 +326,30 @@ namespace ModuloCajaRC.Facturas
                 ContingenciaBodega = Convert.ToBoolean(dtContingencias.Rows[0]["Estado"].ToString());
             }
         }
-        public void CargarAcciones(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
+        public void CargarAccionesPerfil(int _UbicacionID, FlowLayoutPanel _Panel, int _Ancho, int _Alto, int _Padding, TextImageRelation _Relacion)
         {
             dtPermisos.Clear();
-            TBLPermisosEspecificos getPermisos = new TBLPermisosEspecificos()
+            PermisosObjetosDTO getPermisosPerfil = new PermisosObjetosDTO()
             {
-                Opcion = "ListadoPorFormulario",
-                UsuarioID = DynamicMainCaja.usuarioIDNumber,
-                NombreFormulario = this.Name,
-                UbicacionID = _UbicacionID,
-                ModuloID = DynamicMainCaja.ModuloID
+                Opcion = "ListadoPorPerfil",
+                PerfilID = Convert.ToInt32(DynamicMainCaja.usuarioPerfilID),
+                ModuloID = DynamicMainCaja.ModuloID,
+                Formulario = this.Name,
             };
-            dtPermisos = logica.SP_PermisosEspecificos(getPermisos);
+            dtPermisos = logica.SP_PermisosObjetos(getPermisosPerfil);
             if (dtPermisos.Rows.Count > 0)
             {
                 foreach (DataRow row in dtPermisos.Rows)
                 {
-                    string nombreElemento = row["NombreElemento"].ToString();
+                    string NombreObjeto = row["NombreObjeto"].ToString();
                     string accionElemento = row["AccionElemento"].ToString();
                     string iconoElemento = row["IconoElemento"] != DBNull.Value ? row["IconoElemento"].ToString() : null;
-                    bool visible = Convert.ToBoolean(row["Visible"]);
+                    bool visible = Convert.ToBoolean(row["Estado"]);
 
                     if (visible)
                     {
                         Button btn = new Button();
-                        btn.Name = nombreElemento;
+                        btn.Name = NombreObjeto;
                         btn.Text = accionElemento;
                         btn.Width = _Ancho;
                         btn.Height = _Alto;

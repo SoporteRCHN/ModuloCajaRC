@@ -504,4 +504,43 @@ namespace Logica
         public DateTime? FPosteo { get; set; }         // Fecha de registro
         public string PC { get; set; }                 // Equipo desde donde se registró
     }
+    public class PermisosObjetosDTO
+    {
+        // Operación del SP
+        public string Opcion { get; set; }                 // Agregar, Actualizar, Eliminar, Listado, etc.
+
+        // Campos de la tabla
+        public long? ObjetoID { get; set; }                // PK (IDENTITY)
+        public int? TipoObjeto { get; set; }               // Catálogo de tipo de control (Button, ComboBox, etc.)
+        public string NombreObjeto { get; set; }           // Name del control en el formulario
+        public int? ModuloID { get; set; }                 // Módulo asociado
+        public string Formulario { get; set; }             // Nombre del formulario
+        public string AccionElemento { get; set; }         // Acción (ej. Guardar, Editar)
+        public string IconoElemento { get; set; }          // Clave o ruta del ícono
+        public int? PerfilID { get; set; }                 // Perfil asociado
+        public int? InteraccionID { get; set; }            // Leer, Escribir, Ocultar, etc.
+        public string UPosteo { get; set; }                // Usuario que registra
+        public DateTime? FPosteo { get; set; }             // Fecha de registro
+        public string PC { get; set; }                     // Equipo desde donde se registró
+        public bool? Estado { get; set; }                  // Activo/Inactivo
+        public int? UbicacionID { get; set; }              // Sede/Sucursal
+    }
+    public class PermisosObjetosExtraDTO
+    {
+        public string Opcion { get; set; }               // Acción del SP
+        public long? ObjetoID { get; set; }              // PK
+        public int? TipoObjeto { get; set; }             // Tipo de control
+        public string NombreObjeto { get; set; }         // Nombre del control
+        public int? ModuloID { get; set; }               // Módulo asociado
+        public string Formulario { get; set; }           // Nombre del formulario
+        public string AccionElemento { get; set; }       // Acción asociada
+        public string IconoElemento { get; set; }        // Ícono visual
+        public int? UsuarioID { get; set; }              // Usuario asociado
+        public int? InteraccionID { get; set; }          // Interacción (leer, escribir, ocultar)
+        public string UPosteo { get; set; }              // Usuario que registra
+        public DateTime? FPosteo { get; set; }           // Fecha de registro
+        public string PC { get; set; }                   // Equipo
+        public bool? Estado { get; set; }                // Activo/Inactivo
+        public int? UbicacionID { get; set; }            // Sucursal/Ubicación
+    }
 }
