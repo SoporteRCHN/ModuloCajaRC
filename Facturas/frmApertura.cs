@@ -1,4 +1,4 @@
-﻿using Logica;
+﻿using LogicaCaja;
 using ModuloCajaRC.Reportes;
 using System;
 using System.Collections.Generic;

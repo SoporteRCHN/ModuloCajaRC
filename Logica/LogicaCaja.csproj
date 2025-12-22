@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD185CEB-75B1-4307-8332-5640881E65CB}</ProjectGuid>
+    <ProjectGuid>{A269EEBE-D736-482C-9E05-EFF20F850F78}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Datos</RootNamespace>
-    <AssemblyName>Datos</AssemblyName>
+    <RootNamespace>LogicaCaja</RootNamespace>
+    <AssemblyName>LogicaCaja</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,11 +42,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BD_Conexion.cs" />
-    <Compile Include="EnviarConsultas.cs" />
-    <Compile Include="loginD.cs" />
+    <Compile Include="clsLogica.cs" />
+    <Compile Include="login.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registros.cs" />
+    <Compile Include="registrosLogica.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Datos\DatosCaja.csproj">
+      <Project>{fd185ceb-75b1-4307-8332-5640881e65cb}</Project>
+      <Name>DatosCaja</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

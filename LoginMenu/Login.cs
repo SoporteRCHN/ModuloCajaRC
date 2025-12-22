@@ -1,4 +1,4 @@
-﻿using Logica;
+﻿using LogicaCaja;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

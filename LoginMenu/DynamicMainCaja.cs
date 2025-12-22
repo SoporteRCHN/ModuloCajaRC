@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using Logica;
+using LogicaCaja;
 using ModuloCajaRC.Facturas;
 using ModuloCajaRC.LoginMenu;
 using System.Collections.Generic;
@@ -76,7 +76,7 @@ namespace ModuloCajaRC
             string versionStr = $"{versionInfo.ProductMajorPart}.{versionInfo.ProductMinorPart}.{versionInfo.ProductBuildPart}.{versionInfo.ProductPrivatePart}";
             toolStripLabel2.Text = versionStr;
 
-            if (Datos.BD_Conexion.servidor.ToString() == "192.168.1.180")
+            if (DatosCaja.BD_Conexion.servidor.ToString() == "192.168.1.180")
             {
                 rutaEmitirEvento = "http://192.168.1.179:3001";
             }
@@ -85,7 +85,7 @@ namespace ModuloCajaRC
                 rutaEmitirEvento = "https://app.rapidocargo.online:3000";
             }
 
-            toolStripLabel4.Text = Datos.BD_Conexion.servidor.ToString();
+            toolStripLabel4.Text = DatosCaja.BD_Conexion.servidor.ToString();
             toolStripLabel6.Text = usuarionlogin;
 
             // Llamar método async separado

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Datos
+namespace DatosCaja
 {
 
     public class BD_Conexion

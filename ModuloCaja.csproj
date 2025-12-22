@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F93D648C-0456-4888-AC3E-29669FE45E14}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>ModuloCajaRC</RootNamespace>
     <AssemblyName>ModuloCajaRC</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -132,16 +132,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Datos\Datos.csproj">
-      <Project>{fd185ceb-75b1-4307-8332-5640881e65cb}</Project>
-      <Name>Datos</Name>
-    </ProjectReference>
-    <ProjectReference Include="Logica\Logica.csproj">
-      <Project>{a269eebe-d736-482c-9e05-eff20f850f78}</Project>
-      <Name>Logica</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\white_menu_64px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +237,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\info_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Datos\DatosCaja.csproj">
+      <Project>{fd185ceb-75b1-4307-8332-5640881e65cb}</Project>
+      <Name>DatosCaja</Name>
+    </ProjectReference>
+    <ProjectReference Include="Logica\LogicaCaja.csproj">
+      <Project>{a269eebe-d736-482c-9e05-eff20f850f78}</Project>
+      <Name>LogicaCaja</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
