@@ -1,6 +1,6 @@
 ﻿namespace ModuloCajaRC
 {
-    partial class DynamicMainCaja
+    partial class DynamicMain
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -40,8 +40,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblTasa = new System.Windows.Forms.Label();
             this.lblUbicacion = new System.Windows.Forms.Label();
-            this.pHederOptionsInfo2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.pLeftMenu = new System.Windows.Forms.Panel();
             this.flowLayoutPanelMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.pLefMenuSeparator = new System.Windows.Forms.Panel();
@@ -75,7 +73,6 @@
             this.pHeaderOptions.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.pHederOptionsInfo2.SuspendLayout();
             this.pLeftMenu.SuspendLayout();
             this.pLefMenuSeparator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxMenu)).BeginInit();
@@ -113,7 +110,6 @@
             this.pHeaderOptions.Controls.Add(this.panel3);
             this.pHeaderOptions.Controls.Add(this.panel2);
             this.pHeaderOptions.Controls.Add(this.lblUbicacion);
-            this.pHeaderOptions.Controls.Add(this.pHederOptionsInfo2);
             this.pHeaderOptions.Dock = System.Windows.Forms.DockStyle.Top;
             this.pHeaderOptions.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pHeaderOptions.Location = new System.Drawing.Point(230, 16);
@@ -125,7 +121,7 @@
             // 
             this.panel3.Controls.Add(this.btnAlertas);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(491, 0);
+            this.panel3.Location = new System.Drawing.Point(603, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(85, 46);
             this.panel3.TabIndex = 4;
@@ -155,7 +151,7 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.lblTasa);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(576, 0);
+            this.panel2.Location = new System.Drawing.Point(688, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(206, 46);
             this.panel2.TabIndex = 3;
@@ -219,33 +215,6 @@
             this.lblUbicacion.TabIndex = 2;
             this.lblUbicacion.Text = "BIENVENIDO USUARIO";
             this.lblUbicacion.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // pHederOptionsInfo2
-            // 
-            this.pHederOptionsInfo2.Controls.Add(this.button1);
-            this.pHederOptionsInfo2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pHederOptionsInfo2.Location = new System.Drawing.Point(782, 0);
-            this.pHederOptionsInfo2.Name = "pHederOptionsInfo2";
-            this.pHederOptionsInfo2.Size = new System.Drawing.Size(112, 46);
-            this.pHederOptionsInfo2.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(70)))), ((int)(((byte)(81)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(51)))), ((int)(((byte)(54)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(153)))), ((int)(((byte)(163)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 37);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "CERRAR SESION";
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pLeftMenu
             // 
@@ -504,7 +473,6 @@
             this.panel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.pHederOptionsInfo2.ResumeLayout(false);
             this.pLeftMenu.ResumeLayout(false);
             this.pLefMenuSeparator.ResumeLayout(false);
             this.pLefMenuSeparator.PerformLayout();
@@ -529,8 +497,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnAlertas;
         private System.Windows.Forms.Label lblUbicacion;
-        private System.Windows.Forms.Panel pHederOptionsInfo2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel pLeftMenu;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelMenu;
         private System.Windows.Forms.Panel pLefMenuSeparator;

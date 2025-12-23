@@ -19,7 +19,7 @@ using System.Windows.Forms;
 
 namespace ModuloCajaRC
 {
-    public partial class DynamicMainCaja : Form
+    public partial class DynamicMain : Form
     {
         DataTable tablaEncabezado = new DataTable();
         DataTable dtMenuOpciones = new DataTable();
@@ -35,13 +35,12 @@ namespace ModuloCajaRC
         public static RegistroAcciones registro = new RegistroAcciones(); //REGISTRO DE ACCIONES DE USUARIO
         login loginn = new login();
        
-
         public static bool _EstadoEnac = false;
         public static string usuarionombre;
         public static string usuarioNombreCompleto;
         public static string usuarioSucursal;
         public static string usuarioPerfilID;
-        public static string rutaEmitirEvento;
+        public static string rutaEmitirEvento, _Origen;
         public static string usuarionlogin;
         public static string usuarionEmpresaNombre;
         public static int usuarioIDNumber;
@@ -63,13 +62,14 @@ namespace ModuloCajaRC
 
         bool panelLeftExpand = true;
         clsLogica logica = new clsLogica();
-        public static DynamicMainCaja Instance { get; private set; }
-        public DynamicMainCaja(string usuario)
+        public static DynamicMain Instance { get; private set; }
+        public DynamicMain(string usuario, string Origen)
         {
             InitializeComponent();
             Instance = this;
             usuarionombre = usuario;
             usuarionlogin = usuario;
+            _Origen = Origen;
             ModuloID = 22;
 
             FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
@@ -346,7 +346,7 @@ namespace ModuloCajaRC
             {
                 Opcion = "Agregar",
                 FactorDolar = tasa,
-                UPosteo = DynamicMainCaja.usuarionlogin,
+                UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = Environment.MachineName,
                 Estado = true
@@ -437,7 +437,7 @@ namespace ModuloCajaRC
             {
                 Opcion = "Recuperar",
                 Descripcion = "ContingenciaBodega",
-                SucursalID = DynamicMainCaja.usuarioSucursalID
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             dtContingencias = logica.SP_PlanContingencia(getContingencia);
             if(dtContingencias.Rows.Count>0) 
@@ -559,9 +559,9 @@ namespace ModuloCajaRC
             {
                 Opcion = "AperturaCaja",
                 Estado = true, 
-                UPosteo = DynamicMainCaja.usuarionlogin,
+                UPosteo = DynamicMain.usuarionlogin,
                 PC = System.Environment.MachineName,
-                SucursalID = DynamicMainCaja.usuarioSucursalID
+                SucursalID = DynamicMain.usuarioSucursalID
             };
             dtAperturaCaja = logica.SP_ControlCaja(sendApertura);
             if (dtAperturaCaja.Rows.Count > 0)
@@ -622,11 +622,11 @@ namespace ModuloCajaRC
             SeguimientoUsuario sendSeguimiento = new SeguimientoUsuario
             {
                 Operacion = "INSERTAR",
-                Usuario = DynamicMainCaja.usuarionlogin,
+                Usuario = DynamicMain.usuarionlogin,
                 Modulo = Assembly.GetExecutingAssembly().GetName().Name,
                 Formulario = this.Name,
                 AccionID = _AccionID,
-                UPosteo = DynamicMainCaja.usuarionlogin,
+                UPosteo = DynamicMain.usuarionlogin,
                 FPosteo = DateTime.Now,
                 PC = System.Environment.MachineName,
                 Estado = true
@@ -735,28 +735,49 @@ namespace ModuloCajaRC
         }
         private void Logout()
         {
-            DialogResult result = MessageBox.Show("¿Desea cerrar sesion? Recuerda guardar todo tu progreso.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            if (_Origen == "Lanzador")
             {
-                this.Hide(); // Ocultar el formulario actual
-                var loginForm = new Login();
-                loginForm.Show();
+                DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 42);
+                this.Close();
+            }
+            else if (_Origen == "Independiente")
+            {
+                DialogResult result = MessageBox.Show("¿Desea cerrar sesion? Recuerda guardar todo tu progreso.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 42);
+                    this.Hide(); // Ocultar el formulario actual
+                    var loginForm = new Login();
+                    loginForm.Show();
+                }
             }
         }
-
         private void DynamicMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing) // Si el usuario cierra con la "X"
             {
-                DialogResult result = MessageBox.Show("¿Está seguro de que desea salir del sistema?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.No)
+                if (_Origen == "Lanzador")
                 {
-                    e.Cancel = true; // Cancela el cierre si el usuario elige "No"
+                    DialogResult resultLanzador = MessageBox.Show("¿Desea salir del modulo actual? Recuerda guardar todo lo que tengas abierto.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultLanzador == DialogResult.Yes)
+                    {
+                        DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 42);
+                        this.Dispose();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
                 }
-                else
+                else if (_Origen == "Independiente")
                 {
-                    Application.Exit(); // Cierra toda la aplicación
+                    DialogResult resultCierre = MessageBox.Show("¿Está seguro de que desea salir del sistema?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultCierre == DialogResult.Yes)
+                    {
+                        DynamicMain.Instance.SeguimientoUsuario("INSERTAR", 41);
+                        Application.Exit(); // Cierra toda la aplicación
+                    }
+                    else { e.Cancel = true; }
                 }
             }
         }

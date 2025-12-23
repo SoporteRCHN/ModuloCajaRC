@@ -88,13 +88,6 @@ namespace ModuloCajaRC.LoginMenu
                 {
                     ClearRememberedCredentials();
                 }
-                // VALIDA EL USUARIO Y CONTRASEÑA INGRESADO
-                if (validarUsuario(txtUser.Text, txtContra.Text))
-                {
-                    DynamicMainCaja mainForm = new DynamicMainCaja(txtUser.Text);
-                    mainForm.Show();
-                    this.Hide();
-                }
             }
         }
         private void TextBox_LostFocus(object sender, EventArgs e)
@@ -184,9 +177,13 @@ namespace ModuloCajaRC.LoginMenu
             {
                 SeguimientoUsuario("INSERTAR", 39);
 
-                DynamicMainCaja mainForm = new DynamicMainCaja(txtUser.Text);
+                DynamicMain mainForm = new DynamicMain(txtUser.Text, "Independiente");
                 mainForm.Show();
                 this.Hide();
+            }
+            else
+            {
+                SeguimientoUsuario("INSERTAR", 40);
             }
         }
         private void SeguimientoUsuario(string _Operacion, int _AccionID)

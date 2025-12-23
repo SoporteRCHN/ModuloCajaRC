@@ -75,16 +75,16 @@
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(233, 0);
+            this.panel2.Location = new System.Drawing.Point(328, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(383, 318);
+            this.panel2.Size = new System.Drawing.Size(393, 373);
             this.panel2.TabIndex = 7;
             // 
             // pbxSalir
             // 
             this.pbxSalir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbxSalir.Image = global::ModuloCajaRC.Properties.Resources.close_24px;
-            this.pbxSalir.Location = new System.Drawing.Point(335, 11);
+            this.pbxSalir.Location = new System.Drawing.Point(361, 7);
             this.pbxSalir.Name = "pbxSalir";
             this.pbxSalir.Size = new System.Drawing.Size(27, 24);
             this.pbxSalir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,7 +97,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Myanmar Text", 13F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(91)))), ((int)(((byte)(166)))));
-            this.label8.Location = new System.Drawing.Point(12, 48);
+            this.label8.Location = new System.Drawing.Point(11, 66);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(226, 32);
             this.label8.TabIndex = 12;
@@ -107,7 +107,7 @@
             // 
             this.RememberMeCheckbox.AutoSize = true;
             this.RememberMeCheckbox.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RememberMeCheckbox.Location = new System.Drawing.Point(20, 193);
+            this.RememberMeCheckbox.Location = new System.Drawing.Point(17, 267);
             this.RememberMeCheckbox.Name = "RememberMeCheckbox";
             this.RememberMeCheckbox.Size = new System.Drawing.Size(171, 21);
             this.RememberMeCheckbox.TabIndex = 10;
@@ -119,7 +119,7 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(70)))), ((int)(((byte)(81)))));
-            this.lblVersion.Location = new System.Drawing.Point(265, 286);
+            this.lblVersion.Location = new System.Drawing.Point(222, 268);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(87, 17);
             this.lblVersion.TabIndex = 9;
@@ -134,7 +134,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(70)))), ((int)(((byte)(81)))));
-            this.button2.Location = new System.Drawing.Point(216, 239);
+            this.button2.Location = new System.Drawing.Point(205, 312);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(148, 32);
             this.button2.TabIndex = 5;
@@ -152,7 +152,7 @@
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(91)))), ((int)(((byte)(166)))));
-            this.btnIngresar.Location = new System.Drawing.Point(53, 239);
+            this.btnIngresar.Location = new System.Drawing.Point(51, 312);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(148, 32);
             this.btnIngresar.TabIndex = 4;
@@ -167,16 +167,16 @@
             this.panel4.Controls.Add(this.pbxOcultar);
             this.panel4.Controls.Add(this.txtContra);
             this.panel4.Controls.Add(this.pictureBox3);
-            this.panel4.Location = new System.Drawing.Point(15, 145);
+            this.panel4.Location = new System.Drawing.Point(0, 194);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(347, 40);
+            this.panel4.Size = new System.Drawing.Size(391, 60);
             this.panel4.TabIndex = 3;
             // 
             // pbxMostrar
             // 
             this.pbxMostrar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxMostrar.BackgroundImage")));
             this.pbxMostrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxMostrar.Location = new System.Drawing.Point(303, 3);
+            this.pbxMostrar.Location = new System.Drawing.Point(334, 16);
             this.pbxMostrar.Name = "pbxMostrar";
             this.pbxMostrar.Size = new System.Drawing.Size(38, 34);
             this.pbxMostrar.TabIndex = 4;
@@ -187,7 +187,7 @@
             // 
             this.pbxOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbxOcultar.BackgroundImage")));
             this.pbxOcultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbxOcultar.Location = new System.Drawing.Point(303, 3);
+            this.pbxOcultar.Location = new System.Drawing.Point(334, 16);
             this.pbxOcultar.Name = "pbxOcultar";
             this.pbxOcultar.Size = new System.Drawing.Size(38, 34);
             this.pbxOcultar.TabIndex = 3;
@@ -198,17 +198,17 @@
             // 
             this.txtContra.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtContra.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContra.Location = new System.Drawing.Point(51, 10);
+            this.txtContra.Location = new System.Drawing.Point(61, 24);
             this.txtContra.Name = "txtContra";
             this.txtContra.PasswordChar = '*';
-            this.txtContra.Size = new System.Drawing.Size(237, 20);
+            this.txtContra.Size = new System.Drawing.Size(267, 20);
             this.txtContra.TabIndex = 2;
             // 
             // pictureBox3
             // 
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox3.Image = global::ModuloCajaRC.Properties.Resources.Password_32px;
-            this.pictureBox3.Location = new System.Drawing.Point(7, 3);
+            this.pictureBox3.Location = new System.Drawing.Point(17, 16);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(38, 34);
             this.pictureBox3.TabIndex = 1;
@@ -219,25 +219,25 @@
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.txtUser);
             this.panel3.Controls.Add(this.pictureBox2);
-            this.panel3.Location = new System.Drawing.Point(15, 97);
+            this.panel3.Location = new System.Drawing.Point(0, 125);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(347, 38);
+            this.panel3.Size = new System.Drawing.Size(391, 60);
             this.panel3.TabIndex = 2;
             // 
             // txtUser
             // 
             this.txtUser.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUser.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUser.Location = new System.Drawing.Point(54, 9);
+            this.txtUser.Location = new System.Drawing.Point(61, 24);
             this.txtUser.Name = "txtUser";
-            this.txtUser.Size = new System.Drawing.Size(237, 20);
+            this.txtUser.Size = new System.Drawing.Size(328, 20);
             this.txtUser.TabIndex = 1;
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.Image = global::ModuloCajaRC.Properties.Resources.user_shield_32px;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 2);
+            this.pictureBox2.Location = new System.Drawing.Point(17, 16);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(38, 34);
             this.pictureBox2.TabIndex = 0;
@@ -255,7 +255,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(233, 318);
+            this.panel1.Size = new System.Drawing.Size(328, 373);
             this.panel1.TabIndex = 6;
             // 
             // label7
@@ -264,7 +264,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(60, 181);
+            this.label7.Location = new System.Drawing.Point(94, 206);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(131, 25);
             this.label7.TabIndex = 4;
@@ -276,7 +276,7 @@
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(80, 154);
+            this.label6.Location = new System.Drawing.Point(109, 179);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 25);
             this.label6.TabIndex = 3;
@@ -288,7 +288,7 @@
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(34, 208);
+            this.label5.Location = new System.Drawing.Point(76, 233);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(182, 25);
             this.label5.TabIndex = 2;
@@ -300,7 +300,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(64, 127);
+            this.label4.Location = new System.Drawing.Point(97, 152);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(122, 25);
             this.label4.TabIndex = 1;
@@ -312,7 +312,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gold;
-            this.label1.Location = new System.Drawing.Point(90, 268);
+            this.label1.Location = new System.Drawing.Point(120, 315);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 25);
             this.label1.TabIndex = 0;
@@ -323,9 +323,9 @@
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(52, 20);
+            this.pictureBox1.Location = new System.Drawing.Point(81, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(139, 84);
+            this.pictureBox1.Size = new System.Drawing.Size(169, 121);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -334,10 +334,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(616, 318);
+            this.ClientSize = new System.Drawing.Size(721, 373);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
